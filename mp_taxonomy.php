@@ -36,8 +36,6 @@
 					?>		
 							
 					<?php if (have_posts()) : ?>		
-
-					<?php $post = $posts[0]; ?>
 						
 						<h1 class="page-header"><span><?php _e('Items in '); ?>&#8216;<?php echo $termname; ?>&#8217;</span></h1>
 
@@ -56,29 +54,7 @@
 
 							<div id="mpt-product-grid">
 
-								<?php $count = 1; ?>
-
-								<div class="row-fluid">
-
-									<?php while (have_posts()) : the_post(); ?>	
-
-										<?php flexmarket_load_single_product_in_box( $span , $post->ID , 'tb-360' , $btnclass , $iconclass , $tagcolor); ?>
-
-										<?php 
-											if ($count == $counter) {
-												$count = 0;
-												echo '</div>';
-												echo '<div class="clear padding20"></div>';
-												echo '<div class="row-fluid">';
-											}
-
-										?>
-
-										<?php $count++ ?>
-
-									<?php endwhile; ?>
-
-								</div><!-- / row-fluid -->
+								<?php flexmarket_list_product_in_grid( $echo = true , true , '' , $entries, '', '', '', '' , $counter, $span, $btnclass, $iconclass, $tagcolor); ?>
 
 							</div>
 
@@ -87,8 +63,6 @@
 						<?php else : ?>
 
 						<!-- nothing found -->
-
-					<?php $post = $posts[0]; ?>
 						
 						<h1 class="page-header"><span><?php _e('Items in '); ?>&#8216;<?php echo $termname; ?>&#8217;</span></h1>
 
@@ -119,34 +93,6 @@
 						<!-- / nothing found -->
 
 						<?php endif; ?>
-
-						<div class="clear"></div>
-
-						<div class="pull-right">
-						
-							<?php 
-
-							    $total_pages = $wp_query->max_num_pages;  
-							    if ($total_pages > 1){  
-							      $current_page = max(1, get_query_var('paged'));  
-							      echo '<div class="pagination">';
-							      echo paginate_links(array(  
-							          'base' => get_pagenum_link(1) . '%_%',  
-							          'format' => 'page/%#%',  
-							          'current' => $current_page,  
-							          'total' => $total_pages,  
-							          'type'  => 'list'
-							        ));  
-							      echo '</div>';
-							    }  
-							
-							 ?>
-
-						</div>
-
-						<?php wp_reset_query(); ?>
-					
-					<div class="padding20"></div>
 
 				</div><!-- / container -->
 			</div><!-- / outercontainer -->	

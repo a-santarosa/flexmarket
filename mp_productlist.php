@@ -31,70 +31,15 @@
 				<div class="clear padding30"></div>	
 				<div class="container" style="min-height: 450px;">			
 
-							<?php if ( class_exists( 'MarketPress' ) ) { ?>
+					<?php if ( class_exists( 'MarketPress' ) ) { ?>
 
-							<div id="mpt-product-grid">
+						<div id="mpt-product-grid">
 
-								<?php $count = 1; ?>
-
-								<div class="row-fluid">
-
-										<?php
-											$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-											query_posts( 'post_type=product&showposts='.$entries.'&orderby=date&order=DESC&paged='.$paged);
-											$count = 1;
-										?>
-										<?php if (have_posts()) : while (have_posts()) : the_post(); ?>	
-
-										<?php flexmarket_load_single_product_in_box( $span , $post->ID , 'tb-360' , $btnclass , $iconclass , $tagcolor); ?>
-
-										<?php 
-											if ($count == $counter) {
-												$count = 0;
-												echo '</div>';
-												echo '<div class="clear padding20"></div>';
-												echo '<div class="row-fluid">';
-											}
-
-										?>
-
-										<?php $count++ ?>
-
-									<?php endwhile; endif; ?>
-
-								</div><!-- / row-fluid -->
-
-							</div>
-
-							<?php } ?>
-
-						<div class="clear"></div>
-
-						<div class="pull-right">
-						
-							<?php 
-
-							    $total_pages = $wp_query->max_num_pages;  
-							    if ($total_pages > 1){  
-							      $current_page = max(1, get_query_var('paged'));  
-							      echo '<div class="pagination">';
-							      echo paginate_links(array(  
-							          'base' => get_pagenum_link(1) . '%_%',  
-							          'format' => 'page/%#%',  
-							          'current' => $current_page,  
-							          'total' => $total_pages,  
-							          'type'  => 'list'
-							        ));  
-							      echo '</div>';
-							    }  
-							
-							 ?>
+							<?php flexmarket_list_product_in_grid( $echo = true , true , '' , $entries, '', '', '', '' , $counter, $span, $btnclass, $iconclass, $tagcolor); ?>
 
 						</div>
 
-						<?php wp_reset_query(); ?>
-					
-					<div class="padding20"></div>
+					<?php } ?>
 
 				</div><!-- / container -->
 			</div><!-- / outercontainer -->	

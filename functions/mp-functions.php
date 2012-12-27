@@ -1,11 +1,149 @@
 <?php
 
-function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NULL , $imagesize = 'tb-360' , $btnclass = '' ,$iconclass = '' , $tagcolor = '' , $class = '' , $style = '') {
+function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page = '', $per_page = '', $order_by = '', $order = '', $category = '', $tag = '' , $counter = '3' , $span = 'span4' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $boxclass = '' , $boxstyle = '') { 
+
+	  global $wp_query, $mp;
+
+	  //setup taxonomy if applicable
+	  if ($category) {
+	    $taxonomy_query = '&product_category=' . sanitize_title($category);
+	  } else if ($tag) {
+	    $taxonomy_query = '&product_tag=' . sanitize_title($tag);
+	  } else if (isset($wp_query->query_vars['taxonomy']) && ($wp_query->query_vars['taxonomy'] == 'product_category' || $wp_query->query_vars['taxonomy'] == 'product_tag')) {
+	    $term = get_queried_object(); //must do this for number tags
+	    $taxonomy_query = '&' . $term->taxonomy . '=' . $term->slug;
+	  } else {
+	    $taxonomy_query = '';
+	  }
+	  
+	  //setup pagination
+	  $paged = false;
+	  if ($paginate) {
+	    $paged = true;
+	  } else if ($paginate === '') {
+	    if ($mp->get_setting('paginate'))
+	      $paged = true;
+	    else
+	      $paginate_query = '&nopaging=true';
+	  } else {
+	    $paginate_query = '&nopaging=true';
+	  }
+
+	  //get page details
+	  if ($paged) {
+	    //figure out perpage
+	    if (intval($per_page)) {
+	      $paginate_query = '&posts_per_page='.intval($per_page);
+	    } else {
+	      $paginate_query = '&posts_per_page='.$mp->get_setting('per_page');
+			}
+
+	    //figure out page
+	    if (isset($wp_query->query_vars['paged']) && $wp_query->query_vars['paged'])
+	      $paginate_query .= '&paged='.intval($wp_query->query_vars['paged']);
+
+	    if (intval($page))
+	      $paginate_query .= '&paged='.intval($page);
+	    else if ($wp_query->query_vars['paged'])
+	      $paginate_query .= '&paged='.intval($wp_query->query_vars['paged']);
+	  }
+
+	  //get order by
+	  if (!$order_by) {
+	    if ($mp->get_setting('order_by') == 'price')
+	      $order_by_query = '&meta_key=mp_price_sort&orderby=meta_value_num';
+	    else if ($mp->get_setting('order_by') == 'sales')
+	      $order_by_query = '&meta_key=mp_sales_count&orderby=meta_value_num';
+	    else
+	      $order_by_query = '&orderby='.$mp->get_setting('order_by');
+	  } else {
+	  	if ('price' == $order_by)
+	  		$order_by_query = '&meta_key=mp_price_sort&orderby=meta_value_num';
+	    else if('sales' == $order_by)
+	      $order_by_query = '&meta_key=mp_sales_count&orderby=meta_value_num';
+	    else
+	    	$order_by_query = '&orderby='.$order_by;
+	  }
+
+	  //get order direction
+	  if (!$order) {
+	    $order_query = '&order='.$mp->get_setting('order');
+	  } else {
+	    $order_query = '&order='.$order;
+	  }
+
+	  //The Query
+	  $the_query = new WP_Query('post_type=product&post_status=publish' . $taxonomy_query . $paginate_query . $order_by_query . $order_query);
+
+	  $output = '<div class="row-fluid">';
+
+	  $count = 1;
+
+	  if ($the_query->have_posts()) : while ($the_query->have_posts()) : $the_query->the_post();
+
+	  	$id = get_the_ID(); 
+
+		$output .= flexmarket_load_single_product_in_box( $span , $id , 'tb-360' , $btnclass , $iconclass , $tagcolor , $boxclass , $boxstyle , false);
+		
+		if ($count == $counter) {
+			
+			$count = 0;
+			$output .= '</div>';
+			$output .= '<div class="clear padding20"></div>';
+			$output .= '<div class="row-fluid">';
+		}
+
+		$count++;
+
+	  endwhile; endif;
+
+	  $output .= '</div>';
+
+	  // load pagination
+	  if ($paged) {
+
+	  	  $output .= '<div class="clear"></div>';
+		  $output .= '<div class="pull-right">';
+
+		    $total_pages = $the_query->max_num_pages;  
+
+		    if ($total_pages > 1){ 
+
+		      $current_page = max(1, get_query_var('paged')); 
+
+		       $output .= '<div class="pagination">';
+		       $output .= paginate_links(array(  
+		          'base' => get_pagenum_link(1) . '%_%',  
+		          'format' => 'page/%#%',  
+		          'current' => $current_page,  
+		          'total' => $total_pages,  
+		          'type'  => 'list'
+		        ));  
+		       $output .= '</div>';
+		    }
+
+		  $output .= '</div>';
+
+	  }
+
+	  $output .= wp_reset_query();
+	  $output .= '<div class="clear padding20"></div>';
+
+
+  	if ($echo)
+    	echo $output;
+  	else
+    	return $output;
+
+}
+
+function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NULL , $imagesize = 'tb-360' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $class = '' , $style = '' , $echo = true ) {
 
 	switch ($span) {
 		case 'span6':
 			$maxwidth = '560';
 			$imagesize = 'tb-860';
+			$btnsize = '';
 			break;
 		case 'span3':
 			$maxwidth = '360';
@@ -13,6 +151,7 @@ function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NUL
 			break;
 		case 'span4':
 			$maxwidth = '360';
+			$btnsize = '';
 			break;
 	}
 
@@ -66,7 +205,10 @@ function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NUL
 
 	$output .= '</div>';
 
-	echo $output;
+  	if ($echo)
+    	echo $output;
+  	else
+    	return $output;
 	
 }
 
