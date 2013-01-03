@@ -43,6 +43,7 @@
 		wp_enqueue_script('bootstrap', get_template_directory_uri() . '/js/bootstrap.js', array('jquery'));
 		wp_enqueue_script('filterablejs', get_template_directory_uri() . '/js/filterable.js', array('jquery'));
 		wp_enqueue_script('prettyphotojs', get_template_directory_uri() . '/js/jquery.prettyPhoto.js', array('jquery'));
+		wp_enqueue_script('waypoints', get_template_directory_uri() . '/js/waypoints.min.js', array('jquery'));
 	}
 	add_action('wp_enqueue_scripts', 'mpt_register_js');
 

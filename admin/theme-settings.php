@@ -789,6 +789,12 @@ if (!function_exists('m413_options')) {
 					"type" => "images",
 					"options" => $mpt_bg_patterns);	
 
+		$options[] = array( "name" => __('Enable Sticky Header','flexmarket'),
+					"desc" => __('if you want to make the header section sticky then simply enable this option.','flexmarket'),
+					"id" => $shortname."_enable_sticky_header",
+					"std" => "false",
+					"type" => "checkbox");
+
 		$options[] = array( "name" => __('Nav Menu: Text Color','flexmarket'),
 					"desc" => __('Pick a custom text color for Nav Menu.','flexmarket'),
 					"id" => $shortname."_header_section_text_color",

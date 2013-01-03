@@ -29,7 +29,7 @@
 
 </head>
 
-<body <?php body_class(); ?>>
+<body id="body-wrapper" <?php body_class(); ?>>
 
 	<!-- Header Section -->
 	<div id="header-wrapper" class="navbar navbar-static-top">

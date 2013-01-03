@@ -52,6 +52,15 @@ You might also check out our blog at <a href="http://www.marketpressthemes.com/b
 
 <h2><u>Change Log</u></h2>
 
+Version 1.3.0 - 
+	Added Sticky Header feature
+	Replace attribute_escape() with esc_attr()
+
+Version 1.2.8  -
+	Added function - flexmarket_list_product_in_grid
+	Ultilizing flexmarket_list_product_in_grid to load product listing
+	Rewrite flexmarket_load_single_product_in_box to campatible with flexmarket_list_product_in_grid
+
 Version 1.2.3 - 
 	Added auto updater
 
