@@ -52,7 +52,7 @@ class AQ_Staff_Block extends AQ_Block {
 		<div class="description">
 			<label for="<?php echo $this->get_field_id('media') ?>">
 				Upload Photo
-				<?php echo aq_field_upload('media', $block_id, $media, 'img') ?>
+				<?php echo aq_field_upload('media', $block_id, $media, 'image') ?>
 				<em style="font-size: 0.8em; padding-left: 5px;">Recommended size: 360 x 270 pixel</em>
 			</label>
 		</div>

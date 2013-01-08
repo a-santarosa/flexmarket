@@ -981,7 +981,7 @@ function _flexmarket_cart_shipping($editable = false, $echo = false , $btnclass 
       $content .= '<tr>';
       $content .= '<td class="span4 align-right" align="right">'.__('City:', 'mp').'*</td><td>';
       $content .= apply_filters( 'mp_checkout_error_city', '' );
-      $content .= '<input class="input-xlarge" id="mp_city" class="mp_shipping_field" name="city" type="text" value="'.esc_attr($city).'" /></td>';
+      $content .= '<input class="input-xlarge mp_shipping_field" id="mp_city" name="city" type="text" value="'.esc_attr($city).'" /></td>';
       $content .= '</tr>';
       $content .= '<tr>';
       $content .= '<td class="span4 align-right" align="right">'.__('State/Province/Region:', 'mp') . (($country == 'US' || $country == 'CA') ? '*' : '') . '</td><td id="mp_province_field">';

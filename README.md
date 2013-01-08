@@ -52,6 +52,9 @@ You might also check out our blog at <a href="http://www.marketpressthemes.com/b
 
 <h2><u>Change Log</u></h2>
 
+Version 1.3.3 -
+	Page Builder: Iris colorpicker & new media uploader (WP 3.5)
+
 Version 1.3.0 - 
 	Added Sticky Header feature
 	Replace attribute_escape() with esc_attr()

@@ -110,7 +110,7 @@ class AQ_Features_Block extends AQ_Block {
 		<div class="description">
 			<label for="<?php echo $this->get_field_id('media') ?>">
 				Upload an Image
-				<?php echo aq_field_upload('media', $block_id, $media, 'img') ?>
+				<?php echo aq_field_upload('media', $block_id, $media, 'image') ?>
 			</label>
 		</div>
 

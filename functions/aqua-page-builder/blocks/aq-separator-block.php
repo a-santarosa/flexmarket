@@ -43,24 +43,23 @@ class AQ_Separator_Block extends AQ_Block {
 			<?php _e('Use this block to clear the floats between two or more separate blocks vertically.', 'framework') ?>
 		</div>
 
-		<div class="description third">
+		<div class="description fourth">
 			<label for="<?php echo $this->get_field_id('horizontal_line') ?>">
 				Pick a horizontal line<br/>
 				<?php echo aq_field_select('horizontal_line', $block_id, $line_options, $horizontal_line); ?>
 			</label>
 		</div>
-
-		<div class="description third">
-			<label for="<?php echo $this->get_field_id('line_color') ?>">
-				Pick a line color<br/>
-				<?php echo aq_field_color_picker('line_color', $block_id, $line_color) ?>
-			</label>
-			
-		</div>
-		<div class="description third last">
+		<div class="description fourth">
 			<label for="<?php echo $this->get_field_id('height') ?>">
 				Height<br/>
 				<?php echo aq_field_input('height', $block_id, $height, 'min', 'number') ?> px
+			</label>
+			
+		</div>
+		<div class="description half last">
+			<label for="<?php echo $this->get_field_id('line_color') ?>">
+				Pick a line color<br/>
+				<?php echo aq_field_color_picker('line_color', $block_id, $line_color, $defaults['line_color']) ?>
 			</label>
 			
 		</div>

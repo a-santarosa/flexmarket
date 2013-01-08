@@ -410,30 +410,6 @@ if(!class_exists('AQ_List_Block')) {
 				if (!empty($items)) {
 
 					foreach( $items as $item ) {
-
-						switch ($item['iconcolor']) {
-							case 'blue':
-								$tagcolor = ' icon-blue';
-								break;
-							case 'lightblue':
-								$tagcolor = ' icon-lightblue';
-								break;
-							case 'green':
-								$tagcolor = ' icon-green';
-								break;
-							case 'yellow':
-								$tagcolor = ' icon-yellow';
-								break;
-							case 'red':
-								$tagcolor = ' icon-red';
-								break;
-							case 'white':
-								$tagcolor = ' icon-white';
-								break;		
-							case 'black':
-								$tagcolor = '';
-								break;			
-						}
 						
 						$output .= '<li>';
 						$output .= do_shortcode(strip_tags($item['content']));
