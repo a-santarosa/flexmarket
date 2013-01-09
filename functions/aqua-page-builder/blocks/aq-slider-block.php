@@ -150,7 +150,7 @@ if(!class_exists('AQ_Slider_Block')) {
 						<label for="<?php echo $this->get_field_id('slides') ?>-<?php echo $count ?>-image">
 							Image <em style="font-size: 0.8em;">(Recommended width: 1170 px)</em><br/>
 							<input type="text" id="<?php echo $this->get_field_id('slides') ?>-<?php echo $count ?>-image" class="input-full input-upload" value="<?php echo $slide['image'] ?>" name="<?php echo $this->get_field_name('slides') ?>[<?php echo $count ?>][image]">
-							<a href="#" class="aq_upload_button button" rel="img">Upload</a><p></p>
+							<a href="#" class="aq_upload_button button" rel="image">Upload</a><p></p>
 						</label>
 					</div>
 

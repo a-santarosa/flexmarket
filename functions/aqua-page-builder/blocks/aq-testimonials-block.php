@@ -137,7 +137,7 @@ if(!class_exists('AQ_Testimonials_Block')) {
 						<label for="<?php echo $this->get_field_id('items') ?>-<?php echo $count ?>-photo">
 							Photo <em style="font-size: 0.8em;">(Recommended size: 50 x 50 pixel)</em><br/>
 							<input type="text" id="<?php echo $this->get_field_id('items') ?>-<?php echo $count ?>-photo" class="input-full input-upload" value="<?php echo $item['photo'] ?>" name="<?php echo $this->get_field_name('items') ?>[<?php echo $count ?>][photo]">
-							<a href="#" class="aq_upload_button button" rel="img">Upload</a><p></p>
+							<a href="#" class="aq_upload_button button" rel="image">Upload</a><p></p>
 						</label>
 					</div>
 
