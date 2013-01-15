@@ -939,6 +939,23 @@ if (!function_exists('m413_options')) {
 					"type" => "select",
 					"options" => $tagcolor_options);	
 
+		$options[] = array( "name" => __('Enable Advanced Sort','flexmarket'),
+					"desc" => __('if you want to enable the advanced soft feature in the product listing page then simply enable this option.','flexmarket'),
+					"id" => $shortname."_enable_advanced_sort",
+					"std" => "false",
+					"type" => "checkbox");
+
+		$options[] = array( "name" => __('Advanced Soft: Button Position','flexmarket'),
+					"desc" => __('Select the position of advanced soft button.','flexmarket'),
+					"id" => $shortname."_advanced_soft_btn_position",
+					"std" => "Right",
+					"type" => "select",
+					"options" => array(
+						'left' => 'Left',
+						'center' => 'Center',
+						'right' => 'Right',
+						));
+
 	}
 
 

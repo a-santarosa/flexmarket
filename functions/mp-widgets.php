@@ -238,8 +238,8 @@
 			$num_products = intval($instance['num_products']);
 			$order_by = $instance['order_by'];
 			$order = $instance['order'];
-	    $taxonomy_type = $instance['taxonomy_type'];
-	    $taxonomy = $instance['taxonomy'];
+		    $taxonomy_type = (!empty($instance['taxonomy_type']) ? $instance['taxonomy_type'] : '' );
+		    $taxonomy = (!empty($instance['taxonomy']) ? $instance['taxonomy'] : '' );
 
 			$show_thumbnail = isset( $instance['show_thumbnail'] ) ? (bool) $instance['show_thumbnail'] : false;
 			$size = !empty($instance['size']) ? intval($instance['size']) : 50;

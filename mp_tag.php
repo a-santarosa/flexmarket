@@ -7,6 +7,8 @@
 	$span = mpt_load_product_listing_layout();
 	$counter = mpt_load_product_listing_counter();
 	$entries = get_option('mpt_mp_listing_entries');
+	$advancedsoft = mpt_enable_advanced_sort();
+	$advancedsoftbtnposition = mpt_advanced_sort_btn_position();
 ?>
 
 	<!-- Page -->
@@ -21,6 +23,7 @@
 					<?php
 						global $wp_query;
 						$termname = $wp_query->queried_object->name;
+						$termslug = $wp_query->queried_object->slug;
 						$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
 						$moreargs = array(
@@ -56,7 +59,7 @@
 
 							<div id="mpt-product-grid">
 
-								<?php flexmarket_list_product_in_grid( $echo = true , true , '' , $entries, '', '', '', '' , $counter, $span, $btnclass, $iconclass, $tagcolor); ?>
+								<?php flexmarket_advance_product_sort( $termslug , $advancedsoft , $advancedsoftbtnposition , 'tag' , true , true , '' , $entries, '', '', '' , '' , $counter, $span, $btnclass, $iconclass, $tagcolor); ?>
 
 							</div>
 

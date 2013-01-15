@@ -7,6 +7,8 @@
 	$span = mpt_load_product_listing_layout();
 	$counter = mpt_load_product_listing_counter();
 	$entries = get_option('mpt_mp_listing_entries');
+	$advancedsoft = mpt_enable_advanced_sort();
+	$advancedsoftbtnposition = mpt_advanced_sort_btn_position();
 ?>
 
 	<!-- Page -->
@@ -33,11 +35,7 @@
 
 					<?php if ( class_exists( 'MarketPress' ) ) { ?>
 
-						<div id="mpt-product-grid">
-
-							<?php flexmarket_list_product_in_grid( $echo = true , true , '' , $entries, '', '', '', '' , $counter, $span, $btnclass, $iconclass, $tagcolor); ?>
-
-						</div>
+						<?php flexmarket_advance_product_sort( 'productlistingpage' , $advancedsoft , $advancedsoftbtnposition , 'list' , true , true , '' , $entries, '', '', '' , '' , $counter, $span, $btnclass, $iconclass, $tagcolor); ?>
 
 					<?php } ?>
 

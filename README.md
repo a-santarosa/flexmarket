@@ -52,6 +52,10 @@ You might also check out our blog at <a href="http://www.marketpressthemes.com/b
 
 <h2><u>Change Log</u></h2>
 
+Version 1.4.0 - 
+	Added Advance Sort feature
+	Fixed empty variables in mp-widget.php
+
 Version 1.3.4 - 
 	Page Builder: Fixed media uploader issue in slider block & testimonial block.
 

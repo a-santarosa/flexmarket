@@ -680,4 +680,32 @@
 		}
 	}
 
+	function mpt_enable_advanced_sort() {
+
+		if (get_option('mpt_enable_advanced_sort') == 'true') 
+			return true;
+		else 
+			return false;
+	}
+
+	function mpt_advanced_sort_btn_position() {
+		$selected = get_option('mpt_advanced_soft_btn_position');
+
+		switch ($selected) {
+			case 'Left':
+				return 'align-left';
+				break;
+			case 'Center':
+				return 'align-center';
+				break;
+			case 'Right':
+				return 'align-right';
+				break;
+			
+			default:
+				return 'align-right';
+				break;
+		}
+	}
+
 ?>

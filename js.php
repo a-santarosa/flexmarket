@@ -11,7 +11,6 @@
     	// tooltip
     	jQuery('.tool-tip').tooltip();
 
-
     	<?php if (get_option('mpt_enable_sticky_header') == 'true') { ?>
 
 	    	//Waypoints

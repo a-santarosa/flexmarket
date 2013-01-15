@@ -19,6 +19,7 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 			'layout' => '3col',
 			'entries' => '9',
 			'showcategory' => 'no',
+			'align' => 'align-center',
 			'order_by' => 'date', 
 			'arrange' => 'DESC',
 			'taxonomy_type' => 'none',
@@ -86,8 +87,15 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 		);
 
 		$showcategory_options = array(
-			'yes' => 'Yes',
-			'no' => 'No',
+			'yes' => 'Show Category Menu',
+			'advsoft' => 'Show Advanced Sort Button',
+			'no' => 'Nothing',
+		);
+
+		$align_options = array(
+			'align-left' => 'Align Left',
+			'align-center' => 'Align Center',
+			'align-right' => 'Align Right',
 		);
 
 		$order_by_options = array(
@@ -123,8 +131,11 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 
 		<div class="description half">
 			<label for="<?php echo $this->get_field_id('showcategory') ?>">
-				<?php _e('Show Category Menu', 'flexmarket') ?><br />
-				<?php echo aq_field_select('showcategory', $block_id, $showcategory_options, $showcategory); ?>
+				<?php _e('Additional Functions', 'flexmarket') ?><br />
+				<?php echo aq_field_select('showcategory', $block_id, $showcategory_options, $showcategory); ?> 
+			</label><div class="cf"></div>
+			<label for="<?php echo $this->get_field_id('align') ?>">
+			<?php echo aq_field_select('align', $block_id, $align_options, $align); ?>
 			</label>
 		</div>
 		
@@ -185,23 +196,17 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 
 	    //setup taxonomy if applicable
 	    if ($taxonomy_type == 'category') {
-	      $taxonomy_query = '&product_category=' . $taxonomy;
+	      $taxonomy_category = esc_attr($taxonomy);
+	      $taxonomy_tag = '';
+	      $context = $taxonomy_type;
 	    } else if ($taxonomy_type == 'tag') {
-	      $taxonomy_query = '&product_tag=' . $taxonomy;
+	      $taxonomy_tag = esc_attr($taxonomy);
+	      $taxonomy_category = '';
+	      $context = $taxonomy_type;
 	    } else {
-	    	$taxonomy_query = '';
-	    }
-
-	    //get order by
-	    if ($order_by) {
-	      if ($order_by == 'price')
-	        $order_by_query = '&meta_key=mp_price&orderby=mp_price';
-	      else if ($order_by == 'sales')
-	        $order_by_query = '&meta_key=mp_sales_count&orderby=mp_sales_count';
-	      else
-	        $order_by_query = '&orderby='.$order_by;
-	    } else {
-	      $order_by_query = '&orderby=title';
+	    	$taxonomy_category = '';
+	    	$taxonomy_tag = '';
+	    	$context = 'list';
 	    }
 
 		switch ($btncolor) {
@@ -261,13 +266,30 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 			
 		}
 
-	?>
+		switch ($layout) {
+			case '2col':
+				$span = 'span6';
+				$counter = '2';
+				break;
+			case '3col':
+				$span = 'span4';
+				$counter = '3';
+				break;
+			case '4col':
+				$span = 'span3';
+				$counter = '4';
+				break;							
+			default:
+				$span = 'span4';
+				$counter = '3';
+				break;
+		}
 
-	<div id="mpt-product-grid">
+	?>
 
 		<?php if ($showcategory == 'yes') { ?>
 
-			<ul class="mpt-product-categories">
+			<ul class="mpt-product-categories <?php echo $align; ?>">
 				<li>By Category: </li>
 				<li id="all">All</li>
 				<?php
@@ -291,65 +313,7 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 
 		<?php } ?>
 
-			<div class="row-fluid">
-
-			<?php
-				query_posts( 'post_type=product&showposts=' . $entries . $taxonomy_query . $order_by_query . '&order=' . $arrange );
-				$count = 1;
-			?>
-			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>	
-
-				<?php 
-					$id = get_the_ID(); 
-					$terms = get_the_terms( $id, 'product_category' );
-
-					if (!empty($terms)) {
-						$thetermsclass = '';
-						foreach ($terms as $term) {
-							$thetermsclass .= ' '.$term->slug;
-						}
-					}
-
-					switch ($layout) {
-						case '2col':
-							$span = 'span6';
-							$counter = '2';
-							$imagesize = 'tb-860';
-							break;
-						case '3col':
-							$span = 'span4';
-							$counter = '3';
-							$imagesize = 'tb-360';
-							break;
-						case '4col':
-							$span = 'span3';
-							$counter = '4';
-							$imagesize = 'tb-360';
-							break;							
-						default:
-							$span = 'span4';
-							$counter = '3';
-							$imagesize = 'tb-360';
-							break;
-					}
-
-				?>
-
-				<?php flexmarket_load_single_product_in_box($span , $id , $imagesize , $btnclass , $iconclass , $tagcolor , $thetermsclass , ' style="background: '.esc_attr($bgcolor).'; color: '.esc_attr($textcolor).';"') ?>
-
-				<?php if ( $count == $counter ): ?>
-					</div>
-					<div class="row-fluid">
-					<?php $count = 0; ?>
-				<?php endif; ?>
-				<?php $count++; ?>
-			<?php endwhile; endif; ?>
-
-			<?php wp_reset_query(); ?>
-
-			</div>
-
-	</div>
+		<?php flexmarket_advance_product_sort( $block_id , ($showcategory == 'advsoft' ? true : false) , $align , $context , true , 'nopagingblock' , '' , $entries, $taxonomy , $arrange, $taxonomy_category , $taxonomy_tag , $counter, $span, $btnclass, $iconclass, $tagcolor , 'thetermsclass' , ' style="background: '.esc_attr($bgcolor).'; color: '.esc_attr($textcolor).';"'); ?>
 
 	<?php
 

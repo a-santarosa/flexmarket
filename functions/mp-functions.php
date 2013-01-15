@@ -1,5 +1,129 @@
 <?php
 
+function flexmarket_advance_product_sort( $unique_id = '' , $sort = false, $align = 'align-right', $context = 'list' ,$echo = true , $paginate = '' , $page = '', $per_page = '', $order_by = '', $order = '', $category = '', $tag = '' , $counter = '3' , $span = 'span4' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $boxclass = '' , $boxstyle = '') {
+
+	$output = '';
+
+	if ($sort) {
+
+		global $mp;
+
+		$mp->start_session();
+
+		if(isset($_POST['advancedsortformsubmitted'.$unique_id])) {
+
+			if ($context == 'list') {
+				$_SESSION['advancedsortcategory'.$unique_id] = (!empty($_POST['advancedsortcategory'.$unique_id])) ? esc_html(esc_attr(trim($_POST['advancedsortcategory'.$unique_id]))) : '';
+			} else {
+				$_SESSION['advancedsortcategory'.$unique_id] = '';
+			}
+			$_SESSION['advancedsortby'.$unique_id] = (!empty($_POST['advancedsortby'.$unique_id])) ? esc_html(esc_attr(trim($_POST['advancedsortby'.$unique_id]))) : '';
+			$_SESSION['advancedsortdirection'.$unique_id] = (!empty($_POST['advancedsortdirection'.$unique_id])) ? esc_html(esc_attr(trim($_POST['advancedsortdirection'.$unique_id]))) : '';
+		}
+
+		$category = (!empty($_SESSION['advancedsortcategory'.$unique_id])) ? esc_html(esc_attr(trim($_SESSION['advancedsortcategory'.$unique_id]))) : $category;
+		$order_by = (!empty($_SESSION['advancedsortby'.$unique_id])) ? esc_html(esc_attr(trim($_SESSION['advancedsortby'.$unique_id]))) : $order_by;
+		$order = (!empty($_SESSION['advancedsortdirection'.$unique_id])) ? esc_html(esc_attr(trim($_SESSION['advancedsortdirection'.$unique_id]))) : $order;
+
+		$output .= '<div id="advanced-sort" class="'.$align.'">';
+			$output .= '<a href="#adv-sort" role="button" data-toggle="modal" class="btn btn-large'.$btnclass.'"><i class="icon-th'.$iconclass.'"></i> '.__('Advanced Sort' , 'flexmarket').'</a>';
+			$output .= '<div class="clear padding20"></div>';
+		$output .= '</div>';
+
+		// Advanced Modal
+		$output .= '<div id="adv-sort" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="advancedSort" aria-hidden="true">';
+			
+			$output .= '<div class="modal-header">';
+		    	$output .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+		    	$output .= '<h4>'.__('Advanced Sort' , 'flexmarket').'</h4>';
+			$output .= '</div>';
+
+			$output .= '<div class="modal-body">';
+
+				$output .= '<div class="row-fluid">';
+
+					$output .= '<form class="form-horizontal" action="'.$_SERVER["REQUEST_URI"].'#advanced-sort" id="advanced-sort-form" method="post">';
+
+						if ($context == 'list') {
+
+							// By Category   
+							$output .= '<div class="input-prepend">';
+								$output .= '<span class="add-on">'.__('By Category' , 'flexmarket').':</span>';
+								$output .= '<select name="advancedsortcategory'.$unique_id.'" id="advancedsortcategory'.$unique_id.'">';
+									$output .= '<option value="">Show All</option>';
+
+										$args = array(
+											'taxonomy' => 'product_category',
+											'orderby' => 'name',
+											'order' => 'ASC'
+										  );
+
+										$categories = get_categories($args);
+
+										if  ($categories) {
+										  foreach($categories as $cat) {
+										    $output .= '<option value="'.$cat->category_nicename.'"'.($cat->category_nicename == $category ? ' selected="selected"' : '').'>'.$cat->name.'</option>';
+										  }
+										}
+
+								$output .= '</select>';
+							$output .= '</div>';
+
+							$output .= '<div class="clear padding10"></div>';
+
+						}
+
+						// Sort By
+						$output .= '<div class="input-prepend">';
+							$output .= '<span class="add-on">'.__('Sort By' , 'flexmarket').':</span>';
+							$output .= '<select name="advancedsortby'.$unique_id.'" id="advancedsortby'.$unique_id.'">';
+								$output .= '<option value="date"'.($order_by == 'date' ? ' selected="selected"' : '').'>Release Date</option>';
+								$output .= '<option value="title"'.($order_by == 'title' ? ' selected="selected"' : '').'>Name</option>';
+								$output .= '<option value="price"'.($order_by == 'price' ? ' selected="selected"' : '').'>Price</option>';
+								$output .= '<option value="sales"'.($order_by == 'sales' ? ' selected="selected"' : '').'>Sales</option>';
+							$output .= '</select>';
+						$output .= '</div>';
+
+						$output .= '<div class="clear padding10"></div>';
+
+						// Sort Direction
+						$output .= '<div class="input-prepend">';
+							$output .= '<span class="add-on">'.__('Sort Direction' , 'flexmarket').':</span>';
+							$output .= '<select name="advancedsortdirection'.$unique_id.'" id="advancedsortdirection'.$unique_id.'">';
+								$output .= '<option value="DESC"'.($order == 'DESC' ? ' selected="selected"' : '').'>Descending</option>';
+								$output .= '<option value="ASC"'.($order == 'ASC' ? ' selected="selected"' : '').'>Ascending</option>';
+							$output .= '</select>';
+						$output .= '</div>';
+
+						$output .= '<div class="clear padding10"></div>';
+
+						$output .= '<button type="submit" class="btn'.$btnclass.' advanced-sort-btn pull-right" data-toggle="button"><i class="icon-th'.$iconclass.'"></i> Sort</button>';
+
+						$output .= '<input type="hidden" name="advancedsortformsubmitted'.$unique_id.'" id="advancedsortformsubmitted'.$unique_id.'" value="true" />';
+
+					$output .= '</form>';
+
+			    $output .= '</div>'; // row-fluid
+
+			$output .= '</div>'; // modal body
+
+		$output .= '</div>'; // advanced-sort
+
+	}
+
+	$output .= '<div id="mpt-product-grid">';
+
+		$output .= flexmarket_list_product_in_grid( false , $paginate , $page , $per_page, $order_by, $order, $category , $tag , $counter, $span, $btnclass, $iconclass, $tagcolor , $boxclass , $boxstyle);
+
+	$output .= '</div>';
+
+  	if ($echo)
+    	echo $output;
+  	else
+    	return $output;
+
+}
+
 function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page = '', $per_page = '', $order_by = '', $order = '', $category = '', $tag = '' , $counter = '3' , $span = 'span4' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $boxclass = '' , $boxstyle = '') { 
 
 	  global $wp_query, $mp;
@@ -19,7 +143,11 @@ function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page 
 	  //setup pagination
 	  $paged = false;
 	  if ($paginate) {
-	    $paged = true;
+	  	if ($paginate === 'nopagingblock') {
+	  		$paginate_query = '&showposts='.intval($per_page);
+	  	} else {
+	  		$paged = true;	
+	  	}
 	  } else if ($paginate === '') {
 	    if ($mp->get_setting('paginate'))
 	      $paged = true;
@@ -81,7 +209,7 @@ function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page 
 
 	  if ($the_query->have_posts()) : while ($the_query->have_posts()) : $the_query->the_post();
 
-	  	$id = get_the_ID(); 
+	  	$id = get_the_ID();
 
 		$output .= flexmarket_load_single_product_in_box( $span , $id , 'tb-360' , $btnclass , $iconclass , $tagcolor , $boxclass , $boxstyle , false);
 		
@@ -139,6 +267,16 @@ function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page 
 
 function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NULL , $imagesize = 'tb-360' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $class = '' , $style = '' , $echo = true ) {
 
+	if ($class == 'thetermsclass') {
+		$class = '';
+	  	$terms = get_the_terms( $post_id, 'product_category' );
+		if (!empty($terms)) {
+			foreach ($terms as $thesingleterm) {
+				$class .= ' '.$thesingleterm->slug;
+			}
+		}
+	}
+
 	switch ($span) {
 		case 'span6':
 			$maxwidth = '560';
@@ -163,7 +301,7 @@ function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NUL
 
 		$fullimage = wp_get_attachment_image_src( get_post_thumbnail_id($post_id), 'full');
 
-		$output .= '<div class="image-box" style="max-width: '.$maxwidth.'px";>';
+		$output .= '<div class="image-box" style="max-width: '.$maxwidth.'px;">';
 		$output .= get_the_post_thumbnail($post_id , $imagesize); 
 			$output .= '<div class="hover-block hidden-phone">';
 				$output .= '';
