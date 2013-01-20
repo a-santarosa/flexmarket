@@ -498,7 +498,9 @@ ul.commentbox .comment:hover a:hover {
 	border-bottom: 1px dotted #676767;
 }
 
-/* here you can have your custom css */
+.cart-breadcrumbs .label.label-current {
+	background-color: #333333;
+}
 
 
 

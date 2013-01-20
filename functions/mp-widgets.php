@@ -132,17 +132,17 @@
 	      $paginate_query = '&posts_per_page=10&paged=1';
 	    }
 
-	    //get order by
-	    if ($instance['order_by']) {
-	      if ($instance['order_by'] == 'price')
-	        $order_by_query = '&meta_key=mp_price&orderby=mp_price';
-	      else if ($instance['order_by'] == 'sales')
-	        $order_by_query = '&meta_key=mp_sales_count&orderby=mp_sales_count';
-	      else
-	        $order_by_query = '&orderby='.$instance['order_by'];
-	    } else {
-	      $order_by_query = '&orderby=title';
-	    }
+		//get order by
+		if ($instance['order_by']) {
+		  if ($instance['order_by'] == 'price')
+		    $order_by_query = '&meta_key=mp_price&orderby=meta_value_num';
+		  else if ($instance['order_by'] == 'sales')
+		    $order_by_query = '&meta_key=mp_sales_count&orderby=meta_value_num';
+		  else
+		    $order_by_query = '&orderby='.$instance['order_by'];
+		} else {
+		  $order_by_query = '&orderby=title';
+		}
 
 	    //get order direction
 	    if ($instance['order']) {

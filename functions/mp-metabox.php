@@ -3,11 +3,11 @@
 	Metaboxes for Market Press Single Item
 */
 
-	if (!function_exists('metaboxes_for_mp_single')) {
+	if (!function_exists('mpt_metaboxes_for_multiple_product_image')) {
 
-		add_filter( 'cmb_meta_boxes', 'metaboxes_for_mp_single' );
+		add_filter( 'cmb_meta_boxes', 'mpt_metaboxes_for_multiple_product_image' );
 		
-		function metaboxes_for_mp_single( array $meta_boxes ) {
+		function mpt_metaboxes_for_multiple_product_image( array $meta_boxes ) {
 
 			// Start with an underscore to hide fields from custom fields list
 			$prefix = '_mpt_';
@@ -38,6 +38,20 @@
 					),
 				),
 			);
+
+			return $meta_boxes;
+		}
+
+	}
+
+	if (!function_exists('metaboxes_for_mp_single')) {
+
+		add_filter( 'cmb_meta_boxes', 'metaboxes_for_mp_single' );
+		
+		function metaboxes_for_mp_single( array $meta_boxes ) {
+
+			// Start with an underscore to hide fields from custom fields list
+			$prefix = '_mpt_';
 
 			$meta_boxes[] = array(
 				'id'         => 'post_custom_color_metabox',

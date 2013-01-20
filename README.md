@@ -52,6 +52,11 @@ You might also check out our blog at <a href="http://www.marketpressthemes.com/b
 
 <h2><u>Change Log</u></h2>
 
+Version 1.5.0 - 
+	Fully Compatible with MarketPress 2.8
+	Make Metaboxes function pluggable
+	Deleted unnecessary codes
+
 Version 1.4.0 - 
 	Added Advance Sort feature
 	Fixed empty variables in mp-widget.php

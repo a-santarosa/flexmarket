@@ -854,6 +854,20 @@ ul.commentbox .comment .comment-author img.avatar {
 	margin-bottom: 8px;
 }
 
+.breadcrumb.cart-breadcrumbs {
+  	padding: 15px 15px;
+  	margin: 10px 0px 20px 0px;
+}
+
+.cart-breadcrumbs .label.label-current {
+	font-size: 1em;
+	padding: 4px;
+}
+
+.cart-breadcrumbs > li > .divider {
+  font-size: 1.2em;
+}
+
 /* ================= keyframes effects ================= */
 @keyframes "fade-in-delay" {
 	0%,20% {

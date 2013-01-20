@@ -502,19 +502,33 @@ function flexmarket_product_price( $echo = true, $post_id = NULL, $label = true 
 	    $price = '<span itemprop="price" class="mp_normal_price"><span class="mp_current_price">'.$mp->format_currency('', $meta["mp_price"][0]).'</span></span>';
 	  }
 	} else if (is_array($meta["mp_price"]) && count($meta["mp_price"]) > 1 && !is_singular('product')) { //only show from price in lists
-    if ($meta["mp_is_sale"]) {
-	    $price = __('From', 'flexmarket').' <span class="mp_special_price"><del class="mp_old_price">'.$mp->format_currency('', $meta["mp_price"][0]).'</del> ';
-	    $price .= '<span itemprop="price" class="mp_current_price">'.$mp->format_currency('', $meta["mp_sale_price"][0]).'</span></span>';
-	  } else {
-	    $price = __('From', 'flexmarket').' <span itemprop="price" class="mp_normal_price"><span class="mp_current_price">'.$mp->format_currency('', $meta["mp_price"][0]).'</span></span>';
-	  }
+	    if ($meta["mp_is_sale"]) {
+	        //do some crazy stuff here to get the lowest price pair ordered by sale prices
+	      	asort($meta["mp_sale_price"], SORT_NUMERIC);
+	      	$lowest = array_slice($meta["mp_sale_price"], 0, 1, true);
+	      	$keys = array_keys($lowest);
+	      	$mp_price = $meta["mp_price"][$keys[0]];
+	     	$mp_sale_price = array_pop($lowest);
+		    $price = __('from', 'mp').' <span class="mp_special_price"><del class="mp_old_price">'.$mp->format_currency('', $mp_price).'</del>';
+		    $price .= '<span itemprop="price" class="mp_current_price">'.$mp->format_currency('', $mp_sale_price).'</span></span>';
+		  } else {
+	      	sort($meta["mp_price"], SORT_NUMERIC);
+		    $price = __('from', 'mp').' <span itemprop="price" class="mp_normal_price"><span class="mp_current_price">'.$mp->format_currency('', $meta["mp_price"][0]).'</span></span>';
+		  }
 	} else {
 		if ($context == 'widget') {
 		    if ($meta["mp_is_sale"]) {
-			    $price = __('From', 'flexmarket').' <span class="mp_special_price"><del class="mp_old_price">'.$mp->format_currency('', $meta["mp_price"][0]).'</del> ';
-			    $price .= '<span itemprop="price" class="mp_current_price">'.$mp->format_currency('', $meta["mp_sale_price"][0]).'</span></span>';
+		        //do some crazy stuff here to get the lowest price pair ordered by sale prices
+		      	asort($meta["mp_sale_price"], SORT_NUMERIC);
+		      	$lowest = array_slice($meta["mp_sale_price"], 0, 1, true);
+		      	$keys = array_keys($lowest);
+		      	$mp_price = $meta["mp_price"][$keys[0]];
+		     	$mp_sale_price = array_pop($lowest);
+			    $price = __('from', 'mp').' <span class="mp_special_price"><del class="mp_old_price">'.$mp->format_currency('', $mp_price).'</del>';
+			    $price .= '<span itemprop="price" class="mp_current_price">'.$mp->format_currency('', $mp_sale_price).'</span></span>';
 			  } else {
-			    $price = __('From', 'flexmarket').' <span itemprop="price" class="mp_normal_price"><span class="mp_current_price">'.$mp->format_currency('', $meta["mp_price"][0]).'</span></span>';
+		      	sort($meta["mp_price"], SORT_NUMERIC);
+			    $price = __('from', 'mp').' <span itemprop="price" class="mp_normal_price"><span class="mp_current_price">'.$mp->format_currency('', $meta["mp_price"][0]).'</span></span>';
 			  }
 		} else {
 			return '';
@@ -563,6 +577,10 @@ function flexmarket_show_cart($context = '', $checkoutstep = null, $echo = true 
 
       //generic error message context for plugins to hook into
       $content .= apply_filters( 'mp_checkout_error_checkout', '' );
+
+      if( $mp->get_setting('show_purchase_breadcrumbs') == 1 ){
+        $content .= flexmarket_cart_breadcrumbs($checkoutstep);
+      }
 
       //handle checkout steps
       switch($checkoutstep) {
@@ -617,6 +635,37 @@ function flexmarket_show_cart($context = '', $checkoutstep = null, $echo = true 
   } else {
     return $content;
   }
+}
+
+/**
+ * @return string HTML that shows the user their current position in the purchase process.
+ */
+function flexmarket_cart_breadcrumbs($current_step){	
+	$steps = array(
+		'checkout-edit'=>__('Review Cart','flexmarket'),
+		'shipping'=>__('Shipping','flexmarket'),
+		'checkout'=>__('Checkout','flexmarket'),
+		'confirm-checkout'=>__('Confirm','flexmarket'),
+		'confirmation'=>__('Thankyou','flexmarket')
+	);
+
+	$order = array_keys($steps);
+	$current = array_search($current_step, $order);
+	$all = array();
+
+	foreach($steps as $str => $human){
+		$i = array_search($str, $order);
+
+		if($i >= $current){
+			// incomplete
+			$all[] = '<li class="'.($i==$current?'active':'').'">'.($i==$current?'<span class="label label-current">':'').$human.($i==$current?'</span>':'');
+		}else{
+			// done
+			$all[] = '<li><a href="'.mp_checkout_step_url($str).'">'.$human.'</a>';
+		}
+	}
+	
+	return '<ul class="breadcrumb cart-breadcrumbs">'.implode(apply_filters('mp_cart_breadcrumbs_seperator', ' <span class="divider">&raquo;</span></li>'), $all).'</li></ul>';
 }
 
 //Prints cart table, for internal use
@@ -1723,151 +1772,3 @@ function flexmarket_custom_fields_checkout_after_shipping($content='') {
 
 remove_filter('mp_checkout_after_shipping', 'mp_custom_fields_checkout_after_shipping' , 10);
 add_filter('mp_checkout_after_shipping', 'flexmarket_custom_fields_checkout_after_shipping' , 11);
-
-
-/**
- * Displays the product list filter dropdowns
- * 
- * @return string   html for filter/order products select elements.
- */
-
-	function flexmarket_products_filter(){
-	      global $mp;
-
-	      $terms = wp_dropdown_categories(array(
-	        'name' => 'filter-term',
-	        'taxonomy' => 'product_category',
-	        'show_option_none' => __('Show All', 'mp'),
-	        'show_count' => 1,
-	        'orderby' => 'name',
-	        'selected' => '',
-	        'echo' => 0,
-	        'hierarchical' => true
-	      ));
-
-	      $options=array(
-	        array('0', '', __('Default', 'mp')),
-	        array('date', 'desc', __('Release Date', 'mp')),
-	        array('title', 'asc', __('Name', 'mp')),
-	        array('price', 'asc', __('Price (Low to High)', 'mp')),
-	        array('price', 'desc', __('Price (High to Low)', 'mp')),
-	        array('sales', 'desc', __('Popularity', 'mp'))
-	      );
-
-	      return 
-	      ' <div class="mp_list_filter">
-	            <form name="mp_product_list_refine" class="mp_product_list_refine" method="get">
-	                <div class="one_filter">
-	                  <span>'.__('Category', 'mp').'</span>
-	                  '.$terms.'
-	                </div>
-
-	                <div class="one_filter">
-	                  <span>'.__('Order By', 'mp').'</span>
-	                  <select name="order">
-	                    '.get_filter_order_options($options).'
-	                  </select>
-	                </div>
-	            </form>
-	        </div>';
-	}
-
-/**
- * @param  array $options 2d array, each child array contains: 0: column, 1: order (asc|desc), 2: human readable value
- * @return string html of select element options
- */
-
-	if (!function_exists('get_filter_order_options')) {
-
-		function get_filter_order_options($options){
-		  global $mp;
-		  $html='';
-		  $current_order = strtolower($mp->get_setting('order_by').'-'.$mp->get_setting('order'));
-
-		  foreach($options as $k => $t){
-		    $value = $t[0].'-'.$t[1];
-		    $selected = $current_order == $value ? 'selected' : '';
-
-		    $html.='<option value="'.$value.'" '.$selected.'>
-		              '.$t[2].'
-		            </option>';
-		  }
-		  return $html;
-		}
-
-	}
-
-
-	/**
-	* ajax handler
-	* @return string html of products list, and optionally pagination
-	*/
-
-	if (!function_exists('get_products_list')) {
-
-		function get_products_list(){
-			global $wp_query;
-
-			$ret = array('products'=>false, 'pagination'=>false);
-
-			extract(array(
-				'paginate' => '',
-				'page' => 1,
-				'per_page' => '',
-				'order_by' => '',
-				'order' => '',
-				'category' => '',
-				'tag' => '',
-				'list_view'=> false));
-
-			if( isset($_POST['order']) ){
-					$o = explode('-',$_POST['order']);
-
-					// column
-					if(isset($o[0]) && in_array($o[0], array('date','title','price','sales'))){
-						$order_by = $o[0];
-					}
-
-					// direction
-					if(isset($o[1]) &&  in_array($o[1], array('asc','desc'))){
-						$order = strtoupper($o[1]);
-					}
-			}
-
-			if( isset($_POST['filter-term']) && is_numeric($_POST['filter-term']) && $_POST['filter-term']!=-1){
-					$term = get_term_by( 'id', $_POST['filter-term'], 'product_category' );
-					$category = $term->slug;
-			}
-
-			if( isset($_POST['page']) && is_numeric($_POST['page']) ){
-					$page = $_POST['page'];
-			}
-
-			$ret['products'] = mp_list_products(false, $paginate, $page, $per_page, $order_by, $order, $category, $tag, $list_view);
-			$ret['products'] .= '<p>abc</p>';
-
-			if($this->get_setting('paginate')){
-
-				// get_posts_nav_link() does not work with ajax
-				$max = $wp_query->max_num_pages;
-				$prev=$next='';
-
-				if($max > 1){
-					if( $page != $max ){
-						$next='<a href="#paged='.($page+1).'">'.__('Next Page &raquo;').'</a>';
-					}
-					if($page != 1){
-						$prev='<a href="#paged='.($page-1).'">'.__('&laquo; Previous Page').'</a>';
-					}
-					$ret['pagination'] = '<div id="mp_product_nav">' . $prev . (strlen($prev)>0 && strlen($next)>0?' &#8212; ':'') . $next . '</div>';
-				}
-			}
-
-			header('Content-type: application/json');
-			echo json_encode($ret);
-			exit;
-		}
-
-	}
-
-?>
