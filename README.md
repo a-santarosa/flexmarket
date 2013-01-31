@@ -52,6 +52,11 @@ You might also check out our blog at <a href="http://www.marketpressthemes.com/b
 
 <h2><u>Change Log</u></h2>
 
+Version 1.5.5 -
+	MP Dynamic Grid Integration.
+	Fixed button class for external link in flexmarket_buy_button function
+	Fixed 'Choose option' button redirect issue
+
 Version 1.5.0 - 
 	Fully Compatible with MarketPress 2.8
 	Make Metaboxes function pluggable

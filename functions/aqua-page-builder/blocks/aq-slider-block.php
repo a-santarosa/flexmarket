@@ -260,7 +260,7 @@ if(!class_exists('AQ_Slider_Block')) {
 
 						$output .= '<div class="'.($i == 1 ? 'active ' : '').'item">';					
 
-						$output .= (!empty($slide['link']) ? '<a href="'.esc_url($slide['link']).'"'.($slide['btnlinkopen'] == 'same' ? '' : ' target="_blank"').'>' : '');
+						$output .= (!empty($slide['link']) ? '<a href="'.esc_url($slide['link']).'"'.($slide['linkopen'] == 'same' ? '' : ' target="_blank"').'>' : '');
 						$output .= (!empty($slide['image']) ? '<img src="'.esc_url($slide['image']).'" />' : '');
 						$output .= (!empty($slide['link']) ? '</a>' : '');
 

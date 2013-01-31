@@ -958,6 +958,106 @@ if (!function_exists('m413_options')) {
 
 	}
 
+	/**** MP Dynamic Gird **************************************************************************************************/
+
+	if ( class_exists( 'MPDG' ) ) {
+
+		$options[] = array( "name" => __('MPDG Settings','flexmarket'),
+					"type" => "heading");	
+
+		$options[] = array( "name" => __('Enable MP Dynamic Grid In All Product Listing Pages','flexmarket'),
+					"desc" => __('if you want to enable the MP dynamic gird in all product listing pages then simply enable this option.','flexmarket'),
+					"id" => $shortname."_mpdg_enable_dg",
+					"std" => "false",
+					"type" => "checkbox");
+
+		$options[] = array( "name" => __('Product Listing Layout','flexmarket'),
+					"desc" => __('Select the layout you want to display in the product listing page','flexmarket'),
+					"id" => $shortname."_mpdg_listing_layout",
+					"std" => "3 Columns",
+					"type" => "select",
+					"options" => array(
+						'2col' => '2 Columns',
+						'3col' => '3 Columns',
+						'4col' => '4 Columns',
+						'5col' => '5 Columns'
+						));
+
+		$options[] = array( "name" => __('Product Listing Entries (Per Page)','flexmarket'),
+					"desc" => __('Select the number of entries you want to display in each product listing page','flexmarket'),
+					"id" => $shortname."_mpdg_listing_entries",
+					"std" => "9",
+					"type" => "select",
+					"options" => array(
+						'2' => '2',
+						'3' => '3',
+						'4' => '4',
+						'5' => '5',
+						'6' => '6',
+						'7' => '7',
+						'8' => '8',
+						'9' => '9',
+						'10' => '10',
+						'11' => '11',
+						'12' => '12',
+						'13' => '13',
+						'14' => '14',
+						'15' => '15',
+						'16' => '16',
+						'17' => '17',
+						'18' => '18',
+						'19' => '19',
+						'20' => '20',
+						'21' => '21',
+						'22' => '22',
+						'23' => '23',
+						'24' => '24',
+						'25' => '25',
+						'26' => '26',
+						'27' => '27',
+						'28' => '28',
+						'29' => '29',
+						'30' => '30',
+						'31' => '31',
+						'32' => '32',
+						'33' => '33',
+						'34' => '34',
+						'35' => '35',
+						'36' => '36',
+						'37' => '37',
+						'38' => '38',
+						'39' => '39',
+						'40' => '40'
+						));		
+
+		$options[] = array( "name" => __('Button Color','flexmarket'),
+					"desc" => __('Select the color you want to use for the button','flexmarket'),
+					"id" => $shortname."_mpdg_btn_color",
+					"std" => "Black",
+					"type" => "select",
+					"options" => $btncolor_options);	
+
+		$options[] = array( "name" => __('Icon Tag Color','flexmarket'),
+					"desc" => __('Select the color you want to use for all the icon tag','flexmarket'),
+					"id" => $shortname."_mpdg_icon_tag_color",
+					"std" => "Black",
+					"type" => "select",
+					"options" => $tagcolor_options);	
+
+		$options[] = array( "name" => __('Price Tag Color','flexmarket'),
+					"desc" => __('Select the color you want to use for the price tag','flexmarket'),
+					"id" => $shortname."_mpdg_price_tag_color",
+					"std" => "Black",
+					"type" => "select",
+					"options" => array(
+						'grey' => 'Grey',
+						'lightblue' => 'Light Blue',
+						'green' => 'Green',
+						'red' => 'Red',
+						'yellow' => 'Yellow',
+						'black' => 'Black',
+					));	
+	}
 
 	/**** Page Settings **************************************************************************************************/
 

@@ -1,16 +1,5 @@
 <?php get_header(); ?>
 
-<?php 
-	$btnclass = mpt_load_mp_btn_color();
-	$iconclass = mpt_load_whiteicon_in_btn();
-	$tagcolor = mpt_load_icontag_color();
-	$span = mpt_load_product_listing_layout();
-	$counter = mpt_load_product_listing_counter();
-	$entries = get_option('mpt_mp_listing_entries');
-	$advancedsoft = mpt_enable_advanced_sort();
-	$advancedsoftbtnposition = mpt_advanced_sort_btn_position();
-?>
-
 	<!-- Page -->
 	<div id="page-wrapper">
 
@@ -25,6 +14,8 @@
 						$termname = $wp_query->queried_object->name;
 						$termslug = $wp_query->queried_object->slug;
 						$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+						$showmpdg = get_option('mpt_mpdg_enable_dg');
+						$entries = ( !empty($showmpdg) ? ( $showmpdg == 'true' ? get_option('mpt_mpdg_listing_entries') : get_option('mpt_mp_listing_entries')) : get_option('mpt_mp_listing_entries'));
 
 						$moreargs = array(
 							'showposts' => $entries,
@@ -55,7 +46,7 @@
 
 							<?php if ( class_exists( 'MarketPress' ) ) { ?>
 
-								<?php flexmarket_advance_product_sort( $termslug , $advancedsoft , $advancedsoftbtnposition , 'category' , true , true , '' , $entries, '', '', '' , '' , $counter, $span, $btnclass, $iconclass, $tagcolor); ?>
+								<?php do_action('flexmarket_category_page' , $termslug , 'category'); ?>
 
 							<?php } ?>
 

@@ -161,12 +161,9 @@
 		}
 	}
 		
-/**
- * Initialize the metabox class.
- */
 
+ 	// Initialize the metabox class.
 	add_action( 'init', 'cmb_initialize_cmb_meta_boxes', 9999 );
-	 
 	function cmb_initialize_cmb_meta_boxes() {
 
 		if ( ! class_exists( 'cmb_Meta_Box' ) )
@@ -174,66 +171,174 @@
 
 	}
 
-/**
- * Breadcrumb for wordpress.
- */
+	// call for product listing functions
+	add_action('flexmarket_product_listing_page' , 'flexmarket_list_products' , 10 , 2);
+	add_action('flexmarket_category_page' , 'flexmarket_list_products' , 10 , 2);
+	add_action('flexmarket_tag_page' , 'flexmarket_list_products' , 10 , 2);
+	add_action('flexmarket_taxonomy_page' , 'flexmarket_list_products' , 10 , 2);
 
-	function mpt_get_the_breadcrumbs() {
+	function flexmarket_list_products( $unique_id = '' , $context = '' ) {
 
-		$output = '';
+		$btnclass = mpt_load_mp_btn_color();
+		$iconclass = mpt_load_whiteicon_in_btn();
+		$tagcolor = mpt_load_icontag_color();
+		$span = mpt_load_product_listing_layout();
+		$counter = mpt_load_product_listing_counter();
+		$entries = get_option('mpt_mp_listing_entries');
+		$advancedsoft = mpt_enable_advanced_sort();
+		$advancedsoftbtnposition = mpt_advanced_sort_btn_position();
 
-		$output .= '<ul class="breadcrumb">';
+		echo flexmarket_advance_product_sort( $unique_id , $advancedsoft , $advancedsoftbtnposition , $context , false , true , '' , $entries, '', '', '' , '' , $counter, $span, $btnclass, $iconclass, $tagcolor);		
 
-		if (!is_home()) {
-			
-			$output .= '<li><a href="'.home_url().'">Home</a> <span class="divider">/</span></li>';
-
-			if (is_category() || is_single()) {
-				$output .= '<li>'.the_category(' <span class="divider">/</span></li><li>').' <span class="divider">/</span></li>';
-				$output .= is_single() ? '<li class="active">'.the_title().'</li>' : '';
-			} elseif (is_page()) {
-				$output .= '<li class="active">'.the_title().'</li>';
-			}
-		} 
-
-		elseif (is_tag()) { 
-			$output .= '<li><a href="'.home_url().'">Home</a> <span class="divider">/</span></li>'; 
-			$output .= '<li class="active">'.single_tag_title().'</li>';
-		}
-		
-		elseif (is_day()) {
-			$output .= '<li><a href="'.home_url().'">Home</a> <span class="divider">/</span></li>'; 
-			$output .= '<li class="active">Archive for '.the_time('F jS, Y').'</li>';
-		}
-
-		elseif (is_month()) {
-			$output .= '<li><a href="'.home_url().'">Home</a> <span class="divider">/</span></li>'; 
-			$output .= '<li class="active">Archive for '.the_time('F, Y').'</li>';
-		}
-
-		elseif (is_year()) {
-			$output .= '<li><a href="'.home_url().'">Home</a> <span class="divider">/</span></li>'; 
-			$output .= '<li class="active">Archive for '.the_time('Y').'</li>';			
-		}
-
-		elseif (is_author()) {
-			$output .= '<li><a href="'.home_url().'">Home</a> <span class="divider">/</span></li>'; 
-			$output .= '<li class="active">Author Archive</li>';				
-		}
-
-		elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {
-			$output .= '<li><a href="'.home_url().'">Home</a> <span class="divider">/</span></li>'; 
-			$output .= '<li class="active">Blog Archives</li>';					
-		}
-
-		elseif (is_search()) {
-			$output .= '<li><a href="'.home_url().'">Home</a> <span class="divider">/</span></li>'; 
-			$output .= '<li class="active">Search Results</li>';				
-		}
-
-		$output .= '</ul>';
-
-		echo $output;
 	}
 
-?>
+	// MP Dynamic Grid Integration
+	if( class_exists('MPDG') ) {
+
+		// if 'enable dynamic grid' option is selected
+		if (get_option('mpt_mpdg_enable_dg') == 'true') {
+
+			// remove exisitng action hooks
+			remove_action('flexmarket_product_listing_page' , 'flexmarket_list_products' , 10 , 2);
+			remove_action('flexmarket_category_page' , 'flexmarket_list_products' , 10 , 2);
+			remove_action('flexmarket_tag_page' , 'flexmarket_list_products' , 10 , 2);
+			remove_action('flexmarket_taxonomy_page' , 'flexmarket_list_products' , 10 , 2);
+
+			// add mpdg action hooks
+			add_action('flexmarket_product_listing_page' , 'mpdg_list_products' , 11 , 2);
+			add_action('flexmarket_category_page' , 'mpdg_list_products' , 11 , 2);
+			add_action('flexmarket_tag_page' , 'mpdg_list_products' , 11 , 2);
+			add_action('flexmarket_taxonomy_page' , 'mpdg_list_products' , 11 , 2);	
+		}
+
+
+		if (!function_exists('mpdg_list_products')) {
+
+			function mpdg_list_products( $unique_id = '' , $context = '' ) {
+
+				$column = get_option('mpt_mpdg_listing_layout');
+				$btncolor = get_option('mpt_mpdg_btn_color');
+				$tagcolor = get_option('mpt_mpdg_icon_tag_color');
+				$pricelabel = get_option('mpt_mpdg_price_tag_color');
+				$entries = get_option('mpt_mpdg_listing_entries');
+				$showcategory = ( $context == 'list' ? 'yes' : 'no');
+
+				switch ($column) {
+					case '2 Columns':
+						$span = 'span6';
+						break;
+					case '3 Columns':
+						$span = 'span4';
+						break;
+					case '4 Columns':
+						$span = 'span3';
+						break;
+					case '5 Columns':
+						$span = 'span2';
+						break;		
+
+					default:
+						$span = 'span4';
+						break;
+				}
+
+				switch ($btncolor) {
+					case 'Grey':
+						$btnclass = '';
+						$iconclass = '';
+						break;
+					case 'Blue':
+						$btnclass = ' btn-primary';
+						$iconclass = ' icon-white';
+						break;
+					case 'Light Blue':
+						$btnclass = ' btn-info';
+						$iconclass = ' icon-white';
+						break;
+					case 'Green':
+						$btnclass = ' btn-success';
+						$iconclass = ' icon-white';
+						break;
+					case 'Yellow':
+						$btnclass = ' btn-warning';
+						$iconclass = ' icon-white';
+						break;
+					case 'Red':
+						$btnclass = ' btn-danger';
+						$iconclass = ' icon-white';
+						break;
+					case 'Black':
+						$btnclass = ' btn-inverse';
+						$iconclass = ' icon-white';
+						break;
+
+					default:
+						$btnclass = '';
+						$iconclass = '';
+						break;
+					
+				}
+
+				switch ($tagcolor) {
+					case 'White':
+						$tagclass = ' icon-white';
+						break;
+					case 'Blue':
+						$tagclass = ' icon-blue';
+						break;
+					case 'Light Blue':
+						$tagclass = ' icon-lightblue';
+						break;
+					case 'Green':
+						$tagclass = ' icon-green';
+						break;
+					case 'Yellow':
+						$tagclass = ' icon-yellow';
+						break;
+					case 'Red':
+						$tagclass = ' icon-red';
+						break;
+					case 'Black':
+						$tagclass = '';
+						break;
+
+					default:
+						$tagclass = '';
+						break;
+					
+				}
+
+				switch ($pricelabel) {
+					case 'Grey':
+						$labelclass = '';
+						break;
+					case 'Light Blue':
+						$labelclass = ' label-info';
+						break;
+					case 'Green':
+						$labelclass = ' label-success';
+						break;
+					case 'Yellow':
+						$labelclass = ' label-warning';
+						break;
+					case 'Red':
+						$labelclass = ' label-important';
+						break;
+					case 'Black':
+						$labelclass = ' label-inverse';
+						break;
+
+					default:
+						$labelclass = ' label-info';
+						break;
+					
+				}	
+
+				wp_enqueue_script('mpdg', MPDG_DIR . 'js/mpdg.js', array('jquery'));
+				add_action('wp_footer' , 'mpdg_add_js_to_footer');
+
+				echo mpdg_dynamic_grid(false , true , '', $entries , '' , '' , '' , '' , $showcategory , $span , 'full' , $btnclass, $iconclass, $tagclass, $labelclass );
+			}
+		}
+
+	}

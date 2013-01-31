@@ -399,7 +399,7 @@ function flexmarket_buy_button( $echo = true, $context = 'list', $post_id = NULL
   //display an external link or form button
   if (isset($meta['mp_product_link']) && $product_link = $meta['mp_product_link']) {
 
-    $button = '<a class="mp_link_buynow bnt'.$btnclass.'" href="' . esc_url($product_link) . '">' . __('Buy Now', 'flexmarket') . '</a>';
+    $button = '<a class="mp_link_buynow btn'.$btnclass.'" href="' . esc_url($product_link) . '">' . __('Buy Now', 'flexmarket') . '</a>';
 
   } else if ($mp->get_setting('disable_cart')) {
     
@@ -435,7 +435,7 @@ function flexmarket_buy_button( $echo = true, $context = 'list', $post_id = NULL
 
 	    if ($context == 'list') {
 	      if ($variation_select) {
-        	$button .= '<a class="mp_link_buynow" href="' . get_permalink($post_id) . '"><button class="btn'.$btnclass.'">' . __('Choose Option', 'flexmarket') . '</button></a>';
+        	$button .= '<a class="mp_link_buynow" href="' . get_permalink($post_id) . '"><span class="btn'.$btnclass.'">' . __('Choose Option', 'flexmarket') . '</span></a>';
 	      } else if ($mp->get_setting('list_button_type') == 'addcart') {
 	        $button .= '<input type="hidden" name="action" value="mp-update-cart" />';
 	        $button .= '<input class="mp_button_addcart btn'.$btnclass.'" type="submit" name="addcart" value="' . __('Add To Cart', 'flexmarket') . '" />';
