@@ -52,6 +52,9 @@ You might also check out our blog at <a href="http://www.marketpressthemes.com/b
 
 <h2><u>Change Log</u></h2>
 
+Version 1.5.6 -
+	Fixed MP Dynamic Grid Integration issue.
+
 Version 1.5.5 -
 	MP Dynamic Grid Integration.
 	Fixed button class for external link in flexmarket_buy_button function

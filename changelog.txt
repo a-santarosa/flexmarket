@@ -1,3 +1,6 @@
+Version 1.5.6 -
+	Fixed MP Dynamic Grid Integration issue.
+
 Version 1.5.5 -
 	MP Dynamic Grid Integration.
 	Fixed button class for external link in flexmarket_buy_button function

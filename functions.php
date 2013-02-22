@@ -337,7 +337,7 @@
 				wp_enqueue_script('mpdg', MPDG_DIR . 'js/mpdg.js', array('jquery'));
 				add_action('wp_footer' , 'mpdg_add_js_to_footer');
 
-				echo mpdg_dynamic_grid(false , true , '', $entries , '' , '' , '' , '' , $showcategory , $span , 'full' , $btnclass, $iconclass, $tagclass, $labelclass );
+				echo mpdg_dynamic_grid(false , true , '', $entries , '' , '' , '' , '' , $showcategory , false , $span , 'full' , $btnclass, $iconclass, $tagclass, $labelclass );
 			}
 		}
 
