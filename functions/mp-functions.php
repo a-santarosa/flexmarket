@@ -464,7 +464,7 @@ function flexmarket_buy_button( $echo = true, $context = 'list', $post_id = NULL
     $button .= '</form>';
   }
 
-  $button = apply_filters( 'mp_buy_button_tag', $button, $post_id, $context );
+  $button = apply_filters( 'flexmarket_buy_button_tag', $button, $post_id, $context, $btnclass );
 
   if ($echo)
     echo $button;
@@ -535,7 +535,7 @@ function flexmarket_product_price( $echo = true, $post_id = NULL, $label = true 
 		}
 	}
 
-  $price = apply_filters( 'mp_product_price_tag', '<i class="icon-tags'.$iconclass.'"></i> ' . $label . $price, $post_id, $label );
+  $price = apply_filters( 'flexmarket_product_price_tag', '<i class="icon-tags'.$iconclass.'"></i> ' . $label . $price, $post_id, $label, $iconclass , $context );
 
   if ($echo)
     echo $price;
