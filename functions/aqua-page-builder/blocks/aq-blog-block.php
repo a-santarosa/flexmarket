@@ -143,7 +143,7 @@ class AQ_Blog_Updates_Block extends AQ_Block {
 				<?php } ?>
 			</div>
 
-			<?php if ( $count == $entries ): ?>
+			<?php if ( $count == $counter ): ?>
 				</div>
 				<div class="row-fluid">
 				<?php $count = 0; ?>

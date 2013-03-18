@@ -52,6 +52,12 @@ You might also check out our blog at <a href="http://www.marketpressthemes.com/b
 
 <h2><u>Change Log</u></h2>
 
+Version 1.5.8 -
+	Fixed alignment issue in Page Builder - Blog Updates Block
+
+Version 1.5.7 -
+	Convert mp filters to flexmarket filters for better customization
+
 Version 1.5.6 -
 	Fixed MP Dynamic Grid Integration issue.
 
