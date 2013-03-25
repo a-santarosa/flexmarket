@@ -189,11 +189,12 @@
 			            echo flexmarket_buy_button(false, 'list', $post->ID , $btnclass . ' btn-small');
 
 			          echo '</div>';
+			        }
 
-			        echo '</div>';
+			        echo '</div>'; //End span
 
-	          echo '</div>';
-	        }
+	          echo '</div>'; // End Row-fluid
+	        
 	        echo '</li>';
 	      }
 	      echo '</ul>';

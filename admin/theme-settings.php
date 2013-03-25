@@ -721,6 +721,8 @@ if (!function_exists('m413_options')) {
 					"id" => $shortname."_cus_footer",
 					"std" => "",
 					"type" => "textarea");
+
+		$options = apply_filters( 'mpt_theme_options_after_general_settings' , $options , 'flexmarket' );
 					
 	/**** Styling Options **************************************************************************************************/
 
@@ -770,6 +772,8 @@ if (!function_exists('m413_options')) {
 					"id" => $shortname."_link_hover_font_color",
 					"std" => "",
 					"type" => "color");
+
+		$options = apply_filters( 'mpt_theme_options_after_styling_options' , $options , 'flexmarket' );
 
 	/**** Header Section **************************************************************************************************/
 
@@ -837,6 +841,8 @@ if (!function_exists('m413_options')) {
 					"std" => "",
 					"type" => "color");
 
+		$options = apply_filters( 'mpt_theme_options_after_header_section' , $options , 'flexmarket' );
+
 
 	/**** Homepage Layout **************************************************************************************************/						
 		
@@ -873,6 +879,8 @@ if (!function_exists('m413_options')) {
 					"std" => "none",
 					"type" => "images",
 					"options" => $mpt_bg_patterns);	
+
+		$options = apply_filters( 'mpt_theme_options_after_homepage_layout' , $options , 'flexmarket' );
 
 	/**** MarketPress **************************************************************************************************/
 
@@ -955,6 +963,8 @@ if (!function_exists('m413_options')) {
 						'center' => 'Center',
 						'right' => 'Right',
 						));
+
+		$options = apply_filters( 'mpt_theme_options_after_marketpress_settings' , $options , 'flexmarket' );
 
 	}
 
@@ -1057,6 +1067,8 @@ if (!function_exists('m413_options')) {
 						'yellow' => 'Yellow',
 						'black' => 'Black',
 					));	
+
+		$options = apply_filters( 'mpt_theme_options_after_mpdg_settings' , $options , 'flexmarket' );
 	}
 
 	/**** Page Settings **************************************************************************************************/
@@ -1102,6 +1114,8 @@ if (!function_exists('m413_options')) {
 					"type" => "images",
 					"options" => $mpt_bg_patterns);	
 
+		$options = apply_filters( 'mpt_theme_options_after_page_settings' , $options , 'flexmarket' );
+
 	/**** Post Settings **************************************************************************************************/
 
 		$options[] = array( "name" => __('Post Settings','flexmarket'),
@@ -1144,6 +1158,8 @@ if (!function_exists('m413_options')) {
 					"std" => "none",
 					"type" => "images",
 					"options" => $mpt_bg_patterns);	
+
+		$options = apply_filters( 'mpt_theme_options_after_post_settings' , $options , 'flexmarket' );
 
 	/**** Sidebar Widget **************************************************************************************************/
 
@@ -1217,6 +1233,8 @@ if (!function_exists('m413_options')) {
 						'green' => 'Green',
 						));
 
+		$options = apply_filters( 'mpt_theme_options_after_sidebar_widget_settings' , $options , 'flexmarket' );
+
 
 	/**** Footer Widget **************************************************************************************************/
 
@@ -1286,6 +1304,8 @@ if (!function_exists('m413_options')) {
 						'green' => 'Green',
 						));
 
+		$options = apply_filters( 'mpt_theme_options_after_footer_widget_settings' , $options , 'flexmarket' );
+
 	/**** Footer Section **************************************************************************************************/
 
 		$options[] = array( "name" => __('Footer Section','flexmarket'),
@@ -1322,6 +1342,8 @@ if (!function_exists('m413_options')) {
 					"id" => $shortname."_footer_section_link_color_hover",
 					"std" => "",
 					"type" => "color");
+
+		$options = apply_filters( 'mpt_theme_options_after_footer_section' , $options , 'flexmarket' );
 
 	/**** Social Icon **************************************************************************************************/
 
@@ -1400,6 +1422,7 @@ if (!function_exists('m413_options')) {
 					"std" => "",
 					"type" => "text");
 
+		$options = apply_filters( 'mpt_theme_options_after_social_icons' , $options , 'flexmarket' );
 
 					
 	/**** SEO Settings **************************************************************************************************/
@@ -1443,7 +1466,9 @@ if (!function_exists('m413_options')) {
 					"desc" => __('If you have enabled meta keywords you can add your custom keywords here. Keywords should be separated by comas. For example: keyword1,keyword2,keyword3','flexmarket'),
 					"id" => $shortname."_cus_meta_keywords",
 					"std" => "",
-					"type" => "text");					
+					"type" => "text");			
+
+		$options = apply_filters( 'mpt_theme_options_after_seo_settings' , $options , 'flexmarket' );		
 
 	/**** Code Integration **************************************************************************************************/
 
@@ -1498,6 +1523,7 @@ if (!function_exists('m413_options')) {
 					"std" => "",
 					"type" => "textarea");
 					
+		$options = apply_filters( 'mpt_theme_options_after_code_integration' , $options , 'flexmarket' );
 
 		update_option('m413_template',$options);
 		update_option('m413_themename',$themename);

@@ -52,6 +52,9 @@ You might also check out our blog at <a href="http://www.marketpressthemes.com/b
 
 <h2><u>Change Log</u></h2>
 
+Version 1.6.0 -
+	Added hooks across the theme for better customization
+
 Version 1.5.8 -
 	Fixed alignment issue in Page Builder - Blog Updates Block
 

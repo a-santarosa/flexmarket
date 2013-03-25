@@ -572,7 +572,7 @@ ul.mpt-product-categories li:last-child:after {
 	padding: 5px;
 }
 
-.pricingtable:hover,.featured {
+.pricingtable:hover, .pricingtable .featured {
 	-webkit-transform: scale(1.1);
 	-moz-transform: scale(1.1);
 	-o-transform: scale(1.1);

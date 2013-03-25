@@ -313,7 +313,7 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 
 		<?php } ?>
 
-		<?php flexmarket_advance_product_sort( $block_id , ($showcategory == 'advsoft' ? true : false) , $align , $context , true , 'nopagingblock' , '' , $entries, $taxonomy , $arrange, $taxonomy_category , $taxonomy_tag , $counter, $span, $btnclass, $iconclass, $tagcolor , 'thetermsclass' , ' style="background: '.esc_attr($bgcolor).'; color: '.esc_attr($textcolor).';"'); ?>
+		<?php flexmarket_advance_product_sort( $block_id , ($showcategory == 'advsoft' ? true : false) , $align , $context , true , 'nopagingblock' , '' , $entries, $order_by , $arrange, $taxonomy_category , $taxonomy_tag , $counter, $span, $btnclass, $iconclass, $tagcolor , 'thetermsclass' , ' style="background: '.esc_attr($bgcolor).'; color: '.esc_attr($textcolor).';"'); ?>
 
 	<?php
 

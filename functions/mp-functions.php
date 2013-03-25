@@ -25,6 +25,8 @@ function flexmarket_advance_product_sort( $unique_id = '' , $sort = false, $alig
 		$order_by = (!empty($_SESSION['advancedsortby'.$unique_id])) ? esc_html(esc_attr(trim($_SESSION['advancedsortby'.$unique_id]))) : $order_by;
 		$order = (!empty($_SESSION['advancedsortdirection'.$unique_id])) ? esc_html(esc_attr(trim($_SESSION['advancedsortdirection'.$unique_id]))) : $order;
 
+		$output = apply_filters( 'flexmarket_listing_before_advanced_sort' , $output , $unique_id , $context , $category , $tag );
+
 		$output .= '<div id="advanced-sort" class="'.$align.'">';
 			$output .= '<a href="#adv-sort" role="button" data-toggle="modal" class="btn btn-large'.$btnclass.'"><i class="icon-th'.$iconclass.'"></i> '.__('Advanced Sort' , 'flexmarket').'</a>';
 			$output .= '<div class="clear padding20"></div>';
@@ -109,13 +111,17 @@ function flexmarket_advance_product_sort( $unique_id = '' , $sort = false, $alig
 
 		$output .= '</div>'; // advanced-sort
 
+		$output = apply_filters( 'flexmarket_listing_after_advanced_sort' , $output , $unique_id , $context , $category , $tag );
+
 	}
 
+	$output = apply_filters( 'flexmarket_listing_before_grid' , $output , $unique_id , $context , $category , $tag );
 	$output .= '<div id="mpt-product-grid">';
 
 		$output .= flexmarket_list_product_in_grid( false , $paginate , $page , $per_page, $order_by, $order, $category , $tag , $counter, $span, $btnclass, $iconclass, $tagcolor , $boxclass , $boxstyle);
 
 	$output .= '</div>';
+	$output = apply_filters( 'flexmarket_listing_after_grid' , $output , $unique_id , $context , $category , $tag );
 
   	if ($echo)
     	echo $output;
@@ -267,6 +273,12 @@ function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page 
 
 function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NULL , $imagesize = 'tb-360' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $class = '' , $style = '' , $echo = true ) {
 
+	if (is_multisite()) {
+		$blog_id = get_current_blog_id();
+	} else {
+		$blog_id = 1;
+	}
+
 	if ($class == 'thetermsclass') {
 		$class = '';
 	  	$terms = get_the_terms( $post_id, 'product_category' );
@@ -301,17 +313,18 @@ function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NUL
 
 		$fullimage = wp_get_attachment_image_src( get_post_thumbnail_id($post_id), 'full');
 
+		$output = apply_filters('flexmarket_product_box_before_image' , $output , $post_id , $blog_id );
 		$output .= '<div class="image-box" style="max-width: '.$maxwidth.'px;">';
 		$output .= get_the_post_thumbnail($post_id , $imagesize); 
 			$output .= '<div class="hover-block hidden-phone">';
-				$output .= '';
 					$output .= '<div class="btn-group">';
-					$output .= '<a href="'.get_permalink($post_id).'" class="btn'.$btnclass.'">'.get_the_title($post_id).'</a>';
-					$output .= '<a href="'.$fullimage[0].'" rel="prettyPhoto[mp-product-'.$post_id.'" class="btn'.$btnclass.'"><i class="icon-zoom-in'.$iconclass.'"></i></a>';
+						$button = '<a href="'.get_permalink($post_id).'" class="btn'.$btnclass.'">'.get_the_title($post_id).'</a>';
+						$button .= '<a href="'.$fullimage[0].'" rel="prettyPhoto[mp-product-'.$post_id.'" class="btn'.$btnclass.'"><i class="icon-zoom-in'.$iconclass.'"></i></a>';
+						$output .= apply_filters( 'flexmarket_product_box_btn_group' , $button , $post_id , $blog_id , $btnclass , $iconclass , $fullimage[0] );
 					$output .= '</div>';
-				$output .= '';
 			$output .= '</div>';
 		$output .= '</div>';
+		$output = apply_filters('flexmarket_product_box_after_image' , $output , $post_id , $blog_id );
 	}
 
 	$output .= '<div class="clear padding5"></div>';
@@ -334,7 +347,7 @@ function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NUL
 		$output .= '<div class="visible-phone align-center">';
 
 			$output .= '<p>';
-			$output .= get_the_title($post_id) . '<br />';
+			$output .= apply_filters( 'flexmarket_product_box_title_mobile' , get_the_title($post_id) . '<br />' , $post_id , $blog_id );
 			$output .= flexmarket_product_price(false, $post_id, '' , $tagcolor);
 			$output .= '</p>';
 			$output .= flexmarket_buy_button(false, 'list', $post_id, $btnclass, $iconclass);
