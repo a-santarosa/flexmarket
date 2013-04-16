@@ -1,3 +1,7 @@
+Version 1.6.2 - 
+	Allow selective HTML tags in Page Builder blocks
+	Fixed javascript problem in toggle & accordion blocks
+
 Version 1.6.0 -
 	Added hooks across the theme for better customization
 

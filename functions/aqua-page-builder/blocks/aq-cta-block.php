@@ -412,9 +412,9 @@ class AQ_CTA_Block extends AQ_Block {
 		$output .= '<div class="row-fluid">';
 		$output .= '<div class="span10'.$alignclass.'">';
 		$output .= '<'.$heading.' style="color: '.$textcolor.';">';
-		$output .= do_shortcode(strip_tags($headline));
+		$output .= do_shortcode(mpt_content_kses(htmlspecialchars_decode($headline)));
 		$output .= '<br /><small style="color: '.$textcolor.';">';
-		$output .= do_shortcode(strip_tags($subheadline));
+		$output .= do_shortcode(mpt_content_kses(htmlspecialchars_decode($subheadline)));
 		$output .= '</small>';
 		$output .= '</'.$heading.'>';
 		$output .= '</div>';

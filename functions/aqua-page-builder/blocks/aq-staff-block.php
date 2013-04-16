@@ -157,7 +157,7 @@ class AQ_Staff_Block extends AQ_Block {
 					
 					<h3 style="color: <?php echo $textcolor; ?>;"><?php echo strip_tags($title); ?> <small style="color: <?php echo $textcolor; ?>;"><?php echo strip_tags($position); ?></small></h3>
 
-					<?php echo wpautop(do_shortcode(strip_tags($text))); ?>
+					<?php echo wpautop(do_shortcode(mpt_content_kses(htmlspecialchars_decode($text)))); ?>
 					
 					<center><div class="btn-group">
 				    

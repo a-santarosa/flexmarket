@@ -320,7 +320,7 @@ class AQ_Features_Block extends AQ_Block {
 		$output .= '<img src="'.$image[0].'"'.$imageclass.' />';
 		$output .= '<div class="clear padding5"></div>';
 		$output .= '<'.$heading.'>'.strip_tags($title).'</'.$heading.'>';
-		$output .= '<div class="opacity8">'.wpautop(do_shortcode(strip_tags($text))).'</div>';
+		$output .= '<div class="opacity8">'.wpautop(do_shortcode(mpt_content_kses(htmlspecialchars_decode($text)))).'</div>';
 
 		if ($enablebtn == '1') {
 			$output .= '<a href="'.esc_url($btnlink).'"'.($btnlinkopen == 'new' ? ' target="_blank"' : '').'>';

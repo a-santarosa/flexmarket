@@ -66,7 +66,7 @@ if(!class_exists('AQ_Alert_Block')) {
 		function block($instance) {
 			extract($instance);
 			
-			echo '<div class="aq_alert '.$type.' cf" style="'. $style .'">' . do_shortcode(strip_tags($content)) . '</div>';
+			echo '<div class="aq_alert '.$type.' cf" style="'. $style .'">' . do_shortcode(mpt_content_kses(htmlspecialchars_decode($content))) . '</div>';
 			
 		}
 		

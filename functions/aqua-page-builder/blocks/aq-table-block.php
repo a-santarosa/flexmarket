@@ -246,7 +246,7 @@ if(!class_exists('AQ_Table_Block')) {
 
 					for ($i=1; $i <= $columns; $i++) {
 						$output .= '<td>';
-						$output .= wpautop(do_shortcode(strip_tags($row['column'.$i])));
+						$output .= wpautop(do_shortcode(mpt_content_kses(htmlspecialchars_decode($row['column'.$i]))));
 						$output .= '</td>';
 					}
 

@@ -94,7 +94,7 @@ class AQ_Text_Block extends AQ_Block {
 		
 		echo '<div'.$id.$class.$style.'>';
 		if($title) echo '<'.$heading.' class="aq-block-title">'.strip_tags($title).'</'.$heading.'>';
-		echo wpautop(do_shortcode(strip_tags($text)));
+		echo wpautop(do_shortcode(mpt_content_kses(htmlspecialchars_decode($text))));
 		echo '</div>';
 	}
 	

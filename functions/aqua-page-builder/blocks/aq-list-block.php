@@ -400,7 +400,7 @@ if(!class_exists('AQ_List_Block')) {
 
 						$output .= '<li>';
 						$output .= '<i class="'.$item['icontype'].$tagcolor.'"></i> ';
-						$output .= do_shortcode(strip_tags($item['content']));
+						$output .= do_shortcode(mpt_content_kses(htmlspecialchars_decode($item['content'])));
 						$output .= '</li>';
 					}
 				}
@@ -412,7 +412,7 @@ if(!class_exists('AQ_List_Block')) {
 					foreach( $items as $item ) {
 						
 						$output .= '<li>';
-						$output .= do_shortcode(strip_tags($item['content']));
+						$output .= do_shortcode(mpt_content_kses(htmlspecialchars_decode($item['content'])));
 						$output .= '</li>';
 					}
 

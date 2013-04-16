@@ -138,7 +138,7 @@ class AQ_Slogan_Block extends AQ_Block {
 
 		$output .= '<div'.$id.' class="hero-unit'.$alignclass.$class.'" style="background: '.$bgcolor.'; color: '.$textcolor.';'.$style.'"">';
 		$output .= '<'.$heading.'>';
-		$output .= do_shortcode(strip_tags($slogan));
+		$output .= do_shortcode(mpt_content_kses(htmlspecialchars_decode($slogan)));
 		$output .= '</'.$heading.'>';
 		$output .= '</div>';
 

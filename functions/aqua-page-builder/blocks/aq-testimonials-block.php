@@ -186,7 +186,7 @@ if(!class_exists('AQ_Testimonials_Block')) {
 						$output .= '<div class="'.($i == 1 ? 'active ' : '').'item">';
 
 						$output .= '<p><em style="font-size: 0.9em;line-height: 1.5em;opacity: 0.8;">';
-						$output .= do_shortcode(strip_tags($item['content']));
+						$output .= do_shortcode(mpt_content_kses(htmlspecialchars_decode($item['content'])));
 						$output .= '</em></p>';
 						$output .= (!empty($item['photo']) ? '<img src="'.esc_url($item['photo']).'" class="img-circle pull-left" style="margin-right: 10px;" />' : '');
 						$output .= '<h4>';

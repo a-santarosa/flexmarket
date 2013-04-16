@@ -142,7 +142,7 @@ if(!class_exists('AQ_Tabs_Block')) {
 					foreach($tabs as $tab) {
 						$tabs_active = $i == 1 ? ' active' : '';
 						
-						$output .= '<div id="aq-tab-'. sanitize_title( $tab['title'] ) . $i .'" class="aq-tab tab-pane fade in'.$tabs_active.'" style="background:'.$bgcolor.'; color: '.$textcolor.'">'. wpautop(do_shortcode(strip_tags($tab['content']))) .'</div>';
+						$output .= '<div id="aq-tab-'. sanitize_title( $tab['title'] ) . $i .'" class="aq-tab tab-pane fade in'.$tabs_active.'" style="background:'.$bgcolor.'; color: '.$textcolor.'">'. wpautop(do_shortcode(mpt_content_kses(htmlspecialchars_decode($tab['content'])))) .'</div>';
 						
 						$i++;
 					}
@@ -163,14 +163,15 @@ if(!class_exists('AQ_Tabs_Block')) {
 						$output .= '<h2 class="tab-head" style="background:'.$bgcolor.'; color: '.$textcolor.'">'. $tab['title'] .'</h2>';
 						$output .= '<div class="arrow"></div>';
 						$output .= '</a>';
-						$output .= '<div id="aq_block_toggles_'.$num.'" class="collapse in tab-body cf" style="background:'.$bgcolor.'; color: '.$textcolor.';">';
-							$output .= wpautop(do_shortcode(strip_tags($tab['content'])));
+						$output .= '<div id="aq_block_toggles_'.$num.'" class="collapse cf">';
+							$output .= '<div class="tab-body" style="background: '.$bgcolor.'; color: '.$textcolor.';">';
+								$output .= wpautop(do_shortcode(mpt_content_kses(htmlspecialchars_decode($tab['content']))));
+							$output .= '</div>';
 						$output .= '</div>';
 					$output .= '</div>';
 				}
 				
 				$output .= '</div>';
-				$output .= '<script type="text/javascript">jQuery(document).ready(function () {jQuery("#aq_block_toggles_'.$num.'").collapse();});</script>';
 				
 			} elseif ($type == 'accordion') {
 
@@ -197,8 +198,10 @@ if(!class_exists('AQ_Tabs_Block')) {
 						$output .= '<h2 class="tab-head" style="background:'.$bgcolor.'; color: '.$textcolor.'">'. $tab['title'] .'</h2>';
 						$output .= '<div class="arrow"></div>';
 						$output .= '</a>';
-						$output .= '<div id="aq_block_toggles_'.$tabnum.'" class="tab-body collapse'.$open.' cf" style="background:'.$bgcolor.'; color: '.$textcolor.'">';
-							$output .= wpautop(do_shortcode(strip_tags($tab['content'])));
+						$output .= '<div id="aq_block_toggles_'.$tabnum.'" class="collapse'.$open.' cf" style="background: '.$bgcolor.'; color: '.$textcolor.'">';
+							$output .= '<div class="tab-body">';
+								$output .= wpautop(do_shortcode(mpt_content_kses(htmlspecialchars_decode($tab['content']))));
+							$output .= '</div>';
 						$output .= '</div>';
 					$output .= '</div>';
 				}

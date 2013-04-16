@@ -458,7 +458,7 @@ if(!class_exists('AQ_Pricing_Block')) {
 					foreach( $items as $item ) {
 						$output .= '<li>';
 						$output .= ($item['icontype'] == 'none' ? '' : '<i class="'.$item['icontype'].($item['iconcolor'] == 'white' ? ' icon-white' : '').'"></i> ');
-						$output .= do_shortcode(strip_tags($item['content']));
+						$output .= do_shortcode(mpt_content_kses(htmlspecialchars_decode($item['content'])));
 						$output .= '</li>';					
 					}
 				}

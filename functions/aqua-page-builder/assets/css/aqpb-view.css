@@ -375,7 +375,6 @@ h4.aq-block-title { margin:  0 0 20px; }
 	.aq_block_accordion:hover div.arrow { background-position: -9px -3px; }
 	.aq_block_toggle .tab-body,
 	.aq_block_accordion .tab-body { 
-		display: none;
 		background: url(../images/drop-bg.png) repeat-x 0 top;
 		overflow: hidden;
 		padding: 15px 15px 5px;
