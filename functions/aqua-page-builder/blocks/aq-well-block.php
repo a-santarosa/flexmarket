@@ -91,6 +91,8 @@ class AQ_Well_Block extends AQ_Block {
 		extract($instance);
 		
 		$block_saving_id = 'aq_blocks[aq_block_'.$number.']';
+ 		$userclass = !empty($userclass) ? esc_attr($userclass) : '';
+ 		$style = !empty($style) ? esc_attr($style) : '';
 
 			echo '<div class="cf" style="height: 20px"></div>';
 			echo 'Class (optional)<br/><input type="text" class="widefat" name="'.$this->get_field_name('userclass').'" value="'.$userclass.'" />';

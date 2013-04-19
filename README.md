@@ -52,6 +52,9 @@ You might also check out our blog at <a href="http://www.marketpressthemes.com/b
 
 <h2><u>Change Log</u></h2>
 
+Version 1.6.3 -
+	Fixed css conflict in column block
+
 Version 1.6.2 - 
 	Allow selective HTML tags in Page Builder blocks
 	Fixed javascript problem in toggle & accordion blocks
