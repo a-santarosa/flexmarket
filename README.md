@@ -52,6 +52,9 @@ You might also check out our blog at <a href="http://www.marketpressthemes.com/b
 
 <h2><u>Change Log</u></h2>
 
+Version 1.6.4 -
+	Fixed missing list style in Page Builder List Block
+
 Version 1.6.3 -
 	Fixed css conflict in column block
 

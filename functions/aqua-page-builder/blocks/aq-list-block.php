@@ -344,29 +344,33 @@ if(!class_exists('AQ_List_Block')) {
 			$output = '';
 			$id = (!empty($id) ? ' id="'.esc_attr($id).'"' : '');
 			$userclass = (!empty($class) ? ' '.esc_attr($class) : '');
-			$style = (!empty($style) ? ' style="'.esc_attr($style).'"' : '');
+			$style = (!empty($style) ? ' '.esc_attr($style) : '');
 
 			$classoutput = '';
 
 			switch ($type) {
 				case 'bullet':
 					$classoutput .= '';
+					$liststyle = 'list-style-type:disc;';
 					break;
 				case 'number':
 					$classoutput .= '';
+					$liststyle = 'list-style-type:decimal;';
 					break;	
 				case 'icon':
 					$classoutput .= 'unstyled';
+					$liststyle = '';
 					break;	
 				case 'unstyled':
 					$classoutput .= 'unstyled';
+					$liststyle = 'list-style-type:none;';
 					break;	
 			}
 
 			$classoutput .= $userclass;
 
 			$output .= (!empty($title) ? '<'.$heading.'>'.esc_attr($title).'</'.$heading.'>' : '' );
-			$output .= '<'.($type == 'number' ? 'ol' : 'ul').$id.(!empty($classoutput) ? ' class="'.$classoutput.'"' : '').$style.'>';
+			$output .= '<'.($type == 'number' ? 'ol' : 'ul').$id.(!empty($classoutput) ? ' class=" '.$classoutput.'"' : '').' style="'.$liststyle.$style.'">';
 
 			if ($type == 'icon') {
 
