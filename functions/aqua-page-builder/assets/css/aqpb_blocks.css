@@ -35,7 +35,7 @@ DO NOT EDIT THIS
 	width: 23.5%;
 	margin-right: 2%;
 	float: left;
-}	
+}
 	.block-settings .description.half.last,
 	.block-settings .description.third.last,
 	.block-settings .description.two-third.last,
@@ -44,24 +44,24 @@ DO NOT EDIT THIS
 	}
 	.span2 .block-settings .description.half,
 	.span3 .block-settings .description.half,
-	.span4 .block-settings .description.half,
+	.col-md-4 .block-settings .description.half,
 	.span5 .block-settings .description.half,
 	.span6 .block-settings .description.half,
 	.span7 .block-settings .description.half,
 	.span2 .block-settings .description.third,
 	.span3 .block-settings .description.third,
-	.span4 .block-settings .description.third,
+	.col-md-4 .block-settings .description.third,
 	.span5 .block-settings .description.third,
 	.span6 .block-settings .description.third,
 	.span7 .block-settings .description.third,
 	.span2 .block-settings .description.two-third,
 	.span3 .block-settings .description.two-third,
-	.span4 .block-settings .description.two-third,
+	.col-md-4 .block-settings .description.two-third,
 	.span5 .block-settings .description.two-third,
 	.span6 .block-settings .description.two-third,
 	.span7 .block-settings .description.two-third,
 	.span3 .block-settings .description.fourth,
-	.span4 .block-settings .description.fourth,
+	.col-md-4 .block-settings .description.fourth,
 	.span5 .block-settings .description.fourth,
 	.span6 .block-settings .description.fourth,
 	.span7 .block-settings .description.fourth {
@@ -75,9 +75,9 @@ DO NOT EDIT THIS
 }
 
 /** BASIC FORM INPUTS **/
-	
+
 /* Inputs */
-.block-settings input[type="text"], .block-settings textarea { 
+.block-settings input[type="text"], .block-settings textarea {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -88,8 +88,8 @@ DO NOT EDIT THIS
 
 	.block-settings .textarea-full { width: 100%; }
 	.block-settings select { width: 100%; }
-	
-.block-settings .description-float { 
+
+.block-settings .description-float {
 	margin-right: 10px;
 	float: left;
 }
@@ -102,13 +102,13 @@ DO NOT EDIT THIS
 	border: 1px dotted #E3E3E3;
 	max-width: 734px;
 }
-#blocks-to-edit .block-aq_column_block ul.blocks { 
+#blocks-to-edit .block-aq_column_block ul.blocks {
 	min-height: 50px;
 	padding: 0;
 	margin: 0 0 0 -20px;
 	width: 110%;
 }
-#blocks-to-edit .empty-column { 
+#blocks-to-edit .empty-column {
 	margin: 0;
 	padding: 8px 10px 0;
 	color: #888;
@@ -146,7 +146,7 @@ DO NOT EDIT THIS
 		display: none;
 	}
 	.aq-sortable-list .sortable-handle { float: right; }
-	.aq-sortable-list .sortable-handle a { 
+	.aq-sortable-list .sortable-handle a {
 		position: absolute;
 		right: 0px;
 		top: 0;
@@ -159,15 +159,15 @@ DO NOT EDIT THIS
 	}
 	.aq-sortable-list .sortable-delete { font-style: normal; }
 	.aq-sortable-add-new { margin-top: 10px; }
-	#page-builder .aq-sortable-list .ui-state-highlight { 
+	#page-builder .aq-sortable-list .ui-state-highlight {
 		height: 38px;
 		margin: 0 0 6px;
 		float: none;
 	}
-	
+
 
 /* Upload */
-.screenshot { 
+.screenshot {
 	float: left;
 	padding: 7px;
 	background: #fff;

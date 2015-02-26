@@ -1,25 +1,25 @@
 <?php
 /** [MP] Product Carousel block **/
 class AQ_MP_Product_Carousel_Block extends AQ_Block {
-	
+
 	//set and create block
 	function __construct() {
 		$block_options = array(
 			'name' => '[MP] Product Carousel',
 			'size' => 'span12',
 		);
-		
+
 		//create the block
 		parent::__construct('aq_mp_product_carousel_block', $block_options);
 	}
-	
+
 	function form($instance) {
-		
+
 		$defaults = array(
 			'layout' => '3col',
 			'entries' => '9',
 			'showcategory' => 'no',
-			'order_by' => 'date', 
+			'order_by' => 'date',
 			'arrange' => 'DESC',
 			'taxonomy_type' => 'none',
 			'taxonomy' => '',
@@ -106,7 +106,7 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 			'DESC' => 'Descending',
 			'ASC' => 'Ascending',
 		);
-		
+
 		?>
 
 		<div class="description half">
@@ -136,7 +136,7 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 				<?php echo aq_field_select('pause', $block_id, $pause_options, $pause); ?>
 			</label>
 		</div>
-		
+
 		<div class="description half last">
 			<label for="<?php echo $this->get_field_id('taxonomyfilter') ?>">
 				<?php _e('Taxonomy Filter:', 'flexmarket') ?><br />
@@ -149,14 +149,14 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 				<?php _e('Order Products By:', 'flexmarket') ?><br />
 				<?php echo aq_field_select('order_by', $block_id, $order_by_options, $order_by); ?>
 			</label>
-		</div>	
+		</div>
 
 		<div class="description half last">
 			<label for="<?php echo $this->get_field_id('arrange') ?>">
 				<br />
 				<?php echo aq_field_select('arrange', $block_id, $order_options, $arrange); ?>
 			</label>
-		</div>	
+		</div>
 
 		<div class="description fourth">
 			<label for="<?php echo $this->get_field_id('bgcolor') ?>">
@@ -185,10 +185,10 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 				<?php echo aq_field_select('iconcolor', $block_id, $iconcolor_options, $iconcolor); ?>
 			</label>
 		</div>
-		
+
 		<?php
 	}
-	
+
 	function block($instance) {
 		extract($instance);
 
@@ -244,7 +244,7 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 				$btnclass = ' btn-inverse';
 				$iconclass = ' icon-white';
 				break;
-			
+
 		}
 
 		switch ($iconcolor) {
@@ -265,11 +265,11 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 				break;
 			case 'white':
 				$tagcolor = ' icon-white';
-				break;		
+				break;
 			case 'black':
 				$tagcolor = '';
 				break;
-			
+
 		}
 
 	?>
@@ -283,11 +283,11 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
             </div>
 
             <div class="clear padding10"></div>
-           
+
             <div class="carousel-inner">
 
 				<div class="item active">
-					<div class="row-fluid">
+					<div class="row">
 
 				<?php
 
@@ -298,7 +298,7 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 							$counter = '2';
 							break;
 						case '3col':
-							$span = 'span4';
+							$span = 'col-md-4';
 							$imagesize = 'tb-360';
 							$counter = '3';
 							break;
@@ -307,9 +307,9 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 							$imagesize = 'tb-360';
 							$counter = '4';
 							$style = 'false';
-							break;							
+							break;
 						default:
-							$span = 'span4';
+							$span = 'col-md-4';
 							$imagesize = 'tb-360';
 							$counter = '3';
 							break;
@@ -320,7 +320,7 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 					$num = 1;
 				?>
 
-					<?php if (have_posts()) : while (have_posts()) : the_post(); ?>	
+					<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
 						<?php $id = get_the_ID(); ?>
 
@@ -331,10 +331,10 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 						<?php else: ?>
 
 							<?php if ( $count == $counter ): ?>
-								</div><!-- / row-fluid -->
+								</div><!-- / row -->
 								</div><!-- / item -->
 								<div class="item">
-								<div class="row-fluid">
+								<div class="row">
 								<?php $count = 0; ?>
 							<?php endif; ?>
 
@@ -345,13 +345,13 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 
 					<?php endwhile; endif; ?>
 
-					</div><!-- / row-fluid -->
+					</div><!-- / row -->
 
 				</div><!-- / item -->
 
 				<?php wp_reset_query(); ?>
 
-			</div> <!-- / carousel-inner --> 
+			</div> <!-- / carousel-inner -->
 
 		</div> <!-- / product-carousel -->
 
@@ -369,5 +369,5 @@ class AQ_MP_Product_Carousel_Block extends AQ_Block {
 	<?php
 
 	}
-	
+
 }

@@ -5,7 +5,7 @@
 
 					<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-					<?php 
+					<?php
 						$headerbgcolor = esc_attr(get_post_meta( $post->ID, '_mpt_page_header_bg_color', true ));
 						$headertextcolor = esc_attr(get_post_meta( $post->ID, '_mpt_page_header_text_color', true ));
 						$contentbgcolor = esc_attr(get_post_meta( $post->ID, '_mpt_page_content_bg_color', true ));
@@ -16,26 +16,26 @@
 			<div class="outercontainer">
 				<div class="container">
 
-					<div class="clear padding30"></div>				
-							
+					<div class="clear padding30"></div>
+
 						<h1 class="page-header"><span<?php echo ($headertextcolor != '#' && !empty($headertextcolor) ? ' style="color: '.$headertextcolor.';"' : '') ?>><?php the_title(); ?></span></h1>
 
 
 					<div class="clear padding15"></div>
 
 				</div><!-- / container -->
-			</div><!-- / outercontainer -->	
-		</div><!-- / header-section -->	
+			</div><!-- / outercontainer -->
+		</div><!-- / header-section -->
 
 
 
 		<div class="content-section"<?php echo ($contentbgcolor != '#' && !empty($contentbgcolor) ? ' style="background: '.$contentbgcolor.';"' : '') ?>>
 			<div class="outercontainer">
-				<div class="clear padding30"></div>	
+				<div class="clear padding30"></div>
 				<div class="container">
 
-					<div class="row-fluid">
-						<div class="span8">					
+					<div class="row">
+						<div class="col-md-8">
 							<div id="post-<?php the_ID(); ?>" <?php post_class(); ?><?php echo ($contenttextcolor != '#' && !empty($contenttextcolor) ? ' style="color: '.$contenttextcolor.';"' : '') ?>>
 									<?php the_content(); ?>
 									<div class="clear padding20"></div>
@@ -44,33 +44,33 @@
 									<?php edit_post_link('Edit this entry.', '<p>', '</p>'); ?>
 									<div class="clear padding30"></div>
 
-									<?php 
+									<?php
 
 										$showcomments = get_post_meta( $post->ID, '_mpt_page_show_comments', true );
 
 										if ( $showcomments == 'on') {
 											comments_template();
-										} 
+										}
 									?>
 
 							</div>
 
 					<?php endwhile; endif; ?>
-						
-						</div><!-- / span8 -->
 
-						<div id="sidebar" class="span4">
+						</div><!-- / col-md-8 -->
+
+						<div id="sidebar" class="col-md-4">
 								<?php get_sidebar(); ?>
 						</div>
-						
-					</div><!-- / row-fluid -->
 
-					
+					</div><!-- / row -->
+
+
 					<div class="padding20"></div>
 
 				</div><!-- / container -->
-			</div><!-- / outercontainer -->	
-		</div><!-- / content-section -->	
+			</div><!-- / outercontainer -->
+		</div><!-- / content-section -->
 
 	</div><!-- / page-wrapper -->
 

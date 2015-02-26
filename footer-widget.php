@@ -10,10 +10,10 @@
 		<div class="footer-widget-top"></div>
 		<div class="outercontainer">
 			<div class="container">
-				
-				<div class="clear padding30"></div>		
 
-				<div class="row-fluid">
+				<div class="clear padding30"></div>
+
+				<div class="row">
 
 					<!-- start 1st footer widget -->
 					<div class="span<?php mpt_footer_widget_setting_1(); ?>">
@@ -29,7 +29,7 @@
 								<?php dynamic_sidebar( 'footer-two' ); ?>
 						<?php endif; ?>
 					</div>
-					<!-- end 2nd footer widget -->	
+					<!-- end 2nd footer widget -->
 
 					<!-- start 3rd footer widget -->
 					<div class="span<?php mpt_footer_widget_setting_3(); ?>">
@@ -41,10 +41,10 @@
 
 				</div>
 
-				<div class="clear padding30"></div>	
+				<div class="clear padding30"></div>
 
 			</div><!-- / container -->
-		</div><!-- / outercontainer -->	
-	</div><!-- / content-section -->	
+		</div><!-- / outercontainer -->
+	</div><!-- / content-section -->
 
 <?php } ?>

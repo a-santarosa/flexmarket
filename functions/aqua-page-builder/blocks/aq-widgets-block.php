@@ -1,19 +1,19 @@
 <?php
 /* Registered Sidebars Blocks */
 class AQ_Widgets_Block extends AQ_Block {
-	
+
 	function __construct() {
 		$block_options = array(
 			'name' => 'Widgets',
-			'size' => 'span4',
+			'size' => 'col-md-4',
 		);
-		
+
 		parent::__construct('AQ_Widgets_Block', $block_options);
 	}
-	
+
 	function form($instance) {
-		
-		
+
+
 		//get all registered sidebars
 		global $wp_registered_sidebars;
 		$sidebar_options = array(); $default_sidebar = '';
@@ -21,13 +21,13 @@ class AQ_Widgets_Block extends AQ_Block {
 			$default_sidebar = empty($default_sidebar) ? $registered_sidebar['id'] : $default_sidebar;
 			$sidebar_options[$registered_sidebar['id']] = $registered_sidebar['name'];
 		}
-		
+
 		$defaults = array(
 			'sidebar' => $default_sidebar,
 		);
 		$instance = wp_parse_args($instance, $defaults);
 		extract($instance);
-		
+
 		?>
 		<p class="description half">
 			<label for="<?php echo $block_id ?>_title">
@@ -43,7 +43,7 @@ class AQ_Widgets_Block extends AQ_Block {
 		</p>
 		<?php
 	}
-	
+
 	function block($instance) {
 		extract($instance);
 
@@ -55,5 +55,5 @@ class AQ_Widgets_Block extends AQ_Block {
 	<?php
 
 	}
-	
+
 }

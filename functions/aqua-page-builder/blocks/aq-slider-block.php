@@ -2,23 +2,23 @@
 /* List Block */
 if(!class_exists('AQ_Slider_Block')) {
 	class AQ_Slider_Block extends AQ_Block {
-	
+
 		function __construct() {
 			$block_options = array(
 				'name' => 'Slider Block',
 				'size' => 'span12',
 			);
-			
+
 			//create the widget
 			parent::__construct('AQ_Slider_Block', $block_options);
-			
+
 			//add ajax functions
 			add_action('wp_ajax_aq_block_slide_add_new', array($this, 'add_slide'));
-			
+
 		}
-		
+
 		function form($instance) {
-		
+
 			$defaults = array(
 				'title' => '',
 				'slides' => array(
@@ -38,7 +38,7 @@ if(!class_exists('AQ_Slider_Block')) {
 				'class' => '',
 				'style' => ''
 			);
-			
+
 			$instance = wp_parse_args($instance, $defaults);
 			extract($instance);
 
@@ -46,7 +46,7 @@ if(!class_exists('AQ_Slider_Block')) {
 				'yes' => 'Yes',
 				'no' => 'No',
 			);
-			
+
 			?>
 
 			<div class="description cf">
@@ -54,7 +54,7 @@ if(!class_exists('AQ_Slider_Block')) {
 					<?php
 					$slides = is_array($slides) ? $slides : $defaults['slides'];
 					$count = 1;
-					foreach($slides as $slide) {	
+					foreach($slides as $slide) {
 						$this->slide($slide, $count);
 						$count++;
 					}
@@ -96,7 +96,7 @@ if(!class_exists('AQ_Slider_Block')) {
 			</div>
 			<?php
 		}
-		
+
 		function slide($slide = array(), $count = 0) {
 
 			$btncolor_options = array(
@@ -121,7 +121,7 @@ if(!class_exists('AQ_Slider_Block')) {
 
 			?>
 			<li id="sortable-item-<?php echo $count ?>" class="sortable-item" rel="<?php echo $count ?>">
-				
+
 				<div class="sortable-head cf">
 					<div class="sortable-title">
 						<strong><?php echo $slide['title'] ?></strong>
@@ -130,7 +130,7 @@ if(!class_exists('AQ_Slider_Block')) {
 						<a href="#">Open / Close</a>
 					</div>
 				</div>
-				
+
 				<div class="sortable-body">
 					<div class="tab-desc description">
 						<label for="<?php echo $this->get_field_id('slides') ?>-<?php echo $count ?>-title">
@@ -165,26 +165,26 @@ if(!class_exists('AQ_Slider_Block')) {
 						<label for="<?php echo $this->get_field_id('slides') ?>-<?php echo $count ?>-linkopen">
 							Link Open In<br/>
 							<select id="<?php echo $this->get_field_id('slides') ?>-<?php echo $count ?>-linkopen" name="<?php echo $this->get_field_name('slides') ?>[<?php echo $count ?>][linkopen]">
-								<?php 
+								<?php
 									foreach($linkopen_options as $key=>$value) {
 										echo '<option value="'.$key.'" '.selected( $slide['linkopen'] , $key, false ).'>'.htmlspecialchars($value).'</option>';
 									}
 								?>
 							</select>
 						</label>
-					</div>				
+					</div>
 
 					<div class="tab-desc description third">
 						<label for="<?php echo $this->get_field_id('slides') ?>-<?php echo $count ?>-button">
 							Show Button<br/>
 							<select id="<?php echo $this->get_field_id('slides') ?>-<?php echo $count ?>-button" name="<?php echo $this->get_field_name('slides') ?>[<?php echo $count ?>][button]">
-								<?php 
+								<?php
 									foreach($enablebtn_options as $key=>$value) {
 										echo '<option value="'.$key.'" '.selected( $slide['button'] , $key, false ).'>'.htmlspecialchars($value).'</option>';
 									}
 								?>
 							</select>
-							
+
 						</label>
 					</div>
 
@@ -199,7 +199,7 @@ if(!class_exists('AQ_Slider_Block')) {
 						<label for="<?php echo $this->get_field_id('slides') ?>-<?php echo $count ?>-btncolor">
 							Button Color<br/>
 							<select id="<?php echo $this->get_field_id('slides') ?>-<?php echo $count ?>-btncolor" name="<?php echo $this->get_field_name('slides') ?>[<?php echo $count ?>][btncolor]">
-								<?php 
+								<?php
 									foreach($btncolor_options as $key=>$value) {
 										echo '<option value="'.$key.'" '.selected( $slide['btncolor'] , $key, false ).'>'.htmlspecialchars($value).'</option>';
 									}
@@ -210,16 +210,16 @@ if(!class_exists('AQ_Slider_Block')) {
 
 					<p class="tab-desc description"><a href="#" class="sortable-delete">Delete</a></p>
 				</div>
-				
+
 			</li>
 			<?php
 		}
-		
+
 		function block($instance) {
 			extract($instance);
 
 			$themefolder = get_template_directory_uri();
-			
+
 			$output = '';
 			$class = (!empty($class) ? ' '.esc_attr($class) : '');
 			$style = (!empty($style) ? ' style="'.esc_attr($style).'"' : '');
@@ -255,10 +255,10 @@ if(!class_exists('AQ_Slider_Block')) {
 							case 'black':
 								$btnclass = ' btn-inverse';
 								break;
-							
+
 						}
 
-						$output .= '<div class="'.($i == 1 ? 'active ' : '').'item">';					
+						$output .= '<div class="'.($i == 1 ? 'active ' : '').'item">';
 
 						$output .= (!empty($slide['link']) ? '<a href="'.esc_url($slide['link']).'"'.($slide['linkopen'] == 'same' ? '' : ' target="_blank"').'>' : '');
 						$output .= (!empty($slide['image']) ? '<img src="'.esc_url($slide['image']).'" />' : '');
@@ -267,7 +267,7 @@ if(!class_exists('AQ_Slider_Block')) {
 						if (!empty($slide['content']) || !empty($slide['title']) || $slide['button'] == 'yes') {
 
 							$output .= '<div class="carousel-caption">';
-								$output .= '<div class="row-fluid">';
+								$output .= '<div class="row">';
 									$output .= '<div class="'.($slide['button'] == 'yes' ? 'span9' : 'span12').'">';
 										$output .= '<h4>'.strip_tags($slide['title']).'</h4>';
 										$output .= wpautop(do_shortcode(strip_tags($slide['content'])));
@@ -286,13 +286,13 @@ if(!class_exists('AQ_Slider_Block')) {
 						}
 
 						$output .= '';
-						
+
 						$output .= '</div>';
 
 						$i++;
 					}
 				}
-			
+
 			$output .= '</div>'; // End carouse-inner
 			$output .= '<a class="carousel-control left" href="#sliderCarousel-'.$block_id.'" data-slide="prev"><img src="'.$themefolder.'/img/back.png"></a>';
 			$output .= '<a class="carousel-control right" href="#sliderCarousel-'.$block_id.'" data-slide="next"><img src="'.$themefolder.'/img/next.png"></a>';
@@ -300,19 +300,19 @@ if(!class_exists('AQ_Slider_Block')) {
 
 			$output .= '<script type="text/javascript">jQuery(document).ready(function () {jQuery(".slider-block").carousel({interval: '.esc_attr($speed).($pause == 'yes' ? ',pause: "hover"' : '').'})});</script>';
 
-				
+
 			echo $output;
-			
+
 		}
-		
+
 		/* AJAX add testimonial */
 		function add_slide() {
-			$nonce = $_POST['security'];	
+			$nonce = $_POST['security'];
 			if (! wp_verify_nonce($nonce, 'aqpb-settings-page-nonce') ) die('-1');
-			
+
 			$count = isset($_POST['count']) ? absint($_POST['count']) : false;
 			$this->block_id = isset($_POST['block_id']) ? $_POST['block_id'] : 'aq-block-9999';
-			
+
 			//default key/value for the testimonial
 			$slide = array(
 				'title' => 'New Slide',
@@ -324,16 +324,16 @@ if(!class_exists('AQ_Slider_Block')) {
 				'link' => '',
 				'image' => '',
 			);
-			
+
 			if($count) {
 				$this->slide($slide, $count);
 			} else {
 				die(-1);
 			}
-			
+
 			die();
 		}
-		
+
 		function update($new_instance, $old_instance) {
 			$new_instance = aq_recursive_sanitize($new_instance);
 			return $new_instance;

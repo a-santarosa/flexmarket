@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	// Unregister default MarketPress widget
 	function remove_default_mp_widget() {
@@ -89,7 +89,7 @@
 			<label for="<?php echo $this->get_field_id('size'); ?>"><?php _e('Thumbnail Size:', 'flexmarket') ?> <input id="<?php echo $this->get_field_id('size'); ?>" name="<?php echo $this->get_field_name('size'); ?>" type="text" size="3" value="<?php echo $size; ?>" /></label></p>
 			*/
 		}
-	}	
+	}
 
 	//Product listing widget
 	class FlexMarket_Product_List extends WP_Widget {
@@ -162,18 +162,18 @@
 	      	$btnclass = mpt_load_mp_btn_color();
 
 	        echo '<li '.mp_product_class(false, 'mp_product', $post->ID).'>';
-	        
-	        echo '<div class="row-fluid">';
-	        
+
+	        echo '<div class="row">';
+
 		        if ($instance['show_thumbnail']) {
-		        	echo '<div class="span4">';
+		        	echo '<div class="col-md-4">';
 		        		mp_product_image( true, 'widget', $post->ID, $instance['size'] );
 		        	echo '</div>';
-		        	echo '<div class="span8">';
+		        	echo '<div class="col-md-8">';
 		        } else {
 		        	echo '<div class="span12">';
 		        }
-		          
+
 			      	echo '<p class="mp_product_name"><a href="' . get_permalink( $post->ID ) . '">' . esc_attr($post->post_title) . '</a></p>';
 
 			        if ($instance['show_excerpt'])
@@ -193,8 +193,8 @@
 
 			        echo '</div>'; //End span
 
-	          echo '</div>'; // End Row-fluid
-	        
+	          echo '</div>'; // End row
+
 	        echo '</li>';
 	      }
 	      echo '</ul>';
@@ -340,7 +340,7 @@
 				case 'black':
 					$tagclass = ' label-inverse';
 					break;
-				
+
 				default:
 					$tagclass = ' label-info';
 					break;
@@ -384,12 +384,12 @@
 			<label for="<?php echo $this->get_field_id('tagcolor') ?>">
 				<?php _e('Tag Color') ?><br/>
 				<select id="<?php echo $this->get_field_id('tagcolor') ?>" class="widefat" name="<?php echo $this->get_field_name('tagcolor') ?>">
-					<?php 
+					<?php
 						foreach($tagcolor_options as $key=>$value) {
 							echo '<option value="'.$key.'" '.selected( $instance['tagcolor'] , $key, false ).'>'.htmlspecialchars($value).'</option>';
 						}
 					?>
-				</select>			
+				</select>
 			</label>
 		</p>
 

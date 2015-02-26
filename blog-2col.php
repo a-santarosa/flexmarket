@@ -1,12 +1,12 @@
-						<div class="span6">
+						<div class="col-md-6">
 							<div class="blog-post">
 
 								<?php $temp = get_post_meta( $post->ID, '_mpt_post_select_temp', true ); ?>
 								<?php if (has_post_thumbnail($post->ID) || $temp == 'video' ) : ?>
-									
+
 								<div class="align-center">
 									<?php
-										$id = get_the_ID(); 
+										$id = get_the_ID();
 
 										if ($temp == 'image-carousel') {
 											mpt_load_image_carousel( $id , 'tb-860');
@@ -18,18 +18,18 @@
 									?>
 								</div>
 
-								<div class="clear padding10"></div> 								
+								<div class="clear padding10"></div>
 
 								<?php endif; ?>
 
-								<div class="row-fluid">
+								<div class="row">
 
-									<div class="span2">
+									<div class="col-md-2">
 
-										<?php 
-											$year  = get_the_time('Y'); 
-											$month = get_the_time('M'); 
-											$day   = get_the_time('j'); 
+										<?php
+											$year  = get_the_time('Y');
+											$month = get_the_time('M');
+											$day   = get_the_time('j');
 										?>
 
 										<div class="date">
@@ -55,7 +55,7 @@
 									<div class="span10">
 
 										<a href="<?php the_permalink(); ?>"><h3 class="post-title"><?php the_title(); ?></h3></a>
-										
+
 										<div class="post-meta muted">
 											<span>Posted By <?php the_author(); ?> In <?php the_category(', '); ?><?php the_tags(' Tagged with ', ', '); ?> </span>
 										</div>

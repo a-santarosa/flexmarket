@@ -2,23 +2,23 @@
 /* Pricing Table Block */
 if(!class_exists('AQ_Pricing_Block')) {
 	class AQ_Pricing_Block extends AQ_Block {
-	
+
 		function __construct() {
 			$block_options = array(
 				'name' => 'Pricing Package',
-				'size' => 'span4',
+				'size' => 'col-md-4',
 			);
-			
+
 			//create the widget
 			parent::__construct('AQ_Pricing_Block', $block_options);
-			
+
 			//add ajax functions
 			add_action('wp_ajax_aq_block_pricing_add_new', array($this, 'add_item'));
-			
+
 		}
-		
+
 		function form($instance) {
-		
+
 			$defaults = array(
 				'title' => 'New Package',
 				'subtitle' => '',
@@ -42,7 +42,7 @@ if(!class_exists('AQ_Pricing_Block')) {
 				'class' => '',
 				'style' => ''
 			);
-			
+
 			$instance = wp_parse_args($instance, $defaults);
 			extract($instance);
 
@@ -68,7 +68,7 @@ if(!class_exists('AQ_Pricing_Block')) {
 				'same' => 'Same Window',
 				'new' => 'New Window'
 			);
-			
+
 			?>
 
 			<div class="description">
@@ -90,7 +90,7 @@ if(!class_exists('AQ_Pricing_Block')) {
 					<?php
 					$items = is_array($items) ? $items : $defaults['items'];
 					$count = 1;
-					foreach($items as $item) {	
+					foreach($items as $item) {
 						$this->item($item, $count);
 						$count++;
 					}
@@ -141,14 +141,14 @@ if(!class_exists('AQ_Pricing_Block')) {
 				<label for="<?php echo $this->get_field_id('btnlink') ?>">
 					Button Link
 					<?php echo aq_field_input('btnlink', $block_id, $btnlink, $size = 'full') ?>
-				</label>	
+				</label>
 			</div>
 
 			<div class="description third last">
 				<label for="<?php echo $this->get_field_id('btnlinkopen') ?>">
 					Link Open In<br/>
 					<?php echo aq_field_select('btnlinkopen', $block_id, $btnlinkopen_options, $btnlinkopen); ?>
-				</label>	
+				</label>
 			</div>
 
 			<div class="cf" style="height: 10px"></div>
@@ -189,7 +189,7 @@ if(!class_exists('AQ_Pricing_Block')) {
 			</div>
 			<?php
 		}
-		
+
 		function item($item = array(), $count = 0 ) {
 
 			$iconcolor_options = array(
@@ -342,7 +342,7 @@ if(!class_exists('AQ_Pricing_Block')) {
 
 			?>
 			<li id="sortable-item-<?php echo $count ?>" class="sortable-item" rel="<?php echo $count ?>">
-				
+
 				<div class="sortable-head cf">
 					<div class="sortable-title">
 						<strong><?php echo $item['content'] ?></strong>
@@ -351,7 +351,7 @@ if(!class_exists('AQ_Pricing_Block')) {
 						<a href="#">Open / Close</a>
 					</div>
 				</div>
-				
+
 				<div class="sortable-body">
 					<div class="tab-desc description">
 						<label for="<?php echo $this->get_field_id('items') ?>-<?php echo $count ?>-content">
@@ -366,13 +366,13 @@ if(!class_exists('AQ_Pricing_Block')) {
 						<label for="<?php echo $this->get_field_id('items') ?>-<?php echo $count ?>-icontype">
 							Icon type<br/>
 							<select id="<?php echo $this->get_field_id('items') ?>-<?php echo $count ?>-icontype" name="<?php echo $this->get_field_name('items') ?>[<?php echo $count ?>][icontype]">
-								<?php 
+								<?php
 									foreach($icontype_options as $key=>$value) {
 										echo '<option value="'.$key.'" '.selected( $item['icontype'] , $key, false ).'>'.htmlspecialchars($value).'</option>';
 									}
 								?>
 							</select>
-							
+
 						</label>
 					</div>
 
@@ -380,7 +380,7 @@ if(!class_exists('AQ_Pricing_Block')) {
 						<label for="<?php echo $this->get_field_id('items') ?>-<?php echo $count ?>-iconcolor">
 							Icon Color<br/>
 							<select id="<?php echo $this->get_field_id('items') ?>-<?php echo $count ?>-iconcolor" name="<?php echo $this->get_field_name('items') ?>[<?php echo $count ?>][iconcolor]">
-								<?php 
+								<?php
 									foreach($iconcolor_options as $key=>$value) {
 										echo '<option value="'.$key.'" '.selected( $item['iconcolor'] , $key, false ).'>'.htmlspecialchars($value).'</option>';
 									}
@@ -390,14 +390,14 @@ if(!class_exists('AQ_Pricing_Block')) {
 
 					<p class="tab-desc description"><a href="#" class="sortable-delete">Delete</a></p>
 				</div>
-				
+
 			</li>
 			<?php
 		}
-		
+
 		function block($instance) {
 			extract($instance);
-			
+
 			$output = '';
 			$id = (!empty($id) ? ' id="'.esc_attr($id).'"' : '');
 			$class = (!empty($class) ? ' '. esc_attr($class) : '');
@@ -427,7 +427,7 @@ if(!class_exists('AQ_Pricing_Block')) {
 				case 'black':
 					$btnclass .= ' btn-inverse';
 					break;
-				
+
 			}
 
 			switch ($btnsize) {
@@ -442,27 +442,27 @@ if(!class_exists('AQ_Pricing_Block')) {
 					break;
 				case 'mini':
 					$btnclass .= ' btn-mini';
-					break;	
+					break;
 				case 'block':
 					$btnclass .= ' btn-block';
-					break;	
+					break;
 			}
-			
+
 			$output .= '<div'.$id.' class="pricingtable'.($featured == '1' ? ' featured' : '').$class.'" style="background: '.$bgcolor.';color: '.$textcolor.';'.$style.'"">';
 			$output .= '<h2>'.esc_attr($title);
 			$output .= (!empty($subtitle) ? '<br /><span>'.esc_attr($subtitle).'</span>' : '');
 			$output .= '</h2>';
 			$output .= '<ul>';
-				
+
 				if (!empty($items)) {
 					foreach( $items as $item ) {
 						$output .= '<li>';
 						$output .= ($item['icontype'] == 'none' ? '' : '<i class="'.$item['icontype'].($item['iconcolor'] == 'white' ? ' icon-white' : '').'"></i> ');
 						$output .= do_shortcode(mpt_content_kses(htmlspecialchars_decode($item['content'])));
-						$output .= '</li>';					
+						$output .= '</li>';
 					}
 				}
-			
+
 			$output .= '</ul>';
 			$output .= '<h4>'.esc_attr($price).'</h4>';
 
@@ -477,35 +477,35 @@ if(!class_exists('AQ_Pricing_Block')) {
 			}
 
 			$output .= '</div>';
-				
+
 			echo $output;
-			
+
 		}
-		
+
 		/* AJAX add item */
 		function add_item() {
-			$nonce = $_POST['security'];	
+			$nonce = $_POST['security'];
 			if (! wp_verify_nonce($nonce, 'aqpb-settings-page-nonce') ) die('-1');
-			
+
 			$count = isset($_POST['count']) ? absint($_POST['count']) : false;
 			$this->block_id = isset($_POST['block_id']) ? $_POST['block_id'] : 'aq-block-9999';
-			
+
 			//default key/value for the item
 			$item = array(
 				'content' => 'New Item',
 				'icontype' => 'none',
 				'iconcolor' => 'black',
 			);
-			
+
 			if($count) {
 				$this->item($item, $count);
 			} else {
 				die(-1);
 			}
-			
+
 			die();
 		}
-		
+
 		function update($new_instance, $old_instance) {
 			$new_instance = aq_recursive_sanitize($new_instance);
 			return $new_instance;

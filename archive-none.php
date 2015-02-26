@@ -18,23 +18,23 @@
 
 							<?php /* If this is a paged archive */ } elseif (isset($_GET['paged']) && !empty($_GET['paged'])) { ?>
 								<h2 class="page-header"><span>Blog Archives</span></h2>
-							
+
 							<?php } ?>
 
 						<div class="clear padding15"></div>
 
 				</div><!-- / container -->
-			</div><!-- / outercontainer -->	
-		</div><!-- / header-section -->	
+			</div><!-- / outercontainer -->
+		</div><!-- / header-section -->
 
 
 		<div class="content-section">
 			<div class="outercontainer">
-				<div class="clear padding30"></div>	
+				<div class="clear padding30"></div>
 				<div class="container">
 
-					<div class="row-fluid">
-						<div class="span8" style="min-height: 450px;">
+					<div class="row">
+						<div class="col-md-8" style="min-height: 450px;">
 
 							<h2>Nothing Found.</h2>
 
@@ -48,7 +48,7 @@
 								<?php
 									$archive_stuff = '<p>Try looking in the monthly archives:</p>';
 									the_widget( 'WP_Widget_Archives', array('count' => 0 , 'dropdown' => 1 ), array( 'before_title' => '<h4>', 'after_title' => '</h4>'.$archive_stuff ) );
-								?>					
+								?>
 							<div class="padding20"></div>
 							<p>Or, use the search box below:</p>
 							<?php get_search_form(); ?>

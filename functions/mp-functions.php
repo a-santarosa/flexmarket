@@ -1,6 +1,6 @@
 <?php
 
-function flexmarket_advance_product_sort( $unique_id = '' , $sort = false, $align = 'align-right', $context = 'list' ,$echo = true , $paginate = '' , $page = '', $per_page = '', $order_by = '', $order = '', $category = '', $tag = '' , $counter = '3' , $span = 'span4' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $boxclass = '' , $boxstyle = '') {
+function flexmarket_advance_product_sort( $unique_id = '' , $sort = false, $align = 'align-right', $context = 'list' ,$echo = true , $paginate = '' , $page = '', $per_page = '', $order_by = '', $order = '', $category = '', $tag = '' , $counter = '3' , $span = 'col-md-4' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $boxclass = '' , $boxstyle = '') {
 
 	$output = '';
 
@@ -34,7 +34,7 @@ function flexmarket_advance_product_sort( $unique_id = '' , $sort = false, $alig
 
 		// Advanced Modal
 		$output .= '<div id="adv-sort" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="advancedSort" aria-hidden="true">';
-			
+
 			$output .= '<div class="modal-header">';
 		    	$output .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
 		    	$output .= '<h4>'.__('Advanced Sort' , 'flexmarket').'</h4>';
@@ -42,13 +42,13 @@ function flexmarket_advance_product_sort( $unique_id = '' , $sort = false, $alig
 
 			$output .= '<div class="modal-body">';
 
-				$output .= '<div class="row-fluid">';
+				$output .= '<div class="row">';
 
 					$output .= '<form class="form-horizontal" action="'.$_SERVER["REQUEST_URI"].'#advanced-sort" id="advanced-sort-form" method="post">';
 
 						if ($context == 'list') {
 
-							// By Category   
+							// By Category
 							$output .= '<div class="input-prepend">';
 								$output .= '<span class="add-on">'.__('By Category' , 'flexmarket').':</span>';
 								$output .= '<select name="advancedsortcategory'.$unique_id.'" id="advancedsortcategory'.$unique_id.'">';
@@ -105,7 +105,7 @@ function flexmarket_advance_product_sort( $unique_id = '' , $sort = false, $alig
 
 					$output .= '</form>';
 
-			    $output .= '</div>'; // row-fluid
+			    $output .= '</div>'; // row
 
 			$output .= '</div>'; // modal body
 
@@ -130,7 +130,7 @@ function flexmarket_advance_product_sort( $unique_id = '' , $sort = false, $alig
 
 }
 
-function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page = '', $per_page = '', $order_by = '', $order = '', $category = '', $tag = '' , $counter = '3' , $span = 'span4' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $boxclass = '' , $boxstyle = '') { 
+function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page = '', $per_page = '', $order_by = '', $order = '', $category = '', $tag = '' , $counter = '3' , $span = 'col-md-4' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $boxclass = '' , $boxstyle = '') {
 
 	  global $wp_query, $mp;
 
@@ -145,14 +145,14 @@ function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page 
 	  } else {
 	    $taxonomy_query = '';
 	  }
-	  
+
 	  //setup pagination
 	  $paged = false;
 	  if ($paginate) {
 	  	if ($paginate === 'nopagingblock') {
 	  		$paginate_query = '&showposts='.intval($per_page);
 	  	} else {
-	  		$paged = true;	
+	  		$paged = true;
 	  	}
 	  } else if ($paginate === '') {
 	    if ($mp->get_setting('paginate'))
@@ -209,7 +209,7 @@ function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page 
 	  //The Query
 	  $the_query = new WP_Query('post_type=product&post_status=publish' . $taxonomy_query . $paginate_query . $order_by_query . $order_query);
 
-	  $output = '<div class="row-fluid">';
+	  $output = '<div class="row">';
 
 	  $count = 1;
 
@@ -218,13 +218,13 @@ function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page 
 	  	$id = get_the_ID();
 
 		$output .= flexmarket_load_single_product_in_box( $span , $id , 'tb-360' , $btnclass , $iconclass , $tagcolor , $boxclass , $boxstyle , false);
-		
+
 		if ($count == $counter) {
-			
+
 			$count = 0;
 			$output .= '</div>';
 			$output .= '<div class="clear padding20"></div>';
-			$output .= '<div class="row-fluid">';
+			$output .= '<div class="row">';
 		}
 
 		$count++;
@@ -239,20 +239,20 @@ function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page 
 	  	  $output .= '<div class="clear"></div>';
 		  $output .= '<div class="pull-right">';
 
-		    $total_pages = $the_query->max_num_pages;  
+		    $total_pages = $the_query->max_num_pages;
 
-		    if ($total_pages > 1){ 
+		    if ($total_pages > 1){
 
-		      $current_page = max(1, get_query_var('paged')); 
+		      $current_page = max(1, get_query_var('paged'));
 
 		       $output .= '<div class="pagination">';
-		       $output .= paginate_links(array(  
-		          'base' => get_pagenum_link(1) . '%_%',  
-		          'format' => 'page/%#%',  
-		          'current' => $current_page,  
-		          'total' => $total_pages,  
+		       $output .= paginate_links(array(
+		          'base' => get_pagenum_link(1) . '%_%',
+		          'format' => 'page/%#%',
+		          'current' => $current_page,
+		          'total' => $total_pages,
 		          'type'  => 'list'
-		        ));  
+		        ));
 		       $output .= '</div>';
 		    }
 
@@ -271,7 +271,7 @@ function flexmarket_list_product_in_grid( $echo = true , $paginate = '' , $page 
 
 }
 
-function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NULL , $imagesize = 'tb-360' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $class = '' , $style = '' , $echo = true ) {
+function flexmarket_load_single_product_in_box( $span = 'col-md-4' , $post_id = NULL , $imagesize = 'tb-360' , $btnclass = '' , $iconclass = '' , $tagcolor = '' , $class = '' , $style = '' , $echo = true ) {
 
 	if (is_multisite()) {
 		$blog_id = get_current_blog_id();
@@ -299,7 +299,7 @@ function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NUL
 			$maxwidth = '360';
 			$btnsize = ' btn-small';
 			break;
-		case 'span4':
+		case 'col-md-4':
 			$maxwidth = '360';
 			$btnsize = '';
 			break;
@@ -315,7 +315,7 @@ function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NUL
 
 		$output = apply_filters('flexmarket_product_box_before_image' , $output , $post_id , $blog_id );
 		$output .= '<div class="image-box" style="max-width: '.$maxwidth.'px;">';
-		$output .= get_the_post_thumbnail($post_id , $imagesize); 
+		$output .= get_the_post_thumbnail($post_id , $imagesize);
 			$output .= '<div class="hover-block hidden-phone">';
 					$output .= '<div class="btn-group">';
 						$button = '<a href="'.get_permalink($post_id).'" class="btn'.$btnclass.'">'.get_the_title($post_id).'</a>';
@@ -330,7 +330,7 @@ function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NUL
 	$output .= '<div class="clear padding5"></div>';
 
 		$output .= '<div class="hidden-phone">';
-			$output .= '<div class="product-meta row-fluid">';
+			$output .= '<div class="product-meta row">';
 				$output .= '<div class="span6">';
 				$output .= '<p>';
 				$output .= ($span == 'span3' ? '<small>' : '');
@@ -352,7 +352,7 @@ function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NUL
 			$output .= '</p>';
 			$output .= flexmarket_buy_button(false, 'list', $post_id, $btnclass, $iconclass);
 
-		$output .= '</div>';	
+		$output .= '</div>';
 
 	$output .= '</div>';
 
@@ -360,7 +360,7 @@ function flexmarket_load_single_product_in_box( $span = 'span4' , $post_id = NUL
     	echo $output;
   	else
     	return $output;
-	
+
 }
 
 
@@ -415,9 +415,9 @@ function flexmarket_buy_button( $echo = true, $context = 'list', $post_id = NULL
     $button = '<a class="mp_link_buynow btn'.$btnclass.'" href="' . esc_url($product_link) . '">' . __('Buy Now', 'flexmarket') . '</a>';
 
   } else if ($mp->get_setting('disable_cart')) {
-    
+
     $button = '';
-    
+
   } else {
     $variation_select = '';
     $button = '<form class="mp_buy_form'.($context == 'list' ? '' : ' form-inline').'" method="post" action="' . mp_cart_link(false, true) . '">';
@@ -582,9 +582,9 @@ function flexmarket_show_cart($context = '', $checkoutstep = null, $echo = true 
       $content .= '<a class="mp_checkout_link" href="'.mp_cart_link(false, true).'" title="'.__('Go To Checkout Page', 'flexmarket').'">'.__('Checkout &raquo;', 'flexmarket').'</a>';
       $content .= '<div class="clear"></div>';
       $content .= '</div>';
-    } 
+    }
 
-    // type = checkout 
+    // type = checkout
 
     else if ($context == 'checkout') {
 
@@ -638,7 +638,7 @@ function flexmarket_show_cart($context = '', $checkoutstep = null, $echo = true 
   } else {
     if ($context != 'widget')
       $content .= do_shortcode($mp->get_setting('msg->cart'));
-      
+
     $content .= '<div class="mp_cart_empty"><p>'.__('There are no items in your cart.', 'flexmarket').'</p></div>';
     $content .= '<div id="mp_cart_actions_widget"><a class="mp_store_link btn'.$btnclass.'" href="'.mp_products_link(false, true).'">'.__('Browse Products &raquo;', 'flexmarket').'</a></div>';
   }
@@ -653,7 +653,7 @@ function flexmarket_show_cart($context = '', $checkoutstep = null, $echo = true 
 /**
  * @return string HTML that shows the user their current position in the purchase process.
  */
-function flexmarket_cart_breadcrumbs($current_step){	
+function flexmarket_cart_breadcrumbs($current_step){
 	$steps = array(
 		'checkout-edit'=>__('Review Cart','flexmarket'),
 		'shipping'=>__('Shipping','flexmarket'),
@@ -677,7 +677,7 @@ function flexmarket_cart_breadcrumbs($current_step){
 			$all[] = '<li><a href="'.mp_checkout_step_url($str).'">'.$human.'</a>';
 		}
 	}
-	
+
 	return '<ul class="breadcrumb cart-breadcrumbs">'.implode(apply_filters('mp_cart_breadcrumbs_seperator', ' <span class="divider">&raquo;</span></li>'), $all).'</li></ul>';
 }
 
@@ -696,7 +696,7 @@ function _flexmarket_cart_table($type = 'checkout', $echo = false , $btnclass=''
 
   $content = '';
 
-  // type = checkout-edit 
+  // type = checkout-edit
 
 	  if ($type == 'checkout-edit') {
 	    $content .= apply_filters( 'mp_cart_updated_msg', '' );
@@ -734,7 +734,7 @@ function _flexmarket_cart_table($type = 'checkout', $echo = false , $btnclass=''
 
 	      if ( ($shipping_tax_price = $mp->shipping_tax_price($shipping_price)) !== false )
 	        $shipping_tax_prices[] = $shipping_tax_price;
-	        
+
 	      if ( ($tax_price = $mp->tax_price()) !== false )
 	        $tax_prices[] = $tax_price;
 	    }
@@ -804,9 +804,9 @@ function _flexmarket_cart_table($type = 'checkout', $echo = false , $btnclass=''
 
 	    $content .= '</table></form>';
 
-	  } 
+	  }
 
-	// type = checkout 
+	// type = checkout
 
 	  else if ($type == 'checkout') {
 
@@ -836,13 +836,13 @@ function _flexmarket_cart_table($type = 'checkout', $echo = false , $btnclass=''
 	          $cf_key = $bid .':'. $product_id .':'. $variation;
 	          if (isset($_SESSION['mp_shipping_info']['mp_custom_fields'][$cf_key])) {
 	            $cf_item = $_SESSION['mp_shipping_info']['mp_custom_fields'][$cf_key];
-	    
+
 	            $mp_custom_field_label 		= get_post_meta($product_id, 'mp_custom_field_label', true);
 	            if (isset($mp_custom_field_label[$variation]))
 	              $label_text = $mp_custom_field_label[$variation];
 	            else
 	              $label_text = __('Product Extra Fields:', 'flexmarket');
-	            
+
 	            $content .=  '<div class="mp_cart_custom_fields"><i class="icon-pencil opacity5"></i> '. $label_text .'<br /><ol>';
 	            foreach($cf_item as $item) {
 	              $content .=  '<li>'.(!empty($item) ? '<i class="icon-minus opacity5"></i> ' : ''). $item .'</li>';
@@ -859,9 +859,9 @@ function _flexmarket_cart_table($type = 'checkout', $echo = false , $btnclass=''
 
 	      if ( ($shipping_price = $mp->shipping_price()) !== false )
 	        $shipping_prices[] = $shipping_price;
-	      
+
 	      if ( ($shipping_tax_price = $mp->shipping_tax_price($shipping_price)) !== false )
-	        $shipping_tax_prices[] = $shipping_tax_price; 
+	        $shipping_tax_prices[] = $shipping_tax_price;
 
 	      if ( ($tax_price = $mp->tax_price()) !== false )
 	        $tax_prices[] = $tax_price;
@@ -916,7 +916,7 @@ function _flexmarket_cart_table($type = 'checkout', $echo = false , $btnclass=''
 
 	    $content .= '</tbody></table>';
 
-	  } 
+	  }
 
   // type = widget
 
@@ -1031,13 +1031,13 @@ function _flexmarket_cart_payment($type, $echo = false , $btnclass = '') {
 
     //gateway plugin message hook
     $content .= apply_filters( 'mp_checkout_payment_confirmation_' . $_SESSION['mp_payment_method'], '', $mp->get_order($_SESSION['mp_order']) );
-    
+
     if (!$mp->global_cart) {
       //tracking information
       $track_link = '<a href="' . mp_orderstatus_link(false, true) . $_SESSION['mp_order'] . '/' . '">' . mp_orderstatus_link(false, true) . $_SESSION['mp_order'] . '/' . '</a>';
       $content .= '<p>' . sprintf(__('You may track the latest status of your order(s) here:<br />%s', 'flexmarket'), $track_link) . '</p>';
     }
-    
+
     //add ecommerce JS
     $mp->create_ga_ecommerce( $mp->get_order($_SESSION['mp_order']) );
 
@@ -1056,7 +1056,7 @@ function _flexmarket_cart_payment($type, $echo = false , $btnclass = '') {
 //Prints cart login/register form, for internal use
 function _flexmarket_cart_login($echo = false , $btnclass = '') {
   global $mp;
-  
+
   $content = '';
   //don't show if logged in
   if ( is_user_logged_in() || defined('MP_HIDE_LOGIN_OPTION') ) {
@@ -1144,19 +1144,19 @@ function _flexmarket_cart_shipping($editable = false, $echo = false , $btnclass 
     $content .= '</tr></thead>';
     $content .= '<tbody>';
     $content .= '<tr>';
-    $content .= '<td class="span4 align-right" align="right">'.__('Email:', 'mp').'*</td><td>';
+    $content .= '<td class="col-md-4 align-right" align="right">'.__('Email:', 'mp').'*</td><td>';
     $content .= apply_filters( 'mp_checkout_error_email', '' );
     $content .= '<input size="35" name="email" type="text" value="'.esc_attr($email).'" /></td>';
     $content .= '</tr>';
-    
+
     if ((!$mp->download_only_cart($mp->get_cart_contents()) || $mp->global_cart) && $mp->get_setting('shipping->method') != 'none') {
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'. __('Full Name:', 'mp').'*</td><td>';
+      $content .= '<td class="col-md-4 align-right" align="right">'. __('Full Name:', 'mp').'*</td><td>';
       $content .= apply_filters( 'mp_checkout_error_name', '' );
       $content .= '<input size="35" name="name" type="text" value="'.esc_attr($name).'" /> </td>';
       $content .= '</tr>';
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'.__('Country:', 'mp').'*</td><td>';
+      $content .= '<td class="col-md-4 align-right" align="right">'.__('Country:', 'mp').'*</td><td>';
       $content .= apply_filters( 'mp_checkout_error_country', '' );
       $content .= '<select id="mp_country" name="country" class="mp_shipping_field">';
       foreach ($mp->get_setting('shipping->allowed_countries', array()) as $code) {
@@ -1166,51 +1166,51 @@ function _flexmarket_cart_shipping($editable = false, $echo = false , $btnclass 
       $content .= '</td>';
       $content .= '</tr>';
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'. __('Address:', 'mp').'*</td><td>';
+      $content .= '<td class="col-md-4 align-right" align="right">'. __('Address:', 'mp').'*</td><td>';
       $content .= apply_filters( 'mp_checkout_error_address1', '' );
       $content .= '<input class="input-xlarge" name="address1" type="text" value="'.esc_attr($address1).'" /><br />';
       $content .= '<small><em>'. __('Street address, P.O. box, company name, c/o', 'mp').'</em></small>';
       $content .= '</td>';
       $content .= '</tr>';
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'. __('Address 2:', 'mp').'&nbsp;</td><td>';
+      $content .= '<td class="col-md-4 align-right" align="right">'. __('Address 2:', 'mp').'&nbsp;</td><td>';
       $content .= '<input class="input-xlarge" name="address2" type="text" value="'.esc_attr($address2).'" /><br />';
       $content .= '<small><em>'.__('Apartment, suite, unit, building, floor, etc.', 'mp').'</em></small>';
       $content .= '</td>';
       $content .= '</tr>';
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'.__('City:', 'mp').'*</td><td>';
+      $content .= '<td class="col-md-4 align-right" align="right">'.__('City:', 'mp').'*</td><td>';
       $content .= apply_filters( 'mp_checkout_error_city', '' );
       $content .= '<input class="input-xlarge mp_shipping_field" id="mp_city" name="city" type="text" value="'.esc_attr($city).'" /></td>';
       $content .= '</tr>';
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'.__('State/Province/Region:', 'mp') . (($country == 'US' || $country == 'CA') ? '*' : '') . '</td><td id="mp_province_field">';
+      $content .= '<td class="col-md-4 align-right" align="right">'.__('State/Province/Region:', 'mp') . (($country == 'US' || $country == 'CA') ? '*' : '') . '</td><td id="mp_province_field">';
       $content .= apply_filters( 'mp_checkout_error_state', '' );
       $content .= mp_province_field($country, $state).'</td>';
       $content .= '</tr>';
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'.__('Postal/Zip Code:', 'mp').'*</td><td>';
+      $content .= '<td class="col-md-4 align-right" align="right">'.__('Postal/Zip Code:', 'mp').'*</td><td>';
       $content .= apply_filters( 'mp_checkout_error_zip', '' );
       $content .= '<input size="10" class="mp_shipping_field" id="mp_zip" name="zip" type="text" value="'.esc_attr($zip).'" /></td>';
       $content .= '</tr>';
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'.__('Phone Number:', 'mp').'</td><td>';
+      $content .= '<td class="col-md-4 align-right" align="right">'.__('Phone Number:', 'mp').'</td><td>';
       $content .= '<input size="20" name="phone" type="text" value="'.esc_attr($phone).'" /></td>';
       $content .= '</tr>';
     }
-    
+
     if ($mp->get_setting('special_instructions')) {
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'.__('Special Instructions:', 'mp').'</td><td>';
+      $content .= '<td class="col-md-4 align-right" align="right">'.__('Special Instructions:', 'mp').'</td><td>';
       $content .= '<textarea name="special_instructions" rows="3" style="width: 98%;">'.esc_textarea($special_instructions).'</textarea></td>';
       $content .= '</tr>';
     }
-    
+
     $content .= apply_filters( 'mp_checkout_shipping_field', '' );
 
     $content .= '</tbody>';
     $content .= '</table>';
-    
+
     $content .= apply_filters( 'mp_checkout_after_shipping', '' );
 
     $content .= '<div class="clear padding10"></div>';
@@ -1228,56 +1228,56 @@ function _flexmarket_cart_shipping($editable = false, $echo = false , $btnclass 
     $content .= '</tr></thead>';
     $content .= '<tbody>';
     $content .= '<tr>';
-    $content .= '<td class="span4 align-right" align="right">'.__('Email:', 'mp').'</td><td>';
+    $content .= '<td class="col-md-4 align-right" align="right">'.__('Email:', 'mp').'</td><td>';
     $content .= esc_attr($email).' </td>';
     $content .= '</tr>';
     $content .= '<tr>';
-    $content .= '<td class="span4 align-right" align="right">'.__('Full Name:', 'mp').'</td><td>';
+    $content .= '<td class="col-md-4 align-right" align="right">'.__('Full Name:', 'mp').'</td><td>';
     $content .= esc_attr($name).'</td>';
     $content .= '</tr>';
     $content .= '<tr>';
-    $content .= '<td class="span4 align-right" align="right">'.__('Address:', 'mp').'</td>';
+    $content .= '<td class="col-md-4 align-right" align="right">'.__('Address:', 'mp').'</td>';
     $content .= '<td>'.esc_attr($address1).'</td>';
     $content .= '</tr>';
 
     if ($address2) {
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'.__('Address 2:', 'mp').'</td>';
+      $content .= '<td class="col-md-4 align-right" align="right">'.__('Address 2:', 'mp').'</td>';
       $content .= '<td>'.esc_attr($address2).'</td>';
       $content .= '</tr>';
     }
 
     $content .= '<tr>';
-    $content .= '<td class="span4 align-right" align="right">'.__('City:', 'mp').'</td>';
+    $content .= '<td class="col-md-4 align-right" align="right">'.__('City:', 'mp').'</td>';
     $content .= '<td>'.esc_attr($city).'</td>';
     $content .= '</tr>';
 
     if ($state) {
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'.__('State/Province/Region:', 'mp').'</td>';
+      $content .= '<td class="col-md-4 align-right" align="right">'.__('State/Province/Region:', 'mp').'</td>';
       $content .= '<td>'.esc_attr($state).'</td>';
       $content .= '</tr>';
     }
 
     $content .= '<tr>';
-    $content .= '<td class="span4 align-right" align="right">'.__('Postal/Zip Code:', 'mp').'</td>';
+    $content .= '<td class="col-md-4 align-right" align="right">'.__('Postal/Zip Code:', 'mp').'</td>';
     $content .= '<td>'.esc_attr($zip).'</td>';
     $content .= '</tr>';
 
     $content .= '<tr>';
-    $content .= '<td class="span4 align-right" align="right">'.__('Country:', 'mp').'</td>';
+    $content .= '<td class="col-md-4 align-right" align="right">'.__('Country:', 'mp').'</td>';
     $content .= '<td>'.$mp->countries[$country].'</td>';
     $content .= '</tr>';
 
     if ($phone) {
       $content .= '<tr>';
-      $content .= '<td class="span4 align-right" align="right">'.__('Phone Number:', 'mp').'</td>';
+      $content .= '<td class="col-md-4 align-right" align="right">'.__('Phone Number:', 'mp').'</td>';
       $content .= '<td>'.esc_attr($phone).'</td>';
       $content .= '</tr>';
     }
-    
+
     $content .= apply_filters( 'mp_checkout_shipping_field_readonly', '' );
-    
+
     $content .= '</tbody>';
     $content .= '</table>';
   }
@@ -1297,7 +1297,7 @@ function flexmarket_order_status($btnclass = '') {
   global $mp, $wp_query, $blog_id;
 
 	$bid = (is_multisite()) ? $blog_id : 1; // FPM: Used for Custom Field Processing
-	
+
   echo do_shortcode($mp->get_setting('msg->order_status'));
 
   $order_id = isset($wp_query->query_vars['order_id']) ? $wp_query->query_vars['order_id'] : (isset($_GET['order_id']) ? $_GET['order_id'] : '');
@@ -1310,7 +1310,7 @@ function flexmarket_order_status($btnclass = '') {
       echo '<h2 class="page-header"><em>' . sprintf( __('Order Details (%s):', 'mp'), htmlentities($order_id)) . '</em></h2>';
       ?>
 
-      <div class="row-fluid">
+      <div class="row">
       	<div class="span6 well well-small well-shadow" style="min-height: 250px;">
 	      <h3 class="page-header"><?php _e('Current Status', 'mp'); ?></h3>
 	      <ul>
@@ -1364,7 +1364,7 @@ function flexmarket_order_status($btnclass = '') {
 
       	</div><!-- / span6 -->
 
-      </div><!-- / row-fluid -->
+      </div><!-- / row -->
 
       <div class="clear padding20"></div>
 
@@ -1398,25 +1398,25 @@ function flexmarket_order_status($btnclass = '') {
 		              echo '<tr>';
 		              echo '  <td class="mp_cart_col_thumb">' . mp_product_image( false, 'widget', $product_id ) . '</td>';
 		              echo '  <td class="mp_cart_col_product"><a href="' . apply_filters('mp_product_url_display_in_cart', get_permalink($product_id), $product_id) . '">' . apply_filters('mp_product_name_display_in_cart', $data['name'], $product_id) . '</a>';
-		
+
                   // Output product custom field information
                   $cf_key = $bid .':'. $product_id .':'. $variation;
                   if (isset($order->mp_shipping_info['mp_custom_fields'][$cf_key])) {
                     $cf_item = $order->mp_shipping_info['mp_custom_fields'][$cf_key];
-      
+
                     $mp_custom_field_label 		= get_post_meta($product_id, 'mp_custom_field_label', true);
                     if (isset($mp_custom_field_label[$variation]))
                       $label_text = $mp_custom_field_label[$variation];
                     else
                       $label_text = __('Product Personalization:', 'mp');
-      
+
                     echo '<div class="mp_cart_custom_fields">'. $label_text .'<br />';
                     foreach($cf_item as $item) {
                       echo (!empty($item) ? '<i class="icon-minus opacity5"></i> ' : ''). $item . '<br/>';
                     }
                     echo '</div>';
                   }
-					
+
 		              echo '</td>'; // Added WPML (This differs than other code)
 		              echo '  <td class="mp_cart_col_quant">' . number_format_i18n($data['quantity']) . '</td>';
 		              echo '  <td class="mp_cart_col_price">' . $mp->format_currency('', $data['price']) . '</td>';
@@ -1451,31 +1451,31 @@ function flexmarket_order_status($btnclass = '') {
         <?php //coupon line
         if ( $order->mp_discount_info ) { ?>
           <tr>
-          	<td class="align-right span8"><?php _e('Coupon Discount:', 'mp'); ?> </td>
-          	<td class="span4"><strong><?php echo $order->mp_discount_info['discount']; ?></strong></td>
+          	<td class="align-right col-md-8"><?php _e('Coupon Discount:', 'mp'); ?> </td>
+          	<td class="col-md-4"><strong><?php echo $order->mp_discount_info['discount']; ?></strong></td>
           </tr>
         <?php } ?>
 
         <?php //shipping line
         if ( $order->mp_shipping_total ) { ?>
           <tr>
-          	<td class="align-right span8"><?php _e('Shipping:', 'mp'); ?> </td>
-          	<td class="span4"><strong><?php echo $mp->format_currency('', $order->mp_shipping_total); ?></strong></td>
+          	<td class="align-right col-md-8"><?php _e('Shipping:', 'mp'); ?> </td>
+          	<td class="col-md-4"><strong><?php echo $mp->format_currency('', $order->mp_shipping_total); ?></strong></td>
           </tr>
         <?php } ?>
 
         <?php //tax line
         if ( $order->mp_tax_total ) { ?>
            <tr>
-          	<td class="align-right span8"><?php _e('Taxes:', 'mp'); ?> </td>
-          	<td class="span4"><strong><?php echo $mp->format_currency('', $order->mp_tax_total); ?></strong></td>
+          	<td class="align-right col-md-8"><?php _e('Taxes:', 'mp'); ?> </td>
+          	<td class="col-md-4"><strong><?php echo $mp->format_currency('', $order->mp_tax_total); ?></strong></td>
           </tr>
         <?php } ?>
 
           <tr>
-          	<td class="align-right span8"><?php _e('Order Total:', 'mp'); ?> </td>
-          	<td class="span4"><strong><?php echo $mp->format_currency('', $order->mp_order_total); ?></strong></td>
-          </tr>               
+          	<td class="align-right col-md-8"><?php _e('Order Total:', 'mp'); ?> </td>
+          	<td class="col-md-4"><strong><?php echo $mp->format_currency('', $order->mp_order_total); ?></strong></td>
+          </tr>
 
       </table>
 
@@ -1485,69 +1485,69 @@ function flexmarket_order_status($btnclass = '') {
       <h3><?php _e('Shipping Information:', 'mp'); ?></h3>
       <table class="table table-striped table-bordered table-hover">
         <tr>
-      	<td class="span4 align-right" align="right"><?php _e('Full Name:', 'mp'); ?></td><td>
+      	<td class="col-md-4 align-right" align="right"><?php _e('Full Name:', 'mp'); ?></td><td>
         <?php echo esc_attr($order->mp_shipping_info['name']); ?></td>
       	</tr>
 
       	<tr>
-      	<td class="span4 align-right" align="right"><?php _e('Address:', 'mp'); ?></td>
+      	<td class="col-md-4 align-right" align="right"><?php _e('Address:', 'mp'); ?></td>
         <td><?php echo esc_attr($order->mp_shipping_info['address1']); ?></td>
       	</tr>
 
         <?php if ($order->mp_shipping_info['address2']) { ?>
       	<tr>
-      	<td class="span4 align-right" align="right"><?php _e('Address 2:', 'mp'); ?></td>
+      	<td class="col-md-4 align-right" align="right"><?php _e('Address 2:', 'mp'); ?></td>
         <td><?php echo esc_attr($order->mp_shipping_info['address2']); ?></td>
       	</tr>
         <?php } ?>
 
       	<tr>
-      	<td class="span4 align-right" align="right"><?php _e('City:', 'mp'); ?></td>
+      	<td class="col-md-4 align-right" align="right"><?php _e('City:', 'mp'); ?></td>
         <td><?php echo esc_attr($order->mp_shipping_info['city']); ?></td>
       	</tr>
 
       	<?php if ($order->mp_shipping_info['state']) { ?>
       	<tr>
-      	<td class="span4 align-right" align="right"><?php _e('State/Province/Region:', 'mp'); ?></td>
+      	<td class="col-md-4 align-right" align="right"><?php _e('State/Province/Region:', 'mp'); ?></td>
         <td><?php echo esc_attr($order->mp_shipping_info['state']); ?></td>
       	</tr>
         <?php } ?>
 
       	<tr>
-      	<td class="span4 align-right" align="right"><?php _e('Postal/Zip Code:', 'mp'); ?></td>
+      	<td class="col-md-4 align-right" align="right"><?php _e('Postal/Zip Code:', 'mp'); ?></td>
         <td><?php echo esc_attr($order->mp_shipping_info['zip']); ?></td>
       	</tr>
 
       	<tr>
-      	<td class="span4 align-right" align="right"><?php _e('Country:', 'mp'); ?></td>
+      	<td class="col-md-4 align-right" align="right"><?php _e('Country:', 'mp'); ?></td>
         <td><?php echo $mp->countries[$order->mp_shipping_info['country']]; ?></td>
       	</tr>
 
         <?php if ($order->mp_shipping_info['phone']) { ?>
       	<tr>
-      	<td class="span4 align-right" align="right"><?php _e('Phone Number:', 'mp'); ?></td>
+      	<td class="col-md-4 align-right" align="right"><?php _e('Phone Number:', 'mp'); ?></td>
         <td><?php echo esc_attr($order->mp_shipping_info['phone']); ?></td>
       	</tr>
         <?php } ?>
-        
+
         <?php if (isset($order->mp_shipping_info['tracking_num'])) { ?>
       	<tr>
-      	<td class="span4 align-right" align="right"><?php _e('Tracking Number:', 'mp'); ?></td>
+      	<td class="col-md-4 align-right" align="right"><?php _e('Tracking Number:', 'mp'); ?></td>
         <td><?php echo mp_tracking_link($order->mp_shipping_info['tracking_num'], $order->mp_shipping_info['method']); ?></td>
       	</tr>
         <?php } ?>
       </table>
       <?php } ?>
-      
+
       <?php if (isset($order->mp_order_notes)) { ?>
       <h3><?php _e('Order Notes:', 'mp'); ?></h3>
       <div class="well">
      	 <?php echo wpautop($order->mp_order_notes); ?>
       </div>
       <?php } ?>
-      
+
       <?php do_action('mp_order_status_output', $order); ?>
-      
+
       <a class="btn btn-large<?php echo $btnclass; ?>" href="<?php mp_orderstatus_link(true, true); ?>" ><?php _e('&laquo; Back', 'mp'); ?></a>
       <?php
 
@@ -1621,9 +1621,9 @@ function flexmarket_order_status($btnclass = '') {
             <div class="padding20"></div>
               <form name="loginform" id="loginform" action="<?php echo wp_login_url(); ?>" method="post" class="form-inline">
             		<label><?php _e('Username', 'mp'); ?>
-            		<input type="text" name="log" id="user_login" class="input" value="" size="20" /></label> 
+            		<input type="text" name="log" id="user_login" class="input" value="" size="20" /></label>
             		<label><?php _e('Password', 'mp'); ?>
-            		<input type="password" name="pwd" id="user_pass" class="input" value="" size="20" /></label> 
+            		<input type="password" name="pwd" id="user_pass" class="input" value="" size="20" /></label>
             		<input type="submit" name="wp-submit" class="btn<?php echo $btnclass; ?>" id="mp_login_submit" value="<?php _e('Login &raquo;', 'mp'); ?>" />
             		<input type="hidden" name="redirect_to" value="<?php mp_orderstatus_link(true, true); ?>" />
               </form>
@@ -1631,7 +1631,7 @@ function flexmarket_order_status($btnclass = '') {
           </tr>
           </tbody>
         </table>
-            
+
         <div class="clear padding10"></div>
 
         <div class="mp_cart_checkout">
@@ -1661,11 +1661,11 @@ function flexmarket_order_status($btnclass = '') {
 /**
 * This function hook into the shipping filter to add any product custom fields. Checks the cart items
  * If any cart items have associated custom fields then they will be displayed in a new section 'Product extra fields'
- * shown below the shipping form inputs. The custom fields will be one for each quantity. Via the product admin each 
+ * shown below the shipping form inputs. The custom fields will be one for each quantity. Via the product admin each
  * custom field can be made required or optional. Standard error handling is provided per Market Press standard processing.
  *
  * @since 2.6.0
- * @see 
+ * @see
  *
  * @param $content - output content passed from caller (_mp_cart_shipping)
  * @return $content - Revised content with added information
@@ -1673,15 +1673,15 @@ function flexmarket_order_status($btnclass = '') {
 
 function flexmarket_custom_fields_checkout_after_shipping($content='') {
 	global $mp, $blog_id, $current_user;
-	
+
 	if (isset($_SESSION['mp_shipping_info']['mp_custom_fields'])) {
 		$mp_custom_fields = $_SESSION['mp_shipping_info']['mp_custom_fields'];
 	} else {
 		$mp_custom_fields = array();
 	}
-  
+
 	$blog_id = (is_multisite()) ? $blog_id : 1;
-	
+
 	$current_blog_id = $blog_id;
 
 	$global_cart = $mp->get_cart_contents(true);
@@ -1689,36 +1689,36 @@ function flexmarket_custom_fields_checkout_after_shipping($content='') {
 		$selected_cart[$blog_id] = $global_cart[$blog_id];
 	else
     $selected_cart = $global_cart;
-  
+
 	$content_product = '';
-	
+
   foreach ($selected_cart as $bid => $cart) {
 
 		if (is_multisite())
 			switch_to_blog($bid);
 
       foreach ($cart as $product_id => $variations) {
-	
+
         // Load the meta info for the custom fields for this product
         $mp_has_custom_field = get_post_meta($product_id, 'mp_has_custom_field', true);
         $mp_custom_field_required = get_post_meta($product_id, 'mp_custom_field_required', true);
         $mp_custom_field_per = get_post_meta($product_id, 'mp_custom_field_per', true);
         $mp_custom_field_label = get_post_meta($product_id, 'mp_custom_field_label', true);
-    
+
         foreach ($variations as $variation => $data) {
-		
+
           if (isset($mp_has_custom_field[$variation]) && $mp_has_custom_field[$variation]) {
-  
+
             if (!empty($mp_custom_field_label[$variation]))
               $label_text = esc_attr($mp_custom_field_label[$variation]);
             else
               $label_text = "";
-            
+
             if (isset($mp_custom_field_required[$variation]) && $mp_custom_field_required[$variation])
               $required_text = __('required', 'mp');
             else
-              $required_text = __('optional', 'mp');									
-              
+              $required_text = __('optional', 'mp');
+
             $content_product .= '<tr class="mp_product_name"><td align="right" colspan="2">';
             $content_product .= apply_filters( 'mp_checkout_error_custom_fields_'. $product_id .'_'. $variation, '' );
             $content_product .= $data['name'];
@@ -1728,29 +1728,29 @@ function flexmarket_custom_fields_checkout_after_shipping($content='') {
             $content_product .= $label_text .' ('. $required_text .')<br />';
             //$content_product .=  '</td></tr>';
             //$content_product .= '<tr><td>';
-            
-            // If the mp_custom_field_per is set to 'line' we only show one input field per item in the cart. 
+
+            // If the mp_custom_field_per is set to 'line' we only show one input field per item in the cart.
             // This input field will be a simply unordered list (<ul>). However, if the mp_custom_field_per
             // Then we need to show an input field per the quantity items. In this case we use an ordered list
             // to show the numbers to the user. 0-based.
             if ($mp_custom_field_per[$variation] == "line") {
               //$content_product .= '<ul>';
               $cf_limit = 1;
-              
+
             } else if ($mp_custom_field_per[$variation] == "quantity") {
               //$content_product .= '<ol>';
               $cf_limit = $data['quantity'];
             }
-            
+
             $output_cnt = 0;
             while($output_cnt < $cf_limit) {
-  
+
               $cf_key = $bid .':'. $product_id .':'. $variation;
-              if (isset($mp_custom_fields[$cf_key][$output_cnt])) 
+              if (isset($mp_custom_fields[$cf_key][$output_cnt]))
                 $output_value = $mp_custom_fields[$cf_key][$output_cnt];
               else
                 $output_value = '';
-                
+
               $content_product .= '<input type="text" style="width: 90%;" value="'. $output_value .'" name="mp_custom_fields[' . $bid . ':' . $product_id . ':' . $variation . ']['. $output_cnt .']" />';
               $output_cnt += 1;
             }
@@ -1770,15 +1770,15 @@ function flexmarket_custom_fields_checkout_after_shipping($content='') {
 	    if (is_multisite())
 	      switch_to_blog($current_blog_id);
 	}
-	
+
 	if (strlen($content_product)) {
-		
+
 	    $content .= '<table class="mp_product_shipping_custom_fields table table-bordered table-striped">';
 	    $content .= '<thead><tr><th colspan="2">'. __('Product Personalization:', 'mp') .'</th></tr></thead>';
 	    $content .= '<tbody>';
 	    $content .= $content_product;
 	    $content .= '</tbody>';
-	    $content .= '</table>';		
+	    $content .= '</table>';
 	}
 	return $content;
 }

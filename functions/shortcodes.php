@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Button Shortcode.
@@ -17,14 +17,14 @@ function tboot_button($atts, $content = null) {
 				"id" => '',
 				"class" => ''
 			), $atts));
-	
+
 	$id = (!empty($id) ? ' id="'.esc_attr($id).'"' : '');
 	$class = (!empty($class) ? ' '.esc_attr($class) : '');
 	$iconclass = '';
-	
+
 	$f_content = esc_attr($content);
 
-	if ($link != '#') { 
+	if ($link != '#') {
 		$f_link = esc_url($link);
 	} else {
 		$f_link = '';
@@ -33,7 +33,7 @@ function tboot_button($atts, $content = null) {
 
 	if (!empty($icontype)) { $iconclass .= esc_attr(trim($icontype));}
 	if ($whiteicon == 'yes') { $iconclass .= ' icon-white';}
-	
+
 	if ($icon == 'yes' && !empty($icontype)) {
 		$iconoutput = '<i class="'.$iconclass.'"></i> ';
 	} else {
@@ -62,7 +62,7 @@ function tboot_button($atts, $content = null) {
 		case 'black':
 			$class .= ' btn-inverse';
 			break;
-		
+
 	}
 
 	switch ($size) {
@@ -77,13 +77,13 @@ function tboot_button($atts, $content = null) {
 			break;
 		case 'mini':
 			$class .= ' btn-mini';
-			break;	
+			break;
 		case 'block':
 			$class .= ' btn-block';
-			break;	
+			break;
 	}
-	
-		
+
+
 	return '<p><a href="'.$f_link.'"><button'.$id.' class="btn'.$class.'" >'.$iconoutput.$f_content.'</button></a></p>';
 }
 
@@ -114,7 +114,7 @@ function tboot_image($atts) {
 		$imagelink = esc_url($link);
 		$linkclassfront = '<a href="'.$imagelink.'">';
 		$linkclassback = '</a>';
-	} 
+	}
 
 	if (!empty($align)) {
 
@@ -139,7 +139,7 @@ function tboot_image($atts) {
 			break;
 		case 'polaroid':
 			$class .= 'img-polaroid';
-			break;	
+			break;
 	}
 
 	$output .= $clear;
@@ -164,27 +164,27 @@ function tboot_image($atts) {
 
 add_shortcode('code', 'tboot_code');
 function tboot_code($atts, $content = null) {
-	
+
 	$output = '';
 
 	$output .= '<p><code>';
 	$output .= esc_attr($content);
 	$output .= '</code></p>';
-	
-	
+
+
 	return $output;
 }
 
 add_shortcode('pre', 'tboot_pre');
 function tboot_pre($atts, $content = null) {
-	
+
 	$output = '';
 
 	$output .= '<pre>';
 	$output .= mpt_content_kses($content);
 	$output .= '</pre>';
-	
-	
+
+
 	return $output;
 }
 
@@ -213,13 +213,13 @@ function tboot_table($atts, $content = null) {
 			break;
 		case 'bordered':
 			$class .= ' table-bordered';
-			break;	
+			break;
 		case 'hover':
 			$class .= ' table-hover';
-			break;	
+			break;
 		case 'condensed':
 			$class .= ' table-condensed';
-			break;	
+			break;
 	}
 
 	$output .= '<table'.$id.' class="'.$class.'">';
@@ -254,10 +254,10 @@ function tboot_tr($atts, $content = null) {
 			break;
 		case 'blue':
 			$class .= 'info';
-			break;	
+			break;
 		case 'yellow':
 			$class .= 'warning';
-			break;	
+			break;
 	}
 
 	$instance = (!empty($id) ? $id : '');
@@ -317,13 +317,13 @@ function tboot_label($atts, $content = null) {
 			break;
 		case 'blue':
 			$class .= ' label-info';
-			break;	
+			break;
 		case 'yellow':
 			$class .= ' label-warning';
-			break;	
+			break;
 		case 'black':
 			$class .= ' label-inverse';
-			break;	
+			break;
 	}
 
 	return '<span'.$id.' class="'.$class.'">'.$content.'</span>';
@@ -358,13 +358,13 @@ function tboot_badge($atts, $content = null) {
 			break;
 		case 'blue':
 			$class .= ' badge-info';
-			break;	
+			break;
 		case 'yellow':
 			$class .= ' badge-warning';
-			break;	
+			break;
 		case 'black':
 			$class .= ' badge-inverse';
-			break;	
+			break;
 	}
 
 	return '<span'.$id.' class="'.$class.'">'.$content.'</span>';
@@ -502,7 +502,7 @@ function tboot_alert_message($atts, $content = null) {
 			break;
 		case 'info':
 			$class .= ' alert-info';
-			break;	
+			break;
 	}
 
 	$title = esc_attr($title);
@@ -569,7 +569,7 @@ function tboot_row_fluid($atts, $content = null) {
 			), $atts));
 
 	$id = (!empty($id) ? ' id="'.esc_attr($id).'"' : '');
-	$class = (!empty($class) ? 'row-fluid ' . esc_attr($class) : 'row-fluid');
+	$class = (!empty($class) ? 'row ' . esc_attr($class) : 'row');
 
 	$content = mpt_content_kses($content);
 	$output = '';
@@ -611,7 +611,7 @@ function tboot_one_third($atts, $content = null) {
 			), $atts));
 
 	$id = (!empty($id) ? ' id="'.esc_attr($id).'"' : '');
-	$class = (!empty($class) ? 'span4 ' . esc_attr($class) : 'span4');
+	$class = (!empty($class) ? 'col-md-4 ' . esc_attr($class) : 'col-md-4');
 
 	$content = mpt_content_kses($content);
 	$output = '';
@@ -632,7 +632,7 @@ function tboot_two_third($atts, $content = null) {
 			), $atts));
 
 	$id = (!empty($id) ? ' id="'.esc_attr($id).'"' : '');
-	$class = (!empty($class) ? 'span8 ' . esc_attr($class) : 'span8');
+	$class = (!empty($class) ? 'col-md-8 ' . esc_attr($class) : 'col-md-8');
 
 	$content = mpt_content_kses($content);
 	$output = '';
@@ -701,7 +701,7 @@ function tboot_tooltip($atts, $content = null) {
  **/
 
 	function mpt_content_kses($content) {
-	
+
 		$output = wp_kses($content, array(
 						'a' => array(
 							'href' => array(),
@@ -710,8 +710,8 @@ function tboot_tooltip($atts, $content = null) {
 							),
 						'br' => array(),
 						'em' => array(),
-						'strong' => array() 
-						)); 
+						'strong' => array()
+						));
 
 		return trim($output);
 	}

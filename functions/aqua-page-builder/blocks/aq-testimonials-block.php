@@ -2,23 +2,23 @@
 /* List Block */
 if(!class_exists('AQ_Testimonials_Block')) {
 	class AQ_Testimonials_Block extends AQ_Block {
-	
+
 		function __construct() {
 			$block_options = array(
 				'name' => 'Testimonial Block',
-				'size' => 'span4',
+				'size' => 'col-md-4',
 			);
-			
+
 			//create the widget
 			parent::__construct('AQ_Testimonials_Block', $block_options);
-			
+
 			//add ajax functions
 			add_action('wp_ajax_aq_block_test_add_new', array($this, 'add_test_item'));
-			
+
 		}
-		
+
 		function form($instance) {
-		
+
 			$defaults = array(
 				'title' => 'What Our Clients Say',
 				'items' => array(
@@ -36,10 +36,10 @@ if(!class_exists('AQ_Testimonials_Block')) {
 				'class' => '',
 				'style' => ''
 			);
-			
+
 			$instance = wp_parse_args($instance, $defaults);
 			extract($instance);
-			
+
 			?>
 
 			<div class="description">
@@ -56,7 +56,7 @@ if(!class_exists('AQ_Testimonials_Block')) {
 					<?php
 					$items = is_array($items) ? $items : $defaults['items'];
 					$count = 1;
-					foreach($items as $item) {	
+					foreach($items as $item) {
 						$this->item($item, $count);
 						$count++;
 					}
@@ -80,7 +80,7 @@ if(!class_exists('AQ_Testimonials_Block')) {
 					<?php echo aq_field_color_picker('textcolor', $block_id, $textcolor) ?>
 				</label>
 			</div>
-			
+
 			<div class="description half">
 				<label for="<?php echo $this->get_field_id('id') ?>">
 					id (optional)<br/>
@@ -103,12 +103,12 @@ if(!class_exists('AQ_Testimonials_Block')) {
 			</div>
 			<?php
 		}
-		
+
 		function item($item = array(), $count = 0) {
 
 			?>
 			<li id="sortable-item-<?php echo $count ?>" class="sortable-item" rel="<?php echo $count ?>">
-				
+
 				<div class="sortable-head cf">
 					<div class="sortable-title">
 						<strong><?php echo $item['title'] ?></strong>
@@ -117,7 +117,7 @@ if(!class_exists('AQ_Testimonials_Block')) {
 						<a href="#">Open / Close</a>
 					</div>
 				</div>
-				
+
 				<div class="sortable-body">
 					<div class="tab-desc description">
 						<label for="<?php echo $this->get_field_id('items') ?>-<?php echo $count ?>-title">
@@ -157,14 +157,14 @@ if(!class_exists('AQ_Testimonials_Block')) {
 
 					<p class="tab-desc description"><a href="#" class="sortable-delete">Delete</a></p>
 				</div>
-				
+
 			</li>
 			<?php
 		}
-		
+
 		function block($instance) {
 			extract($instance);
-			
+
 			$output = '';
 			$id = (!empty($id) ? ' id="'.esc_attr($id).'"' : '');
 			$class = (!empty($class) ? ' '.esc_attr($class) : '');
@@ -204,7 +204,7 @@ if(!class_exists('AQ_Testimonials_Block')) {
 						$i++;
 					}
 				}
-			
+
 			$output .= '</div>';
 			$output .= '</div>';
 
@@ -218,19 +218,19 @@ if(!class_exists('AQ_Testimonials_Block')) {
 			$output .= '</div>';
 			$output .= '<script type="text/javascript">jQuery(document).ready(function () {jQuery(".testimonials").carousel({interval: 4000,pause: "hover"})});</script>';
 
-				
+
 			echo $output;
-			
+
 		}
-		
+
 		/* AJAX add testimonial */
 		function add_test_item() {
-			$nonce = $_POST['security'];	
+			$nonce = $_POST['security'];
 			if (! wp_verify_nonce($nonce, 'aqpb-settings-page-nonce') ) die('-1');
-			
+
 			$count = isset($_POST['count']) ? absint($_POST['count']) : false;
 			$this->block_id = isset($_POST['block_id']) ? $_POST['block_id'] : 'aq-block-9999';
-			
+
 			//default key/value for the testimonial
 			$item = array(
 				'title' => 'New Testimonial',
@@ -239,16 +239,16 @@ if(!class_exists('AQ_Testimonials_Block')) {
 				'link' => '',
 				'photo' => '',
 			);
-			
+
 			if($count) {
 				$this->item($item, $count);
 			} else {
 				die(-1);
 			}
-			
+
 			die();
 		}
-		
+
 		function update($new_instance, $old_instance) {
 			$new_instance = aq_recursive_sanitize($new_instance);
 			return $new_instance;

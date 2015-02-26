@@ -1,26 +1,26 @@
 <?php
 /** [MarketPress] Product Grid block **/
 class AQ_MP_Product_Grid_Block extends AQ_Block {
-	
+
 	//set and create block
 	function __construct() {
 		$block_options = array(
 			'name' => '[MP] Product Grid',
 			'size' => 'span12',
 		);
-		
+
 		//create the block
 		parent::__construct('aq_mp_product_grid_block', $block_options);
 	}
-	
+
 	function form($instance) {
-		
+
 		$defaults = array(
 			'layout' => '3col',
 			'entries' => '9',
 			'showcategory' => 'no',
 			'align' => 'align-center',
-			'order_by' => 'date', 
+			'order_by' => 'date',
 			'arrange' => 'DESC',
 			'taxonomy_type' => 'none',
 			'taxonomy' => '',
@@ -112,7 +112,7 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 			'DESC' => 'Descending',
 			'ASC' => 'Ascending',
 		);
-		
+
 		?>
 
 		<div class="description half">
@@ -132,13 +132,13 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 		<div class="description half">
 			<label for="<?php echo $this->get_field_id('showcategory') ?>">
 				<?php _e('Additional Functions', 'flexmarket') ?><br />
-				<?php echo aq_field_select('showcategory', $block_id, $showcategory_options, $showcategory); ?> 
+				<?php echo aq_field_select('showcategory', $block_id, $showcategory_options, $showcategory); ?>
 			</label><div class="cf"></div>
 			<label for="<?php echo $this->get_field_id('align') ?>">
 			<?php echo aq_field_select('align', $block_id, $align_options, $align); ?>
 			</label>
 		</div>
-		
+
 		<div class="description half last">
 			<label for="<?php echo $this->get_field_id('taxonomyfilter') ?>">
 				<?php _e('Taxonomy Filter:', 'flexmarket') ?><br />
@@ -151,14 +151,14 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 				<?php _e('Order Products By:', 'flexmarket') ?><br />
 				<?php echo aq_field_select('order_by', $block_id, $order_by_options, $order_by); ?>
 			</label>
-		</div>	
+		</div>
 
 		<div class="description half last">
 			<label for="<?php echo $this->get_field_id('arrange') ?>">
 				<br />
 				<?php echo aq_field_select('arrange', $block_id, $order_options, $arrange); ?>
 			</label>
-		</div>	
+		</div>
 
 		<div class="description fourth">
 			<label for="<?php echo $this->get_field_id('bgcolor') ?>">
@@ -187,10 +187,10 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 				<?php echo aq_field_select('iconcolor', $block_id, $iconcolor_options, $iconcolor); ?>
 			</label>
 		</div>
-		
+
 		<?php
 	}
-	
+
 	function block($instance) {
 		extract($instance);
 
@@ -238,7 +238,7 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 				$btnclass = ' btn-inverse';
 				$iconclass = ' icon-white';
 				break;
-			
+
 		}
 
 		switch ($iconcolor) {
@@ -259,11 +259,11 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 				break;
 			case 'white':
 				$tagcolor = ' icon-white';
-				break;		
+				break;
 			case 'black':
 				$tagcolor = '';
 				break;
-			
+
 		}
 
 		switch ($layout) {
@@ -272,15 +272,15 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 				$counter = '2';
 				break;
 			case '3col':
-				$span = 'span4';
+				$span = 'col-md-4';
 				$counter = '3';
 				break;
 			case '4col':
 				$span = 'span3';
 				$counter = '4';
-				break;							
+				break;
 			default:
-				$span = 'span4';
+				$span = 'col-md-4';
 				$counter = '3';
 				break;
 		}
@@ -318,5 +318,5 @@ class AQ_MP_Product_Grid_Block extends AQ_Block {
 	<?php
 
 	}
-	
+
 }

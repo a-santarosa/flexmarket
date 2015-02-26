@@ -10,10 +10,10 @@
 	<?php mpt_load_google_web_font_header(); ?>
 	<?php mpt_load_google_web_font_body(); ?>
 	<?php mpt_load_custom_google_font_header(); ?>
-	<?php mpt_load_custom_google_font_body(); ?>	
-	<link rel="shortcut icon" href="<?php mpt_load_favicon(); ?>" /> 
+	<?php mpt_load_custom_google_font_body(); ?>
+	<link rel="shortcut icon" href="<?php mpt_load_favicon(); ?>" />
 	<link href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" rel="stylesheet" />
-	
+
 	<?php wp_head(); ?>
 
 	<?php mpt_load_base_style(); ?>
@@ -31,54 +31,43 @@
 
 <body id="body-wrapper" <?php body_class(); ?>>
 
-	<!-- Header Section -->
-	<div id="header-wrapper" class="navbar navbar-static-top">
-		<div class="navbar-inner">
-			<div class="outercontainer">
-			<div class="container">	
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<?php echo home_url(); ?>">
+                <?php bloginfo('name'); ?>
+            </a>
+    </div>
 
-			<div class="clear padding30"></div>
-
-			<div class="row-fluid">
-				
-				<!-- Logo -->
-				<div class="span2">
+        <?php
+            wp_nav_menu( array(
+                'menu'              => 'primary',
+                'theme_location'    => 'primary',
+                'depth'             => 2,
+                'container'         => 'div',
+                'container_class'   => 'collapse navbar-collapse',
+        'container_id'      => 'bs-example-navbar-collapse-1',
+                'menu_class'        => 'nav navbar-nav',
+                'fallback_cb'       => 'wp_bootstrap_navwalker::fallback',
+                'walker'            => new wp_bootstrap_navwalker())
+            );
+        ?>
+    </div>
+</nav>
+<div class="row">
+<!-- Logo -->
+				<div class="col-md-2">
 					<?php mpt_load_site_logo(); ?>
 				</div>
-				
-				<!-- Nav -->
-				<div class="span10">
-          
-			        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-			            <span class="icon-bar"></span>
-			            <span class="icon-bar"></span>
-			            <span class="icon-bar"></span>
-			        </a>	
-					
-					<div class="nav-collapse">
+</div>
 
-						<?php 
-
-							wp_nav_menu(array(
-										'theme_location' => 'mainmenu',
-										'depth'      => 2,
-										'container'	=> false,
-										'menu_class'	=> 'nav nav-pills pull-right',
-										'walker' => new twitter_bootstrap_nav_walker()
-										)); 
-						?>
-
-					</div>
-
-				</div>
-
-			</div><!-- / row-fluid -->
-
-			</div><!-- / container -->
-		</div><!-- / outercontainer -->
-		</div><!-- / navbar-inner -->
-	</div><!-- / navbar -->
-	<!-- End Header Section -->
 
 	<div class="clear"></div>
 

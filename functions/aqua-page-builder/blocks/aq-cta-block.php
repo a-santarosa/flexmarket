@@ -1,20 +1,20 @@
 <?php
 /** Slogan block **/
 class AQ_CTA_Block extends AQ_Block {
-	
+
 	//set and create block
 	function __construct() {
 		$block_options = array(
 			'name' => 'Call To Action',
 			'size' => 'span12',
 		);
-		
+
 		//create the block
 		parent::__construct('aq_cta_block', $block_options);
 	}
-	
+
 	function form($instance) {
-		
+
 		$defaults = array(
 			'title' => '',
 			'headline' => '',
@@ -217,7 +217,7 @@ class AQ_CTA_Block extends AQ_Block {
 			'icon-zoom-out' => 'icon-zoom-out'
 		);
 
-		
+
 		?>
 		<div class="description">
 			<label for="<?php echo $this->get_field_id('title') ?>">
@@ -225,7 +225,7 @@ class AQ_CTA_Block extends AQ_Block {
 				<?php echo aq_field_input('title', $block_id, $title, $size = 'full') ?>
 			</label>
 		</div>
-		
+
 		<div class="description">
 			<label for="<?php echo $this->get_field_id('headline') ?>">
 				Headline
@@ -281,12 +281,12 @@ class AQ_CTA_Block extends AQ_Block {
 				<?php echo aq_field_input('btntext', $block_id, $btntext, $size = 'full') ?>
 			</label>
 		</div>
-		
+
 		<div class="description half last">
 			<label for="<?php echo $this->get_field_id('btnlink') ?>">
 				Button Link
 				<?php echo aq_field_input('btnlink', $block_id, $btnlink, $size = 'full') ?>
-			</label>	
+			</label>
 		</div>
 
 		<div class="description fourth">
@@ -339,10 +339,10 @@ class AQ_CTA_Block extends AQ_Block {
 				<?php echo aq_field_input('style', $block_id, $style) ?>
 			</label>
 		</div>
-		
+
 		<?php
 	}
-	
+
 	function block($instance) {
 		extract($instance);
 
@@ -387,7 +387,7 @@ class AQ_CTA_Block extends AQ_Block {
 			case 'black':
 				$btnclass .= ' btn-inverse';
 				break;
-			
+
 		}
 
 		switch ($btnsize) {
@@ -402,14 +402,14 @@ class AQ_CTA_Block extends AQ_Block {
 				break;
 			case 'mini':
 				$btnclass .= ' btn-mini';
-				break;	
+				break;
 		}
-		
+
 		$output = '';
 
 		$output .= '<div'.$id.' class="cta well well-shadow'.$class.'" style="background: '.$bgcolor.'; border-left: 3px solid '.$bordercolor.'; '.$style.'">';
 
-		$output .= '<div class="row-fluid">';
+		$output .= '<div class="row">';
 		$output .= '<div class="span10'.$alignclass.'">';
 		$output .= '<'.$heading.' style="color: '.$textcolor.';">';
 		$output .= do_shortcode(mpt_content_kses(htmlspecialchars_decode($headline)));
@@ -429,5 +429,5 @@ class AQ_CTA_Block extends AQ_Block {
 
 		echo $output;
 	}
-	
+
 }

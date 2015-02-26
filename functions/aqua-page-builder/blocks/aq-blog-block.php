@@ -1,20 +1,20 @@
 <?php
 /** Blog Updates block **/
 class AQ_Blog_Updates_Block extends AQ_Block {
-	
+
 	//set and create block
 	function __construct() {
 		$block_options = array(
 			'name' => 'Blog Updates',
 			'size' => 'span12',
 		);
-		
+
 		//create the block
 		parent::__construct('aq_blog_updates_block', $block_options);
 	}
-	
+
 	function form($instance) {
-		
+
 		$defaults = array(
 			'layout' => '4col',
 			'entries' => '4',
@@ -50,7 +50,7 @@ class AQ_Blog_Updates_Block extends AQ_Block {
 			'19' => '19',
 			'20' => '20'
 		);
-		
+
 		?>
 
 		<div class="description half">
@@ -74,10 +74,10 @@ class AQ_Blog_Updates_Block extends AQ_Block {
 				<em style="padding-left: 5px; font-size: 0.75em;">Leave it blank or enter "0" to disable excerpt.</em>
 			</label>
 		</div>
-		
+
 		<?php
 	}
-	
+
 	function block($instance) {
 		extract($instance);
 
@@ -89,7 +89,7 @@ class AQ_Blog_Updates_Block extends AQ_Block {
 				$videoheight = '195';
 				break;
 			case '3col':
-				$span = 'span4';
+				$span = 'col-md-4';
 				$imagesize = 'tb-360';
 				$counter = '3';
 				$videoheight = '245';
@@ -99,7 +99,7 @@ class AQ_Blog_Updates_Block extends AQ_Block {
 				$imagesize = 'tb-360';
 				$counter = '4';
 				$videoheight = '145';
-				break;							
+				break;
 			default:
 				$span = 'span3';
 				$imagesize = 'tb-360';
@@ -112,19 +112,19 @@ class AQ_Blog_Updates_Block extends AQ_Block {
 
 	<div id="blog-updates">
 
-		<div class="row-fluid">
+		<div class="row">
 
 		<?php
 			$count = 1;
 			query_posts( 'showposts='.$entries.'&post_type=post' );
 		?>
 
-		<?php if (have_posts()) : while (have_posts()) : the_post(); ?>	
-			
+		<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
 			<div class="<?php echo $span; ?> well well-small">
 
 				<?php
-					$id = get_the_ID(); 
+					$id = get_the_ID();
 					$temp = get_post_meta( $id, '_mpt_post_select_temp', true );
 
 					if ($temp == 'image-carousel') {
@@ -135,7 +135,7 @@ class AQ_Blog_Updates_Block extends AQ_Block {
 						mpt_load_featured_image($id , $imagesize);
 					}
 				?>
-				
+
 				<a href="<?php the_permalink(); ?>"><h3 class="post-title"><?php the_title(); ?></h3></a>
 				<p class="post-meta">Posted By <?php the_author(); ?> on <?php the_date(); ?></p>
 				<?php if (!empty($excerpt) || $excerpt == '0') { ?>
@@ -145,11 +145,11 @@ class AQ_Blog_Updates_Block extends AQ_Block {
 
 			<?php if ( $count == $counter ): ?>
 				</div>
-				<div class="row-fluid">
+				<div class="row">
 				<?php $count = 0; ?>
 			<?php endif; ?>
 
-			<?php $count++; ?>	
+			<?php $count++; ?>
 
 		<?php endwhile; endif; ?>
 
@@ -162,5 +162,5 @@ class AQ_Blog_Updates_Block extends AQ_Block {
 	<?php
 
 	}
-	
+
 }

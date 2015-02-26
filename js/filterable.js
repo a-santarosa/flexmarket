@@ -3,7 +3,7 @@
 function scaleDown() {
 
 	jQuery('#mpt-product-grid .span6.well.well-small').removeClass('current').addClass('not-current');
-	jQuery('#mpt-product-grid .span4.well.well-small').removeClass('current').addClass('not-current');
+	jQuery('#mpt-product-grid .col-md-4.well.well-small').removeClass('current').addClass('not-current');
 	jQuery('#mpt-product-grid .span3.well.well-small').removeClass('current').addClass('not-current');
 	jQuery('ul.mpt-product-categories > li').removeClass('current-li');
 
@@ -21,7 +21,7 @@ function show(category) {
 		jQuery('ul.mpt-product-categories > li').removeClass('current-li');
 		jQuery('#all').addClass('current-li');
 		jQuery('#mpt-product-grid .span6.well.well-small').removeClass('current, not-current').addClass('all');
-		jQuery('#mpt-product-grid .span4.well.well-small').removeClass('current, not-current').addClass('all');
+		jQuery('#mpt-product-grid .col-md-4.well.well-small').removeClass('current, not-current').addClass('all');
 		jQuery('#mpt-product-grid .span3.well.well-small').removeClass('current, not-current').addClass('all');
 	}
 

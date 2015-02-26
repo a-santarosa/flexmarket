@@ -1,16 +1,16 @@
 <?php
 /* MarketPress Shopping Cart Blocks */
 class AQ_MPcart_Block extends AQ_Block {
-	
+
 	function __construct() {
 		$block_options = array(
 			'name' => '[MP] Shopping Cart',
-			'size' => 'span4',
+			'size' => 'col-md-4',
 		);
-		
+
 		parent::__construct('AQ_MPcart_Block', $block_options);
 	}
-	
+
 	function form($instance) {
 
 	    $instance = wp_parse_args( (array) $instance, array( 'title' => __('Shopping Cart', 'flexmarket'), 'custom_text' => '', 'only_store_pages' => 0 ) );
@@ -32,7 +32,7 @@ class AQ_MPcart_Block extends AQ_Block {
 			<label for="<?php echo $this->get_field_id('size'); ?>"><?php _e('Thumbnail Size:', 'flexmarket') ?> <input id="<?php echo $this->get_field_id('size'); ?>" name="<?php echo $this->get_field_name('size'); ?>" type="text" size="3" value="<?php echo $size; ?>" /></label></p>
 			*/
 	}
-	
+
 	function block($instance) {
 		global $mp;
 
@@ -56,5 +56,5 @@ class AQ_MPcart_Block extends AQ_Block {
 
 		echo '</div>';
 	}
-	
+
 }

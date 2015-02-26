@@ -36,8 +36,8 @@
 						),
 					'br' => array(),
 					'em' => array(),
-					'strong' => array() 
-					) ); 
+					'strong' => array()
+					) );
 		$date = date("Y");
 		$sitename = esc_attr(get_bloginfo('name'));
 			if(!empty($custom)) {
@@ -46,18 +46,18 @@
 				echo '<p>Copyright &copy;'.$date.' '.$sitename.' | Designed by <a href="http://www.marketpressthemes.com"><b>MarketPressThemes.com</b></a></p>';
 			}
 	}
-	
+
 /**
  * Styling Options.
  *
- */	
+ */
 
 	function mpt_load_base_style() {
 		$themefolder = get_template_directory_uri();
 
 		echo '<link href="'.$themefolder.'/styles/color-black.css" type="text/css" rel="stylesheet" />';
 	}
-	
+
 	function mpt_load_google_web_font_header() {
 		$selected = get_option('mpt_theme_header_font');
 		$customfont = get_option('mpt_theme_custom_web_font');
@@ -68,7 +68,7 @@
 			echo '<link href="http://fonts.googleapis.com/css?family='.$selected.'" rel="stylesheet" type="text/css">';
 		}
 	}
-	
+
 	function mpt_load_google_web_font_body() {
 		$selected = get_option('mpt_theme_body_font');
 		$customfont = get_option('mpt_theme_custom_web_font');
@@ -133,12 +133,12 @@
 			break;
 
 		}
-	}	
-	
+	}
+
 /**
  * Footer Setting functions.
  *
- */	
+ */
 
 	function mpt_footer_widget_setting_1() {
 		$selected = get_option('mpt_footer_widget_setting');
@@ -150,7 +150,7 @@
 				echo '4';
 		}
 	}
-	
+
 	function mpt_footer_widget_setting_2() {
 		$selected = get_option('mpt_footer_widget_setting');
 		if($selected == 'widget633') {
@@ -161,7 +161,7 @@
 				echo '4';
 		}
 	}
-	
+
 	function mpt_footer_widget_setting_3() {
 		$selected = get_option('mpt_footer_widget_setting');
 		if($selected == 'widget633') {
@@ -177,7 +177,7 @@
 /**
  * Social Icon functions.
  *
- */	
+ */
 
 	//show facebook icon
 	function mpt_show_fb_icon() {
@@ -226,7 +226,7 @@
 				echo '';
 			}
 	}
-	 
+
 	//show Dribbble icon
 	function mpt_show_dribbble_icon() {
 		$dribbbleurl = esc_url(get_option('mpt_dribbble_link'));
@@ -277,11 +277,11 @@
 			}
 	}
 
-	
+
 /**
  * SEO functions.
  *
- */	
+ */
 	//load site title
 	function mpt_load_site_title() {
 		$customtitle = esc_attr(get_option('mpt_cus_title'));
@@ -297,7 +297,7 @@
 				echo $blogtitle;
 			}
 	}
-	
+
 	//load meta description
 	function mpt_load_meta_desc() {
 		$metadesc = esc_attr(get_option('mpt_cus_meta_desc'));
@@ -352,7 +352,7 @@
 			 }
 		}
 	}
-	
+
 	function mpt_load_top_code() {
 		$topcode = get_option('mpt_top_code');
 		$selected = get_option('mpt_enable_top_code');
@@ -362,7 +362,7 @@
 			 }
 		}
 	}
-	
+
 	function mpt_load_bottom_code() {
 		$bottomcode = get_option('mpt_bottom_code');
 		$selected = get_option('mpt_enable_bottom_code');
@@ -406,12 +406,12 @@
 		} else {
 			$output .= '<a href="'.get_permalink($id).'" >';
 		}
-			
+
 		$output .= get_the_post_thumbnail($id,$imagesize);
 		$output .= '</a>';
 
 		$output .= '</div>';
-		
+
 		echo $output;
 	}
 
@@ -480,7 +480,7 @@
 		$output .= '<script type="text/javascript">';
 		$output .= 'jQuery(document).ready(function () {jQuery("#image-carousel-'.$id.'").carousel({interval: 3000,pause: "hover"})});';
 		$output .= '</script>';
-		
+
 		echo $output;
 	}
 
@@ -527,7 +527,7 @@
 		$output .= '<div class="video-box">';
 		$output .= '<iframe src="'.$videocode.'?title=1&amp;byline=1&amp;portrait=1" width="100%"'.$videoheight.' frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 		$output .= '</div>';
-		
+
 		echo $output;
 	}
 
@@ -562,7 +562,7 @@
 			case 'Black':
 				$class = ' btn-inverse';
 				break;
-			
+
 			default:
 				$class = ' btn-inverse';
 				break;
@@ -596,7 +596,7 @@
 			case 'Black':
 				$class = ' icon-white';
 				break;
-			
+
 			default:
 				$class = ' icon-white';
 				break;
@@ -630,7 +630,7 @@
 			case 'Black':
 				$class = '';
 				break;
-			
+
 			default:
 				$class = '';
 				break;
@@ -647,14 +647,14 @@
 				return 'span6';
 				break;
 			case '3 Columns':
-				return 'span4';
+				return 'col-md-4';
 				break;
 			case '4 Columns':
 				return 'span3';
 				break;
-			
+
 			default:
-				return 'span4';
+				return 'col-md-4';
 				break;
 		}
 
@@ -673,7 +673,7 @@
 			case '4 Columns':
 				return '4';
 				break;
-			
+
 			default:
 				return '3';
 				break;
@@ -682,9 +682,9 @@
 
 	function mpt_enable_advanced_sort() {
 
-		if (get_option('mpt_enable_advanced_sort') == 'true') 
+		if (get_option('mpt_enable_advanced_sort') == 'true')
 			return true;
-		else 
+		else
 			return false;
 	}
 
@@ -701,7 +701,7 @@
 			case 'Right':
 				return 'align-right';
 				break;
-			
+
 			default:
 				return 'align-right';
 				break;

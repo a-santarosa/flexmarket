@@ -20,38 +20,38 @@
 
 							<?php /* If this is a paged archive */ } elseif (isset($_GET['paged']) && !empty($_GET['paged'])) { ?>
 								<h2 class="page-header"><span>Blog Archives</span></h2>
-							
+
 							<?php } ?>
-						
-						<div class="clear padding15"></div>	
+
+						<div class="clear padding15"></div>
 
 				</div><!-- / container -->
-			</div><!-- / outercontainer -->	
-		</div><!-- / header-section -->	
+			</div><!-- / outercontainer -->
+		</div><!-- / header-section -->
 
 
 		<div class="content-section">
 			<div class="outercontainer">
-				<div class="clear padding30"></div>	
+				<div class="clear padding30"></div>
 				<div class="container">
 
-					<div class="row-fluid">
-						<div class="span8">
+					<div class="row">
+						<div class="col-md-8">
 
-							<?php while (have_posts()) : the_post(); ?>	
+							<?php while (have_posts()) : the_post(); ?>
 
 							<div class="blog-post">
 
-								<div class="row-fluid">
+								<div class="row">
 
-									<div class="span2">
+									<div class="col-md-2">
 
 										<center>
 
-										<?php 
-											$year  = get_the_time('Y'); 
-											$month = get_the_time('M'); 
-											$day   = get_the_time('j'); 
+										<?php
+											$year  = get_the_time('Y');
+											$month = get_the_time('M');
+											$day   = get_the_time('j');
 										?>
 
 										<div class="date">
@@ -79,10 +79,10 @@
 									<?php $temp = get_post_meta( $post->ID, '_mpt_post_select_temp', true ); ?>
 									<?php if (has_post_thumbnail($post->ID) || $temp == 'video' ) : ?>
 
-									<div class="span5">										
+									<div class="col-md-5">
 										<div class="align-center">
 											<?php
-												$id = get_the_ID(); 
+												$id = get_the_ID();
 
 												if ($temp == 'image-carousel') {
 													mpt_load_image_carousel($id);
@@ -92,17 +92,17 @@
 													mpt_load_featured_image($id);
 												}
 											?>
-										</div> 								
+										</div>
 									</div>
 
 									<?php endif; ?>
 
 									<div class="clear padding10 visible-phone"></div>
 
-									<div class="span<?php echo (has_post_thumbnail($post->ID) ? '5' : '10'); ?>">
+									<div class="col-md-<?php echo (has_post_thumbnail($post->ID) ? '5' : '10'); ?>">
 
 										<a href="<?php the_permalink(); ?>"><h3 class="post-title"><?php the_title(); ?></h3></a>
-										
+
 										<div class="post-meta muted">
 											<span>Posted By <?php the_author(); ?> In <?php the_category(', '); ?><?php the_tags(' Tagged with ', ', '); ?> </span>
 										</div>

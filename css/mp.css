@@ -21,15 +21,15 @@ background: #000;
 	margin-right: 0px;
 }
 
-#sidebar .well ul#mp_product_list li .row-fluid {
+#sidebar .well ul#mp_product_list li .row {
 	border-bottom: 1px dashed #fff;
 }
 
-#sidebar .well:hover ul#mp_product_list li .row-fluid {
+#sidebar .well:hover ul#mp_product_list li .row {
 	border-bottom: 1px dashed rgba(62, 62, 62, 0.5);
 }
 
-#sidebar .well ul#mp_product_list li:last-child .row-fluid {
+#sidebar .well ul#mp_product_list li:last-child .row {
 	border-bottom: none;
 }
 

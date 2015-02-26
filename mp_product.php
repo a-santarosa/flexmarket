@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<?php 
+<?php
 	$btnclass = mpt_load_mp_btn_color();
 	$iconclass = mpt_load_whiteicon_in_btn();
 	$tagcolor = mpt_load_icontag_color();
@@ -11,7 +11,7 @@
 
 					<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-					<?php 
+					<?php
 						$headerbgcolor = esc_attr(get_post_meta( $post->ID, '_mpt_post_header_bg_color', true ));
 						$headertextcolor = esc_attr(get_post_meta( $post->ID, '_mpt_post_header_text_color', true ));
 						$contentbgcolor = esc_attr(get_post_meta( $post->ID, '_mpt_post_content_bg_color', true ));
@@ -23,8 +23,8 @@
 				<div class="container">
 
 					<div class="clear padding30"></div>
-							
-						<h1 class="page-header"><span<?php echo ($headertextcolor != '#' && !empty($headertextcolor) ? ' style="color: '.$headertextcolor.';"' : '') ?>><?php the_title(); ?></span></h1>	
+
+						<h1 class="page-header"><span<?php echo ($headertextcolor != '#' && !empty($headertextcolor) ? ' style="color: '.$headertextcolor.';"' : '') ?>><?php the_title(); ?></span></h1>
 
 						<div class="post-meta">
 							<p><?php _e( 'Categorized in ', 'flexmarket' ); ?><?php the_terms( $post->ID, 'product_category' , '<span class="label label-tag">' , '</span> <span class="label label-tag">' , '</span>' ); ?> <?php the_terms( $post->ID, 'product_tag' , '<span class="label label-tag">' , '</span> <span class="label label-tag">' , '</span>' ); ?> </p>
@@ -33,27 +33,27 @@
 						<div class="clear padding15"></div>
 
 				</div><!-- / container -->
-			</div><!-- / outercontainer -->	
-		</div><!-- / header-section -->	
+			</div><!-- / outercontainer -->
+		</div><!-- / header-section -->
 
 
 
 		<div class="content-section"<?php echo ($contentbgcolor != '#' && !empty($contentbgcolor) ? ' style="background: '.$contentbgcolor.';"' : '') ?>>
 			<div class="outercontainer">
-				<div class="clear padding30"></div>	
+				<div class="clear padding30"></div>
 				<div class="container">
 
-					<div class="row-fluid">
-						<div class="span8">
+					<div class="row">
+						<div class="col-md-8">
 
 							<div id="post-<?php the_ID(); ?>" <?php post_class(); ?><?php echo ($contenttextcolor != '#' && !empty($contenttextcolor) ? ' style="color: '.$contenttextcolor.';"' : '') ?>>
 
-								<?php mpt_load_top_code(); ?>	
+								<?php mpt_load_top_code(); ?>
 
 									<?php if (has_post_thumbnail( $post->ID )) : ?>
 
 											<?php
-												$id = get_the_ID(); 
+												$id = get_the_ID();
 												$image1 = get_post_meta( $id, '_mpt_video_featured_image_2', true );
 												$image2 = get_post_meta( $id, '_mpt_video_featured_image_3', true );
 
@@ -62,14 +62,14 @@
 												} else {
 													mpt_load_featured_image( $id , 'tb-860' , true , $btnclass , $iconclass );
 												}
-													 
+
 											?>
 
-									<?php endif; ?>	
+									<?php endif; ?>
 
 								<div class="clear padding25"></div>
 
-								  	<div class="row-fluid">
+								  	<div class="row">
 
 								  		<div class="span3">
 								  			<?php flexmarket_product_price(true , NULL , true , $tagcolor); ?>
@@ -89,13 +89,13 @@
 								<?php edit_post_link('Edit this entry.', '<p>', '</p>'); ?>
 								<div class="clear padding30"></div>
 
-								<?php 
+								<?php
 
 									$showcomments = get_post_meta( $post->ID, '_mpt_post_show_comments', true );
 
 									if ( $showcomments == 'on') {
 										comments_template();
-									} 
+									}
 								?>
 
 							</div>
@@ -103,21 +103,21 @@
 					<?php endwhile; endif; ?>
 
 						<?php mpt_load_bottom_code(); ?>
-						
-						</div><!-- / span8 -->
-						
-						<div id="sidebar" class="span4">
+
+						</div><!-- / col-md-8 -->
+
+						<div id="sidebar" class="col-md-4">
 								<?php get_sidebar(); ?>
 						</div>
 
-					</div><!-- / row-fluid -->
+					</div><!-- / row -->
 
-					
+
 					<div class="padding20"></div>
 
 				</div><!-- / container -->
-			</div><!-- / outercontainer -->	
-		</div><!-- / content-section -->	
+			</div><!-- / outercontainer -->
+		</div><!-- / content-section -->
 
 	</div><!-- / page-wrapper -->
 

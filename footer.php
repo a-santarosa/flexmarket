@@ -4,9 +4,9 @@
 		<div class="clear padding10"></div>
 			<div class="container">
 
-				<div class="row-fluid">
+				<div class="row">
 
-					<div class="span4 pull-left">
+					<div class="col-md-4 pull-left">
 						<ul class="social-links">
 							<?php mpt_show_fb_icon(); ?>
 							<?php mpt_show_twit_icon(); ?>
@@ -17,7 +17,7 @@
 						</ul>
 					</div>
 
-					<div class="span8">
+					<div class="col-md-8">
 						<div class="pull-right">
 							<?php mpt_load_footer_text(); ?>
 						</div>
@@ -36,6 +36,6 @@
 	<?php mpt_load_body_code(); ?>
 
 	<?php wp_footer();?>
-	
+
 </body>
 </html>

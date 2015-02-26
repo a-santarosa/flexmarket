@@ -18,7 +18,7 @@
 	require_once(get_template_directory() . '/functions/shortcodes.php');
 
 	if(!class_exists('AQ_Page_Builder')) {
-		//Register Aqua Page Builder 
+		//Register Aqua Page Builder
 		require_once(get_template_directory() . '/functions/aqua-page-builder/aq-page-builder.php');
 	}
 
@@ -30,9 +30,9 @@
 	}
 
 	// Register Custom Navigation Walker
-	require_once(get_template_directory() . '/functions/twitter_bootstrap_nav_walker.php');
+	require_once(get_template_directory() . '/functions/wp_bootstrap_navwalker.php');
 
-	// register CSS 
+	// register CSS
 	function mpt_register_style() {
 		wp_enqueue_style('prettyphoto-style', get_template_directory_uri() . '/css/prettyPhoto.css', null, null);
 	}
@@ -108,9 +108,9 @@
 				'before_title' => '<h4 class="page-header"><span>',
 				'after_title' => '</span></h4>'
 			)
-		);				
+		);
 	}
-	
+
 	// add post type support to page and post
 	add_action( 'init', 'add_extra_metabox' );
 	function add_extra_metabox() {
@@ -124,19 +124,19 @@
 	// add comment function to Product Page
 	if ( class_exists( 'MarketPress' ) ) {
 		add_action( 'init', 'allow_comments_marketpress' );
-		
+
 		function allow_comments_marketpress() {
 			add_post_type_support( 'product', 'comments' );
 		}
 	}
-	
+
 	// add thumbnail support to theme
 	if ( function_exists( 'add_theme_support' ) ) {
 		add_theme_support( 'post-thumbnails' );
 	}
 
 	// add additional image size
-	if ( function_exists( 'add_image_size' ) ) { 
+	if ( function_exists( 'add_image_size' ) ) {
 		add_image_size( 'tb-360', 360, 270, true );
 		add_image_size( 'tb-860', 860, 300, true );
 	}
@@ -160,7 +160,7 @@
 			echo $excerpt;
 		}
 	}
-		
+
 
  	// Initialize the metabox class.
 	add_action( 'init', 'cmb_initialize_cmb_meta_boxes', 9999 );
@@ -188,7 +188,7 @@
 		$advancedsoft = mpt_enable_advanced_sort();
 		$advancedsoftbtnposition = mpt_advanced_sort_btn_position();
 
-		echo flexmarket_advance_product_sort( $unique_id , $advancedsoft , $advancedsoftbtnposition , $context , false , true , '' , $entries, '', '', '' , '' , $counter, $span, $btnclass, $iconclass, $tagcolor);		
+		echo flexmarket_advance_product_sort( $unique_id , $advancedsoft , $advancedsoftbtnposition , $context , false , true , '' , $entries, '', '', '' , '' , $counter, $span, $btnclass, $iconclass, $tagcolor);
 
 	}
 
@@ -208,7 +208,7 @@
 			add_action('flexmarket_product_listing_page' , 'mpdg_list_products' , 11 , 2);
 			add_action('flexmarket_category_page' , 'mpdg_list_products' , 11 , 2);
 			add_action('flexmarket_tag_page' , 'mpdg_list_products' , 11 , 2);
-			add_action('flexmarket_taxonomy_page' , 'mpdg_list_products' , 11 , 2);	
+			add_action('flexmarket_taxonomy_page' , 'mpdg_list_products' , 11 , 2);
 		}
 
 
@@ -228,17 +228,17 @@
 						$span = 'span6';
 						break;
 					case '3 Columns':
-						$span = 'span4';
+						$span = 'col-md-4';
 						break;
 					case '4 Columns':
 						$span = 'span3';
 						break;
 					case '5 Columns':
 						$span = 'span2';
-						break;		
+						break;
 
 					default:
-						$span = 'span4';
+						$span = 'col-md-4';
 						break;
 				}
 
@@ -276,7 +276,7 @@
 						$btnclass = '';
 						$iconclass = '';
 						break;
-					
+
 				}
 
 				switch ($tagcolor) {
@@ -305,7 +305,7 @@
 					default:
 						$tagclass = '';
 						break;
-					
+
 				}
 
 				switch ($pricelabel) {
@@ -331,8 +331,8 @@
 					default:
 						$labelclass = ' label-info';
 						break;
-					
-				}	
+
+				}
 
 				wp_enqueue_script('mpdg', MPDG_DIR . 'js/mpdg.js', array('jquery'));
 				add_action('wp_footer' , 'mpdg_add_js_to_footer');

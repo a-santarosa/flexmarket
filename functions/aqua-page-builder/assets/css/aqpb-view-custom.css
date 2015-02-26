@@ -1,6 +1,6 @@
 /**
 Custom Front-end Styling for Aqua Page Builder
-	
+
 **/
 
 /* Tabs
@@ -102,7 +102,7 @@ Custom Front-end Styling for Aqua Page Builder
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 	filter: alpha(opacity=0);
 	opacity: 0;
-	
+
 	-webkit-transform: scale(0);
 	-moz-transform: scale(0);
 	-o-transform: scale(0);
@@ -116,12 +116,12 @@ Custom Front-end Styling for Aqua Page Builder
 	transition: all .45s ease-in-out;
 }
 
-#mpt-product-grid .product-meta.row-fluid .atc {
+#mpt-product-grid .product-meta.row .atc {
 	position: relative;
 	text-align: right;
 }
 
-#mpt-product-grid .product-meta.row-fluid .atc form.mp_buy_form {
+#mpt-product-grid .product-meta.row .atc form.mp_buy_form {
 	position: absolute;
 	max-width: 250px;
 	bottom: 0;
@@ -311,7 +311,7 @@ ul.mpt-product-categories li:last-child:after {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 	filter: alpha(opacity=0);
 	opacity: 0;
-	
+
 	-webkit-transform: scale(0);
 	-moz-transform: scale(0);
 	-o-transform: scale(0);
@@ -344,12 +344,12 @@ ul.mpt-product-categories li:last-child:after {
 	transform: scale(1);
 }
 
-.productcarousel .product-meta.row-fluid .atc {
+.productcarousel .product-meta.row .atc {
 	position: relative;
 	text-align: right;
 }
 
-.productcarousel .product-meta.row-fluid .atc form.mp_buy_form {
+.productcarousel .product-meta.row .atc form.mp_buy_form {
 	position: absolute;
 	max-width: 250px;
 	bottom: 0;
@@ -671,7 +671,7 @@ ul.mpt-product-categories li:last-child:after {
 	padding: 5px;
 
 	-webkit-border-radius: 5px;
-	border-radius: 5px; 
+	border-radius: 5px;
 
 	-webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
 	box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
@@ -679,15 +679,15 @@ ul.mpt-product-categories li:last-child:after {
 
 .slider-block img {
 	-webkit-border-radius: 5px;
-	border-radius: 5px; 
+	border-radius: 5px;
 }
 
 .slider-block .carousel-caption {
 	-webkit-border-bottom-left-radius: 5px;
-	border-bottom-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
 
 	-webkit-border-bottom-right-radius: 5px;
-	border-bottom-right-radius: 5px; 	
+	border-bottom-right-radius: 5px;
 }
 
 .slider-block .carousel-control {
