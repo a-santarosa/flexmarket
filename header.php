@@ -12,7 +12,7 @@
 	<?php mpt_load_custom_google_font_header(); ?>
 	<?php mpt_load_custom_google_font_body(); ?>
 	<link rel="shortcut icon" href="<?php mpt_load_favicon(); ?>" />
-	<link href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" rel="stylesheet" />
+	<!-- <link href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" rel="stylesheet" /> -->
 
 	<?php wp_head(); ?>
 
@@ -48,8 +48,8 @@
 
         <?php
             wp_nav_menu( array(
-                'menu'              => 'primary',
-                'theme_location'    => 'primary',
+                'menu'              => 'mainmenu',
+                'theme_location'    => 'mainmenu',
                 'depth'             => 2,
                 'container'         => 'div',
                 'container_class'   => 'collapse navbar-collapse',
