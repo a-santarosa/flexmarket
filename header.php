@@ -12,7 +12,6 @@
 	<?php mpt_load_custom_google_font_header(); ?>
 	<?php mpt_load_custom_google_font_body(); ?>
 	<link rel="shortcut icon" href="<?php mpt_load_favicon(); ?>" />
-	<!-- <link href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" rel="stylesheet" /> -->
 
 	<?php wp_head(); ?>
 
